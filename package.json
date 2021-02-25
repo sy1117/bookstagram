@@ -1,0 +1,17 @@
+{
+  "name": "bookstagram",
+  "private": true,
+  "author": "soyoung-kim",
+  "devDependencies": {
+    "cross-env-file": "^1.0.0",
+    "lerna": "^3.22.1"
+  },
+  "scripts": {
+    "build": "lerna run build",
+    "start": "npm run start:dev",
+    "start:dev": "cross-env NODE_ENV=production ./.dev.env  &  lerna run start --parallel"
+  },
+  "dependencies": {
+    "cross-env": "^7.0.3"
+  }
+}
