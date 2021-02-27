@@ -40,12 +40,6 @@ export class UserResolver {
   @Mutation(() => User)
   login(@Args('loginInput') loginInput: LoginInput) {
     console.log(loginInput);
-    return this.userService.findOne(1);
-
-    // return {
-    //   id: 1,
-    //   userName: 'Test',
-    //   password: '1234',
-    // };
+    return this.userService.login(loginInput);
   }
 }
