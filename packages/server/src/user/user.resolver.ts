@@ -3,7 +3,6 @@ import { UserService } from './user.service';
 import { User } from './entities/user.entity';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
-import { LoginInput } from './dto/login.input';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -11,9 +10,7 @@ export class UserResolver {
 
   @Mutation(() => User)
   async createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
-    console.log(createUserInput);
     const result = await this.userService.create(createUserInput);
-    console.log(result);
     return result;
   }
 
@@ -35,11 +32,5 @@ export class UserResolver {
   @Mutation(() => User)
   removeUser(@Args('id', { type: () => Int }) id: number) {
     return this.userService.remove(id);
-  }
-
-  @Mutation(() => User)
-  login(@Args('loginInput') loginInput: LoginInput) {
-    console.log(loginInput);
-    return this.userService.login(loginInput);
   }
 }

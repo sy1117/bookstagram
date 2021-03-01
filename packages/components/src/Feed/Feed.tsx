@@ -3,7 +3,13 @@ import React from 'react';
 import styles from './Feed.module.scss';
 import clsx from "clsx";
 
-const Feed = () => {
+export interface FeedProps {
+    content: string;
+    imageURL: string;
+    userName: string
+}
+
+const Feed: React.FC<FeedProps> = ({ content, imageURL, userName }) => {
     return (
         <div className={styles.contents_box}>
             <article className={styles.contents}>
@@ -13,7 +19,7 @@ const Feed = () => {
                             <img src="imgs/thumb.jpeg" alt="프로필이미지" />
                         </div>
                         <div className={styles.user_name}>
-                            <div className={clsx(styles.nick_name, styles.m_text)}>KindTiger</div>
+                            <div className={clsx(styles.nick_name, styles.m_text)}>{userName}</div>
                             <div className={clsx(styles.country, styles.s_text)}>Seoul, South Korea</div>
                         </div>
                     </div>
@@ -27,7 +33,7 @@ const Feed = () => {
                 </header>
                 <div className={styles.img_section}>
                     <div className={styles.trans_inner}>
-                        <div><img src={"https://source.unsplash.com/collection/190727/614x614"} alt="visual01" /></div>
+                        <div><img src={imageURL} alt="visual01" /></div>
                     </div>
                 </div>
                 <div className={styles.bottom_icons}>
@@ -52,7 +58,7 @@ const Feed = () => {
                     <div className={styles.comment} id="comment-list-ajax-post37">
                         <div className={clsx(styles.comment, styles.detail)}>
                             <div className={clsx(styles.nick_name, styles.m_text)}>dongdong2</div>
-                            <div>강아지가 너무 귀여워요~!</div>
+                            <div>{content}</div>
                         </div>
                     </div>
                     <div className={styles.small_heart}>

@@ -1,0 +1,43 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreatePostInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input LoginInput {
+  password: String!
+  userName: String!
+}
+
+type Mutation {
+  createPost(createPostInput: CreatePostInput!): Post!
+  login(loginInput: LoginInput!): User!
+  removePost(id: Int!): Post!
+  updatePost(updatePostInput: UpdatePostInput!): Post!
+}
+
+type Post {
+  bookImageURL: String!
+  content: String!
+  id: ID!
+  user: User!
+}
+
+type Query {
+  post(id: Int!): Post!
+}
+
+input UpdatePostInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+type User {
+  id: ID!
+  password: String!
+  userName: String!
+}

@@ -1,0 +1,10 @@
+query getAllPosts {
+	posts {
+		id
+		bookImageURL
+		content
+		user {
+			userName
+		}
+	}
+}

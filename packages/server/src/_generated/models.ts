@@ -13,11 +13,9 @@ export type Scalars = {
   Float: number;
 };
 
-export type CreateUserInput = {
-  /** Password */
-  password: Scalars['String'];
-  /** UserName */
-  userName: Scalars['String'];
+export type CreatePostInput = {
+  /** Example field (placeholder) */
+  exampleField: Scalars['Int'];
 };
 
 export type LoginInput = {
@@ -27,15 +25,15 @@ export type LoginInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createUser: User;
+  createPost: Post;
   login: User;
-  removeUser: User;
-  updateUser: User;
+  removePost: Post;
+  updatePost: Post;
 };
 
 
-export type MutationCreateUserArgs = {
-  createUserInput: CreateUserInput;
+export type MutationCreatePostArgs = {
+  createPostInput: CreatePostInput;
 };
 
 
@@ -44,31 +42,38 @@ export type MutationLoginArgs = {
 };
 
 
-export type MutationRemoveUserArgs = {
+export type MutationRemovePostArgs = {
   id: Scalars['Int'];
 };
 
 
-export type MutationUpdateUserArgs = {
-  updateUserInput: UpdateUserInput;
+export type MutationUpdatePostArgs = {
+  updatePostInput: UpdatePostInput;
+};
+
+export type Post = {
+  __typename?: 'Post';
+  bookImageURL: Scalars['String'];
+  content: Scalars['String'];
+  id: Scalars['ID'];
+  user: User;
 };
 
 export type Query = {
   __typename?: 'Query';
-  user: User;
+  post: Post;
+  posts: Array<Post>;
 };
 
 
-export type QueryUserArgs = {
+export type QueryPostArgs = {
   id: Scalars['Int'];
 };
 
-export type UpdateUserInput = {
+export type UpdatePostInput = {
+  /** Example field (placeholder) */
+  exampleField?: Maybe<Scalars['Int']>;
   id: Scalars['Int'];
-  /** Password */
-  password?: Maybe<Scalars['String']>;
-  /** UserName */
-  userName?: Maybe<Scalars['String']>;
 };
 
 export type User = {
@@ -156,41 +161,52 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  CreateUserInput: CreateUserInput;
-  String: ResolverTypeWrapper<Scalars['String']>;
-  LoginInput: LoginInput;
-  Mutation: ResolverTypeWrapper<{}>;
+  CreatePostInput: CreatePostInput;
   Int: ResolverTypeWrapper<Scalars['Int']>;
-  Query: ResolverTypeWrapper<{}>;
-  UpdateUserInput: UpdateUserInput;
-  User: ResolverTypeWrapper<User>;
+  LoginInput: LoginInput;
+  String: ResolverTypeWrapper<Scalars['String']>;
+  Mutation: ResolverTypeWrapper<{}>;
+  Post: ResolverTypeWrapper<Post>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  Query: ResolverTypeWrapper<{}>;
+  UpdatePostInput: UpdatePostInput;
+  User: ResolverTypeWrapper<User>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  CreateUserInput: CreateUserInput;
-  String: Scalars['String'];
-  LoginInput: LoginInput;
-  Mutation: {};
+  CreatePostInput: CreatePostInput;
   Int: Scalars['Int'];
-  Query: {};
-  UpdateUserInput: UpdateUserInput;
-  User: User;
+  LoginInput: LoginInput;
+  String: Scalars['String'];
+  Mutation: {};
+  Post: Post;
   ID: Scalars['ID'];
+  Query: {};
+  UpdatePostInput: UpdatePostInput;
+  User: User;
   Boolean: Scalars['Boolean'];
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  createUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'createUserInput'>>;
+  createPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationCreatePostArgs, 'createPostInput'>>;
   login?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'loginInput'>>;
-  removeUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationRemoveUserArgs, 'id'>>;
-  updateUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'updateUserInput'>>;
+  removePost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationRemovePostArgs, 'id'>>;
+  updatePost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationUpdatePostArgs, 'updatePostInput'>>;
+};
+
+export type PostResolvers<ContextType = any, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {
+  bookImageURL?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  content?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  user?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<QueryUserArgs, 'id'>>;
+  post?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<QueryPostArgs, 'id'>>;
+  posts?: Resolver<Array<ResolversTypes['Post']>, ParentType, ContextType>;
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
@@ -202,6 +218,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 
 export type Resolvers<ContextType = any> = {
   Mutation?: MutationResolvers<ContextType>;
+  Post?: PostResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };
