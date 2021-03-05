@@ -1,4 +1,4 @@
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -11,12 +11,25 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
+  DateTime: any;
+};
+
+export type Comment = {
+  __typename?: 'Comment';
+  content: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  post: Post;
+  updatedAt: Scalars['DateTime'];
+  user: User;
 };
 
 export type CreatePostInput = {
   /** Example field (placeholder) */
   exampleField: Scalars['Int'];
 };
+
 
 export type LoginInput = {
   password: Scalars['String'];
@@ -54,8 +67,10 @@ export type MutationUpdatePostArgs = {
 export type Post = {
   __typename?: 'Post';
   bookImageURL: Scalars['String'];
+  comments?: Maybe<Array<Comment>>;
   content: Scalars['String'];
   id: Scalars['ID'];
+  likes?: Maybe<Array<User>>;
   user: User;
 };
 
@@ -161,13 +176,15 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
+  Comment: ResolverTypeWrapper<Comment>;
+  String: ResolverTypeWrapper<Scalars['String']>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
   CreatePostInput: CreatePostInput;
   Int: ResolverTypeWrapper<Scalars['Int']>;
+  DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
   LoginInput: LoginInput;
-  String: ResolverTypeWrapper<Scalars['String']>;
   Mutation: ResolverTypeWrapper<{}>;
   Post: ResolverTypeWrapper<Post>;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
   Query: ResolverTypeWrapper<{}>;
   UpdatePostInput: UpdatePostInput;
   User: ResolverTypeWrapper<User>;
@@ -176,18 +193,34 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
+  Comment: Comment;
+  String: Scalars['String'];
+  ID: Scalars['ID'];
   CreatePostInput: CreatePostInput;
   Int: Scalars['Int'];
+  DateTime: Scalars['DateTime'];
   LoginInput: LoginInput;
-  String: Scalars['String'];
   Mutation: {};
   Post: Post;
-  ID: Scalars['ID'];
   Query: {};
   UpdatePostInput: UpdatePostInput;
   User: User;
   Boolean: Scalars['Boolean'];
 };
+
+export type CommentResolvers<ContextType = any, ParentType extends ResolversParentTypes['Comment'] = ResolversParentTypes['Comment']> = {
+  content?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  post?: Resolver<ResolversTypes['Post'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
+  name: 'DateTime';
+}
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationCreatePostArgs, 'createPostInput'>>;
@@ -198,8 +231,10 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 
 export type PostResolvers<ContextType = any, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {
   bookImageURL?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  comments?: Resolver<Maybe<Array<ResolversTypes['Comment']>>, ParentType, ContextType>;
   content?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  likes?: Resolver<Maybe<Array<ResolversTypes['User']>>, ParentType, ContextType>;
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -217,6 +252,8 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 };
 
 export type Resolvers<ContextType = any> = {
+  Comment?: CommentResolvers<ContextType>;
+  DateTime?: GraphQLScalarType;
   Mutation?: MutationResolvers<ContextType>;
   Post?: PostResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;

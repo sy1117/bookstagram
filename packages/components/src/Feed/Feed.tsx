@@ -2,14 +2,24 @@ import React from 'react';
 //@ts-ignore
 import styles from './Feed.module.scss';
 import clsx from "clsx";
+import { IComment, Comment } from './Comment';
+import { HeartOutlined } from "@ant-design/icons";
+import { IconHeart } from '../Icon/Icon';
+
 
 export interface FeedProps {
-    content: string;
-    imageURL: string;
-    userName: string
+    data: {
+        content: string;
+        imageURL: string;
+        user: {
+            userName: string;
+        }
+        comments: IComment[] | null;
+    }
 }
 
-const Feed: React.FC<FeedProps> = ({ content, imageURL, userName }) => {
+const Feed: React.FC<FeedProps> = ({ data: { content, imageURL, user: { userName }, comments } }) => {
+    console.log("h", comments)
     return (
         <div className={styles.contents_box}>
             <article className={styles.contents}>
@@ -38,9 +48,10 @@ const Feed: React.FC<FeedProps> = ({ content, imageURL, userName }) => {
                 </div>
                 <div className={styles.bottom_icons}>
                     <div className={styles.left_icons}>
-                        <div className={styles.heart_btn}>
+                        <IconHeart />
+                        {/* <div className={styles.heart_btn}>
                             <div className={styles.sprite_heart_icon_outline} data-name="39" ></div>
-                        </div>
+                        </div> */}
                         <div className={styles.sprite_bubble_icon}></div>
                         <div className={styles.sprite_share_icon} data-name="share"></div>
                     </div>
@@ -55,7 +66,10 @@ const Feed: React.FC<FeedProps> = ({ content, imageURL, userName }) => {
                         개
                     </div>
                 <div className={styles.comment_container}>
-                    <div className={styles.comment} id="comment-list-ajax-post37">
+                    {comments?.map((comment) => (
+                        <Comment data={comment as any} />
+                    ))}
+                    {/* <div className={styles.comment} id="comment-list-ajax-post37">
                         <div className={clsx(styles.comment, styles.detail)}>
                             <div className={clsx(styles.nick_name, styles.m_text)}>dongdong2</div>
                             <div>{content}</div>
@@ -63,7 +77,7 @@ const Feed: React.FC<FeedProps> = ({ content, imageURL, userName }) => {
                     </div>
                     <div className={styles.small_heart}>
                         <div className={styles.sprite_small_heart_icon_outline}></div>
-                    </div>
+                    </div> */}
                 </div>
                 <div className={styles.timer}>1시간 전</div>
                 <div className={styles.comment_field} id=" add-comment-post37">
@@ -71,7 +85,7 @@ const Feed: React.FC<FeedProps> = ({ content, imageURL, userName }) => {
                     <div className={clsx(styles.upload_btn, styles.m_text)} data-name="comment">게시</div>
                 </div>
             </article>
-        </div>
+        </div >
     )
 }
 

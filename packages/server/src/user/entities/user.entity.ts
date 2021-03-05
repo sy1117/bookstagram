@@ -23,4 +23,7 @@ export class User {
 
   @OneToMany((type) => Comment, (comment: Comment) => comment.user)
   comments: Comment[];
+
+  @OneToMany((type) => Post, (post) => post.likes)
+  likes: Post[];
 }

@@ -1,23 +1,18 @@
 import React, { FormEvent, FormEventHandler } from 'react'
 import clsx from 'clsx';
 import styles from "./LoginPage.module.scss"
-import { LoginInput, LoginMutation } from '../_generated/models';
+import { LoginInput, LoginMutation, useLoginMutation } from '../_generated/models';
 import { loader } from 'graphql.macro';
 import { useMutation } from '@apollo/client';
+import { isLoggedInVar } from '../apollo/auth';
 
 const LoginPage = () => {
 
-    const LOGIN = loader("../graphql/LOGIN.gql")
-
-    const [login] = useMutation<LoginMutation, LoginInput>(LOGIN, {
-        onCompleted({ login }) {
-            if (login?.userName) {
-                // isLoggedInVar(true)
-            } else {
-                alert("authentication failed")
-            }
+    const [login] = useLoginMutation({
+        onCompleted() {
+            isLoggedInVar(true)
         }
-    });
+    })
 
     const submitHandler: FormEventHandler = (e: FormEvent) => {
         e.preventDefault();

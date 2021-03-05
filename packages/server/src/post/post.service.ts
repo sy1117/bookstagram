@@ -1,19 +1,28 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { Repository } from 'typeorm';
 import { CreatePostInput } from './dto/create-post.input';
 import { UpdatePostInput } from './dto/update-post.input';
+import { Post } from './entities/post.entity';
 
 @Injectable()
 export class PostService {
+  constructor(
+    @Inject('POSTS_REPOSITORY')
+    private postRepository: Repository<Post>,
+  ) {}
+
   create(createPostInput: CreatePostInput) {
     return 'This action adds a new post';
   }
 
-  findAll() {
-    return;
+  async findAll() {
+    return await this.postRepository.find({
+      relations: ['user', 'comments', 'comments.user'],
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} post`;
+  async findOne(id: number) {
+    return await this.postRepository.findOne({ id });
   }
 
   update(id: number, updatePostInput: UpdatePostInput) {
@@ -22,5 +31,10 @@ export class PostService {
 
   remove(id: number) {
     return `This action removes a #${id} post`;
+  }
+
+  async like(id: number) {
+    const post = await this.findOne(id);
+    // post.likes = [...post.likes, user];
   }
 }

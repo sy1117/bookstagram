@@ -3,6 +3,7 @@ import { PostService } from './post.service';
 import { Post } from './entities/post.entity';
 import { CreatePostInput } from './dto/create-post.input';
 import { UpdatePostInput } from './dto/update-post.input';
+import { LikePostInput } from './dto/like-post.dto';
 
 @Resolver(() => Post)
 export class PostResolver {
@@ -13,7 +14,7 @@ export class PostResolver {
     return this.postService.create(createPostInput);
   }
 
-  @Query(() => [Post], { name: 'post' })
+  @Query(() => [Post], { name: 'posts' })
   findAll() {
     return this.postService.findAll();
   }
@@ -31,5 +32,10 @@ export class PostResolver {
   @Mutation(() => Post)
   removePost(@Args('id', { type: () => Int }) id: number) {
     return this.postService.remove(id);
+  }
+
+  @Mutation(() => LikePostInput)
+  likePost(@Args('input') { postId }: LikePostInput) {
+    return this.postService.like(postId);
   }
 }

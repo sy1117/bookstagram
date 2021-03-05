@@ -1,9 +1,0 @@
-schema: 'packages/server/src/**/*.gql'
-documents: 'packages/client/src/**/*.gql'
-generates:
-  packages/client/src/_generated/models.ts:
-    - typescript
-    - typescript-operations
-  packages/server/src/_generated/models.ts:
-    - typescript
-    - typescript-resolvers

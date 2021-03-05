@@ -2,13 +2,16 @@ import React from "react";
 //@ts-ignore
 import styles from "./Header.module.scss";
 import { IconHome, IconDirect, IconExplore, IconActivity } from "../Icon/Icon";
+//@ts-ignore
+// const logo = require('./logo.png');
+import logo from "./logo.png";
 
 export const Header: React.FC = () => {
     return (
         <header className={styles.header}>
             <section className={styles.inner}>
                 <h1 className={styles.logo}>
-                    Bookstagram
+                    <img src={logo} alt={"Bookstagram"} />
                     <a href="index.html">
                         <div className="sprite_insta_icon"></div>
                         <div className="sprite_write_logo"></div>

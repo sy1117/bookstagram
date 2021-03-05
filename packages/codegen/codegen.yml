@@ -1,0 +1,10 @@
+schema: '../server/src/**/*.gql'
+documents: '../client/src/**/*.gql'
+generates:
+  ../client/src/_generated/models.ts:
+    - typescript
+    - typescript-operations
+    - typescript-react-apollo
+  ../server/src/_generated/models.ts:
+    - typescript
+    - typescript-resolvers

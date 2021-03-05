@@ -7,7 +7,6 @@ import { useReactiveVar } from '@apollo/client';
 
 const Router = () => {
     const isLoggedIn = useReactiveVar(isLoggedInVar);
-    console.log('route', isLoggedIn)
 
     if (!isLoggedIn) {
         return <LoginPage />

@@ -6,5 +6,11 @@ query getAllPosts {
 		user {
 			userName
 		}
+		comments{
+			content
+			user {
+				userName
+			}
+		}
 	}
 }

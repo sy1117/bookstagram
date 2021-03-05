@@ -3,12 +3,24 @@ const path = require("path");
 module.exports = {
   entry: "./src/index.tsx",
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "./dist/"),
     filename: "main.js",
     libraryTarget: "umd",
+    publicPath:"/dist/"
   },
   module: {
     rules: [
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+          },
+          {
+            loader: 'image-webpack-loader',
+          },
+        ],
+      },
       {
         test: /\.tsx?$/,
         use: "ts-loader",

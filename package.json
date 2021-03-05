@@ -3,11 +3,6 @@
   "private": true,
   "author": "soyoung-kim",
   "devDependencies": {
-    "@graphql-codegen/cli": "1.21.1",
-    "@graphql-codegen/introspection": "1.18.1",
-    "@graphql-codegen/typescript": "1.21.0",
-    "@graphql-codegen/typescript-operations": "^1.17.14",
-    "@graphql-codegen/typescript-resolvers": "^1.18.2",
     "cross-env": "^7.0.3",
     "cross-env-file": "^1.0.0",
     "lerna": "^3.22.1",
@@ -17,12 +12,7 @@
     "build": "lerna run build",
     "start": "npm run start:dev",
     "start:dev": "cross-env NODE_ENV=production ./.dev.env  &  lerna run start --parallel",
-    "server": "lerna run start:dev --scope @bookstagram/server",
-    "prestart": "graphql-codegen --config codegen.yml",
-    "generate": "graphql-codegen"
-  },
-  "dependencies": {
-    "graphql": "^15.5.0"
+    "server": "lerna run start:dev --scope @bookstagram/server"
   },
   "type": "module"
 }

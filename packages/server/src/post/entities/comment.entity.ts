@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Post } from './post.entity';
 
 @Entity()
 @ObjectType()
@@ -17,11 +18,11 @@ export class Comment {
   id: number;
 
   @CreateDateColumn()
-  @Field((type) => CreateDateColumn)
+  @Field((type) => Date)
   createdAt: string;
 
   @UpdateDateColumn()
-  @Field((type) => UpdateDateColumn)
+  @Field((type) => Date)
   updatedAt: string;
 
   @Column()
@@ -31,4 +32,8 @@ export class Comment {
   @ManyToOne((type) => User, (user) => user.comments)
   @Field(() => User)
   user: User;
+
+  @ManyToOne((type) => Post, (post) => post.comments)
+  @Field(() => Post)
+  post: Post;
 }
