@@ -25,13 +25,15 @@ export const Header: React.FC = () => {
                     </div>
                 </div>
                 <div className={styles.right_icons}>
-                    <a href="new_post.html"><IconHome /></a>
-                    <a href="login.html"><IconDirect /></a>
-                    <a href="follow.html"><IconExplore /></a>
+                    <a href="/"><IconHome /></a>
+                    <a href="/new-post"><IconDirect /></a>
+                    <a href="/friends"><IconExplore /></a>
                     <a href="profile.html"><IconActivity /></a>
-                    <span className={styles.profile}>
-                        <img src="https://scontent-gmp1-1.cdninstagram.com/v/t51.2885-19/s150x150/18299059_1885697375019522_327755955154452480_a.jpg?_nc_ht=scontent-gmp1-1.cdninstagram.com&_nc_ohc=1j-0cJUKF_QAX_T1e2a&tp=1&oh=83f9b70f71c780e50125b25109267daf&oe=605F92AB" />
-                    </span>
+                    <a href="/profile">
+                        <span className={styles.profile}>
+                            <img src="https://scontent-gmp1-1.cdninstagram.com/v/t51.2885-19/s150x150/18299059_1885697375019522_327755955154452480_a.jpg?_nc_ht=scontent-gmp1-1.cdninstagram.com&_nc_ohc=1j-0cJUKF_QAX_T1e2a&tp=1&oh=83f9b70f71c780e50125b25109267daf&oe=605F92AB" />
+                        </span>
+                    </a>
                 </div>
             </section>
         </header >
