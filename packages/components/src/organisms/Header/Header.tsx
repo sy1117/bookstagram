@@ -1,7 +1,7 @@
 import React from "react";
 //@ts-ignore
 import styles from "./Header.module.scss";
-import { IconHome, IconDirect, IconExplore, IconActivity } from "../Icon/Icon";
+import { IconHome, IconDirect, IconExplore, IconActivity } from "../../atoms/Icon/Icon";
 //@ts-ignore
 // const logo = require('./logo.png');
 import logo from "./logo.png";

@@ -1,9 +1,7 @@
 import React, { FormEvent, FormEventHandler } from 'react'
 import clsx from 'clsx';
-import styles from "./LoginPage.module.scss"
-import { LoginInput, LoginMutation, useLoginMutation } from '../_generated/models';
-import { loader } from 'graphql.macro';
-import { useMutation } from '@apollo/client';
+import styles from "./login.module.scss"
+import { useLoginMutation } from '../_generated/models';
 import { isLoggedInVar } from '../apollo/auth';
 
 const LoginPage = () => {

@@ -1,7 +1,7 @@
 schema: '../server/src/**/*.gql'
-documents: '../client/src/**/*.gql'
+documents: '../client/**/*.gql'
 generates:
-  ../client/src/_generated/models.ts:
+  ../client/_generated/models.ts:
     - typescript
     - typescript-operations
     - typescript-react-apollo

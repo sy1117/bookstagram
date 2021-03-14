@@ -11,7 +11,7 @@
   "scripts": {
     "build": "lerna run build",
     "start": "npm run start:dev",
-    "start:dev": "cross-env NODE_ENV=production ./.dev.env  &  lerna run start --parallel",
+    "start:dev": "lerna run start --parallel",
     "server": "lerna run start:dev --scope @bookstagram/server"
   },
   "type": "module"

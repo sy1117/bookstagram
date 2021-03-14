@@ -4,7 +4,7 @@ import styles from './Feed.module.scss';
 import clsx from "clsx";
 import { IComment, Comment } from './Comment';
 import { HeartOutlined } from "@ant-design/icons";
-import { IconHeart } from '../Icon/Icon';
+import { IconHeart } from '../../atoms/Icon/Icon';
 
 
 export interface FeedProps {
