@@ -1,41 +1,27 @@
 {
   "name": "@bookstagram/codegen",
   "version": "0.0.0",
-  "description": "> TODO: description",
-  "author": "soyoung kim <soyou6358@gmail.com>",
-  "homepage": "https://github.com/sy1117/bookstagram#readme",
   "license": "ISC",
-  "main": "lib/codegen.js",
+  "main": "codegen.yml",
   "directories": {
-    "lib": "lib",
-    "test": "__tests__"
+    "lib": "lib"
   },
   "files": [
     "lib"
   ],
-  "publishConfig": {
-    "access": "public"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sy1117/bookstagram.git"
-  },
   "scripts": {
-    "start": "graphql-codegen --watch",
-    "build": "graphql-codegen"
-  },
-  "bugs": {
-    "url": "https://github.com/sy1117/bookstagram/issues"
+    "build": "graphql-codegen --config ./codegen.yml",
+    "start": "graphql-codegen --watch --config ./codegen.yml"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "1.21.1",
+    "@graphql-codegen/cli": "^1.21.3",
     "@graphql-codegen/introspection": "1.18.1",
     "@graphql-codegen/typescript": "1.21.0",
     "@graphql-codegen/typescript-operations": "^1.17.14",
-    "@graphql-codegen/typescript-resolvers": "^1.18.2",
-    "graphql": "^15.5.0"
+    "@graphql-codegen/typescript-react-apollo": "^2.2.1",
+    "@graphql-codegen/typescript-resolvers": "^1.18.2"
   },
   "dependencies": {
-    "@graphql-codegen/typescript-react-apollo": "^2.2.1"
+    "graphql": "^15.5.0"
   }
 }

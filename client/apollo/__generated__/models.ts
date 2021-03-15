@@ -4,6 +4,7 @@ export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+const defaultOptions =  {}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -17,31 +18,62 @@ export type Scalars = {
 
 export type Comment = {
   __typename?: 'Comment';
-  content: Scalars['String'];
-  createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
-  post: Post;
+  createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
+  content: Scalars['String'];
   user: User;
-};
-
-export type CreatePostInput = {
-  /** Example field (placeholder) */
-  exampleField: Scalars['Int'];
+  post: Post;
 };
 
 
-export type LoginInput = {
-  password: Scalars['String'];
+export type Post = {
+  __typename?: 'Post';
+  id: Scalars['ID'];
+  bookImageURL: Scalars['String'];
+  content: Scalars['String'];
+  user: User;
+  comments?: Maybe<Array<Comment>>;
+  likes?: Maybe<Array<User>>;
+};
+
+export type User = {
+  __typename?: 'User';
+  id: Scalars['ID'];
   userName: Scalars['String'];
+  password: Scalars['String'];
+};
+
+export type LikePostOutput = {
+  __typename?: 'LikePostOutput';
+  ok: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
+};
+
+export type Query = {
+  __typename?: 'Query';
+  posts: Array<Post>;
+  post: Post;
+};
+
+
+export type QueryPostArgs = {
+  id: Scalars['Int'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createPost: Post;
   login: User;
-  removePost: Post;
+  createPost: Post;
   updatePost: Post;
+  removePost: Post;
+  likePost: LikePostOutput;
+};
+
+
+export type MutationLoginArgs = {
+  password: Scalars['String'];
+  userName: Scalars['String'];
 };
 
 
@@ -50,8 +82,8 @@ export type MutationCreatePostArgs = {
 };
 
 
-export type MutationLoginArgs = {
-  loginInput: LoginInput;
+export type MutationUpdatePostArgs = {
+  updatePostInput: UpdatePostInput;
 };
 
 
@@ -60,29 +92,13 @@ export type MutationRemovePostArgs = {
 };
 
 
-export type MutationUpdatePostArgs = {
-  updatePostInput: UpdatePostInput;
+export type MutationLikePostArgs = {
+  input: LikePostInput;
 };
 
-export type Post = {
-  __typename?: 'Post';
-  bookImageURL: Scalars['String'];
-  comments?: Maybe<Array<Comment>>;
-  content: Scalars['String'];
-  id: Scalars['ID'];
-  likes?: Maybe<Array<User>>;
-  user: User;
-};
-
-export type Query = {
-  __typename?: 'Query';
-  post: Post;
-  posts: Array<Post>;
-};
-
-
-export type QueryPostArgs = {
-  id: Scalars['Int'];
+export type CreatePostInput = {
+  /** Example field (placeholder) */
+  exampleField: Scalars['Int'];
 };
 
 export type UpdatePostInput = {
@@ -91,11 +107,9 @@ export type UpdatePostInput = {
   id: Scalars['Int'];
 };
 
-export type User = {
-  __typename?: 'User';
-  id: Scalars['ID'];
-  password: Scalars['String'];
-  userName: Scalars['String'];
+export type LikePostInput = {
+  /** post id */
+  postId: Scalars['Int'];
 };
 
 export type GetAllPostsQueryVariables = Exact<{ [key: string]: never; }>;
@@ -170,17 +184,19 @@ export const GetAllPostsDocument = gql`
  * });
  */
 export function useGetAllPostsQuery(baseOptions?: Apollo.QueryHookOptions<GetAllPostsQuery, GetAllPostsQueryVariables>) {
-        return Apollo.useQuery<GetAllPostsQuery, GetAllPostsQueryVariables>(GetAllPostsDocument, baseOptions);
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllPostsQuery, GetAllPostsQueryVariables>(GetAllPostsDocument, options);
       }
 export function useGetAllPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllPostsQuery, GetAllPostsQueryVariables>) {
-          return Apollo.useLazyQuery<GetAllPostsQuery, GetAllPostsQueryVariables>(GetAllPostsDocument, baseOptions);
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllPostsQuery, GetAllPostsQueryVariables>(GetAllPostsDocument, options);
         }
 export type GetAllPostsQueryHookResult = ReturnType<typeof useGetAllPostsQuery>;
 export type GetAllPostsLazyQueryHookResult = ReturnType<typeof useGetAllPostsLazyQuery>;
 export type GetAllPostsQueryResult = Apollo.QueryResult<GetAllPostsQuery, GetAllPostsQueryVariables>;
 export const LoginDocument = gql`
     mutation login($userName: String!, $password: String!) {
-  login(loginInput: {userName: $userName, password: $password}) {
+  login(userName: $userName, password: $password) {
     id
     userName
   }
@@ -207,7 +223,8 @@ export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutati
  * });
  */
 export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginMutation, LoginMutationVariables>) {
-        return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, baseOptions);
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, options);
       }
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;

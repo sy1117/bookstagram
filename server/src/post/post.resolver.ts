@@ -4,7 +4,7 @@ import { Post } from './entities/post.entity';
 import { CreatePostInput } from './dto/create-post.input';
 import { UpdatePostInput } from './dto/update-post.input';
 import { LikePostInput, LikePostOutput } from './dto/like-post.dto';
-import { UserService } from 'src/user/user.service';
+import { UserService } from 'src/users/user.service';
 
 @Resolver(() => Post)
 export class PostResolver {

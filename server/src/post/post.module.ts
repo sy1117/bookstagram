@@ -3,9 +3,7 @@ import { PostService } from './post.service';
 import { PostResolver } from './post.resolver';
 import { postProvider } from './post.provider';
 import { DatabaseModule } from 'src/database/database.module';
-import { UserService } from 'src/user/user.service';
-import { userProvider } from 'src/user/user.provider';
-import { UserModule } from 'src/user/user.module';
+import { UserModule } from 'src/users/user.module';
 
 @Module({
   imports: [DatabaseModule, UserModule],

@@ -2,7 +2,7 @@ import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { AuthGuard } from '@nestjs/passport';
 import { AppService } from './app.service';
-import { User } from './user/entities/user.entity';
+import { User } from './users/entities/user.entity';
 
 @Resolver()
 export class AppController {

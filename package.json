@@ -3,6 +3,7 @@
   "private": true,
   "author": "soyoung-kim",
   "devDependencies": {
+    "@graphql-codegen/cli": "^1.21.3",
     "cross-env": "^7.0.3",
     "cross-env-file": "^1.0.0",
     "lerna": "^3.22.1",
@@ -11,6 +12,7 @@
   "scripts": {
     "build": "lerna run build",
     "start": "npm run start:dev",
+    "generate": "lerna run build --parallel --scope @bookstagram/codegen",
     "start:dev": "lerna run start --parallel",
     "server": "lerna run start:dev --scope @bookstagram/server"
   },

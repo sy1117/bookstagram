@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 // import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { GqlExecutionContext, GraphQLModule } from '@nestjs/graphql';
-import { UserModule } from './user/user.module';
+import { UserModule } from './users/user.module';
 import { join } from 'path';
 import { DatabaseModule } from './database/database.module';
 import { AuthModule } from './auth/auth.module';
@@ -23,4 +23,4 @@ import { AppController } from './app.controller';
   controllers: [],
   providers: [AppController, AppService],
 })
-export class AppModule { }
+export class AppModule {}
