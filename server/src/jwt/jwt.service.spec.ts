@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { JwtService } from './jwt.service';
-import { CONFIG_OPTIONS } from 'src/common/constants/config.constants';
 import * as jwt from 'jsonwebtoken';
+import { CONFIG_OPTIONS } from 'src/common/constants/config.contants';
 
 jest.mock('jsonwebtoken', () => {
   return {
@@ -45,7 +45,7 @@ describe('JwtService', () => {
 
     it('should return sign token', async () => {
       const ID = 1;
-      const result = service.sign(ID);
+      const result = service.sign(ID + '');
       expect(result).toBe('TOKEN');
       expect(jwt.sign).toHaveBeenCalledTimes(1);
       expect(jwt.sign).toHaveBeenCalledWith({ id: ID }, TEST_KEY);

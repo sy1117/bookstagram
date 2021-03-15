@@ -4,13 +4,13 @@ import { Post } from './entities/post.entity';
 import { CreatePostInput } from './dto/create-post.input';
 import { UpdatePostInput } from './dto/update-post.input';
 import { LikePostInput, LikePostOutput } from './dto/like-post.dto';
-import { UserService } from 'src/users/user.service';
+import { UsersService } from 'src/users/users.service';
 
 @Resolver(() => Post)
 export class PostResolver {
   constructor(
     private readonly postService: PostService,
-    private readonly userService: UserService,
+    private readonly usersService: UsersService,
   ) {}
 
   @Mutation(() => Post)
@@ -39,10 +39,10 @@ export class PostResolver {
   }
 
   @Mutation(() => LikePostOutput)
-  likePost(@Args('input') { postId }: LikePostInput) {
+  async likePost(@Args('input') { postId }: LikePostInput) {
     // get current user
-    const userId = 1;
-    const user = this.userService.findOne(userId);
-    return;
+    const userId = '1';
+    const user = await this.usersService.findById(userId);
+    return user;
   }
 }

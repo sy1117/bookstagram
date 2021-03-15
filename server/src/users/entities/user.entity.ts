@@ -7,10 +7,11 @@ import {
   PrimaryColumn,
   OneToMany,
 } from 'typeorm';
-import { IsString, IsEnum } from 'class-validator';
+import { IsString } from 'class-validator';
 import * as bcrypt from 'bcrypt';
 import { InternalServerErrorException } from '@nestjs/common';
 import { Post } from 'src/post/entities/post.entity';
+import { Comment } from 'src/post/entities/comment.entity';
 
 export enum UserRole {
   HOST = 'HOST',

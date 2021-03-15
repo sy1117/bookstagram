@@ -16,5 +16,8 @@
     "start:dev": "lerna run start --parallel",
     "server": "lerna run start:dev --scope @bookstagram/server"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@nestjs/config": "^0.6.3"
+  }
 }

@@ -1,15 +1,22 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { User } from 'src/_generated/models';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/users/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreatePostInput } from './dto/create-post.input';
 import { UpdatePostInput } from './dto/update-post.input';
+import { Comment } from './entities/comment.entity';
 import { Post } from './entities/post.entity';
+import { Like } from './entities/like.entity';
 
 @Injectable()
 export class PostService {
   constructor(
-    @Inject('POSTS_REPOSITORY')
-    private postRepository: Repository<Post>,
+    @InjectRepository(Post)
+    private readonly postRepository: Repository<Post>,
+    @InjectRepository(Comment)
+    private readonly commentRepository: Repository<Comment>,
+    @InjectRepository(Like)
+    private readonly likeRepository: Repository<Like>,
   ) {}
 
   create(createPostInput: CreatePostInput) {

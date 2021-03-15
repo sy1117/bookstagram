@@ -102,9 +102,6 @@ export class UsersService {
       if (editUserProfile.password) {
         user.password = editUserProfile.password;
       }
-      if (editUserProfile.role) {
-        user.role = editUserProfile.role;
-      }
       const updatedUser = await this.userRepository.save(user);
       return {
         ok: true,
