@@ -1,7 +1,9 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
+import { InputType, PickType } from '@nestjs/graphql';
+import { Post } from '../entities/post.entity';
 
-@InputType()
-export class CreatePostInput {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
-}
+@InputType('CreatePostInput', { isAbstract: true })
+export class CreatePostInput extends PickType(
+  Post,
+  ['bookName', 'content', 'bookImageURL'],
+  InputType,
+) {}

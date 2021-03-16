@@ -9,7 +9,6 @@ import { AuthUser } from 'src/auth/auth-user.decorator';
 import { EditProfileInput, EditProfileOutput } from './dto/edit-profile.input';
 import { LoginOutput } from './dto/login.dto';
 import { SeeProfileOutput } from './dto/see-profile.dto';
-import { AuthGuard } from 'src/auth/auth.guard';
 import { UseGuards } from '@nestjs/common';
 
 @Resolver(() => User)
@@ -28,13 +27,11 @@ export class UsersResolver {
     return this.usersService.login(id, password);
   }
 
-  @UseGuards(AuthGuard)
   @Query(() => SeeProfileOutput)
   async seeProfile(@AuthUser() user: User): Promise<SeeProfileOutput> {
     return await this.usersService.findById(user.id);
   }
 
-  @UseGuards(AuthGuard)
   @Mutation(() => EditProfileOutput)
   editProfile(
     @AuthUser() user: User,

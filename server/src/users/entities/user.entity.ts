@@ -6,6 +6,7 @@ import {
   BeforeUpdate,
   PrimaryColumn,
   OneToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { IsString } from 'class-validator';
 import * as bcrypt from 'bcrypt';
@@ -31,18 +32,23 @@ export class User {
   password: string;
 
   @OneToMany((type) => Post, (post: Post) => post.user)
+  @Field(() => [Post])
   posts: Post[];
 
   @OneToMany((type) => Comment, (comment: Comment) => comment.user)
+  @Field(() => [Comment])
   comments: Comment[];
 
   @OneToMany((type) => Post, (post) => post.likes)
+  @Field(() => [Post])
   likes: Post[];
 
   @OneToMany((type) => User, (user) => user.followings)
+  @Field(() => [User])
   followings: User[];
 
   @OneToMany((type) => User, (user) => user.followers)
+  @Field(() => [User])
   followers: User[];
 
   @BeforeInsert()

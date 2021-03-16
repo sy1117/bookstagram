@@ -5,6 +5,9 @@ import { CreatePostInput } from './dto/create-post.input';
 import { UpdatePostInput } from './dto/update-post.input';
 import { LikePostInput, LikePostOutput } from './dto/like-post.dto';
 import { UsersService } from 'src/users/users.service';
+import { AuthUser } from 'src/auth/auth-user.decorator';
+import { GqlAuthGuard } from 'src/auth/auth.guard';
+import { UseGuards } from '@nestjs/common';
 
 @Resolver(() => Post)
 export class PostResolver {
@@ -13,9 +16,14 @@ export class PostResolver {
     private readonly usersService: UsersService,
   ) {}
 
+  @UseGuards(GqlAuthGuard)
   @Mutation(() => Post)
-  createPost(@Args('createPostInput') createPostInput: CreatePostInput) {
-    return this.postService.create(createPostInput);
+  createPost(
+    @AuthUser() user,
+    @Args('createPostInput') createPostInput: CreatePostInput,
+  ) {
+    console.log('createpost', user);
+    return this.postService.create(user, createPostInput);
   }
 
   @Query(() => [Post], { name: 'posts' })

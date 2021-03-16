@@ -7,6 +7,7 @@ import { UpdatePostInput } from './dto/update-post.input';
 import { Comment } from './entities/comment.entity';
 import { Post } from './entities/post.entity';
 import { Like } from './entities/like.entity';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class PostService {
@@ -17,10 +18,18 @@ export class PostService {
     private readonly commentRepository: Repository<Comment>,
     @InjectRepository(Like)
     private readonly likeRepository: Repository<Like>,
+    private readonly userService: UsersService,
   ) {}
 
-  create(createPostInput: CreatePostInput) {
-    return 'This action adds a new post';
+  async create(user, createPostInput: CreatePostInput) {
+    try {
+      const post = await this.postRepository.create(createPostInput);
+      post.user = await this.userService.findOne(user.id);
+      await this.postRepository.save(post);
+      return post;
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async findAll() {

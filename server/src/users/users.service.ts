@@ -19,10 +19,13 @@ export class UsersService {
     private readonly jwtService: JwtService,
   ) {}
 
+  async findOne(id) {
+    return await this.userRepository.findOne(id);
+  }
+
   async findById(id: string): Promise<SeeProfileOutput> {
     try {
       const user = await this.userRepository.findOne(id);
-      console.log(id, user);
       if (!user) {
         return {
           ok: false,
@@ -52,10 +55,11 @@ export class UsersService {
           error: `id:${id} already exists `,
         };
       }
-      const createdUser = new User();
-      createdUser.id = id;
-      createdUser.password = password;
-      const user = await this.userRepository.save(createdUser);
+      const user = await this.userRepository.create({
+        id,
+        password,
+      });
+      await this.userRepository.save(user);
       return {
         ok: true,
         user,
@@ -98,7 +102,6 @@ export class UsersService {
   ): Promise<EditProfileOutput> {
     try {
       const user = await this.userRepository.findOneOrFail(id);
-      console.log(user);
       if (editUserProfile.password) {
         user.password = editUserProfile.password;
       }

@@ -1,0 +1,116 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Comment {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  content: String!
+  user: User!
+  post: Post!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Post {
+  id: ID!
+  bookName: String!
+  bookImageURL: String!
+  content: String!
+  user: User!
+  userId: String!
+  comments: [Comment!]
+  likes: [User!]
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+type User {
+  id: String!
+  password: String!
+  posts: [Post!]!
+  comments: [Comment!]!
+  likes: [Post!]!
+  followings: [User!]!
+  followers: [User!]!
+}
+
+type CreateAccountOutput {
+  ok: Boolean!
+  error: String
+  user: User!
+}
+
+type UserOutput {
+  id: String!
+}
+
+type SeeProfileOutput {
+  ok: Boolean!
+  error: String
+  user: UserOutput!
+}
+
+type EditProfileOutput {
+  ok: Boolean!
+  error: String
+  user: UserOutput
+}
+
+type LoginOutput {
+  ok: Boolean!
+  error: String
+  token: String!
+}
+
+type LikePostOutput {
+  ok: Boolean!
+  error: String
+}
+
+type Query {
+  seeProfile: SeeProfileOutput!
+  posts: [Post!]!
+  post(id: Int!): Post!
+}
+
+type Mutation {
+  login(password: String!, id: String!): LoginOutput!
+  createAccount(createAccountInput: CreateAccountInput!): CreateAccountOutput!
+  editProfile(editProfileInput: EditProfileInput!): EditProfileOutput!
+  createPost(createPostInput: CreatePostInput!): Post!
+  updatePost(updatePostInput: UpdatePostInput!): Post!
+  removePost(id: Int!): Post!
+  likePost(input: LikePostInput!): LikePostOutput!
+}
+
+input CreateAccountInput {
+  id: String!
+  password: String!
+}
+
+input EditProfileInput {
+  password: String
+}
+
+input CreatePostInput {
+  bookName: String!
+  bookImageURL: String!
+  content: String!
+}
+
+input UpdatePostInput {
+  bookName: String
+  bookImageURL: String
+  content: String
+  id: Int!
+}
+
+input LikePostInput {
+  """post id"""
+  postId: Int!
+}
