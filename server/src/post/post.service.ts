@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/users/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreatePostInput } from './dto/create-post.input';
 import { UpdatePostInput } from './dto/update-post.input';
@@ -38,8 +37,8 @@ export class PostService {
     });
   }
 
-  async findOne(id: number) {
-    return await this.postRepository.findOne({ id });
+  async findOne(postId: number) {
+    return await this.postRepository.findOne(postId);
   }
 
   update(id: number, updatePostInput: UpdatePostInput) {
@@ -50,7 +49,17 @@ export class PostService {
     return `This action removes a #${id} post`;
   }
 
-  async like(user: User, postId: number) {
-    const newComment = new Comment();
+  async like(userId: string, postId: number) {
+    const post = await this.postRepository.findOne(postId);
+    const user = await this.userService.findOne(userId);
+    const like = await this.likeRepository.create({
+      post,
+      user,
+    });
+    await this.likeRepository.save(like);
+    return {
+      ok: true,
+      post: await this.postRepository.findOne(postId, { relations: ['likes'] }),
+    };
   }
 }

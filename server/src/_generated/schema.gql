@@ -16,15 +16,23 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type Like {
+  likeId: ID!
+  createdAt: DateTime!
+  user: User!
+  userId: String!
+  post: Post!
+  postId: Float!
+}
+
 type Post {
-  id: ID!
+  postId: ID!
   bookName: String!
   bookImageURL: String!
   content: String!
   user: User!
-  userId: String!
-  comments: [Comment!]
-  likes: [User!]
+  comments: [Comment!]!
+  likes: [Like!]!
   updatedAt: DateTime!
   createdAt: DateTime!
 }
@@ -70,6 +78,7 @@ type LoginOutput {
 type LikePostOutput {
   ok: Boolean!
   error: String
+  post: Post!
 }
 
 type Query {
@@ -85,7 +94,7 @@ type Mutation {
   createPost(createPostInput: CreatePostInput!): Post!
   updatePost(updatePostInput: UpdatePostInput!): Post!
   removePost(id: Int!): Post!
-  likePost(input: LikePostInput!): LikePostOutput!
+  likePost(likePostInput: LikePostInput!): LikePostOutput!
 }
 
 input CreateAccountInput {
@@ -111,6 +120,5 @@ input UpdatePostInput {
 }
 
 input LikePostInput {
-  """post id"""
-  postId: Int!
+  postId: ID!
 }

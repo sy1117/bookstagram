@@ -47,10 +47,7 @@ export class PostResolver {
   }
 
   @Mutation(() => LikePostOutput)
-  async likePost(@Args('input') { postId }: LikePostInput) {
-    // get current user
-    const userId = '1';
-    const user = await this.usersService.findById(userId);
-    return user;
+  likePost(@AuthUser() user, @Args('likePostInput') { postId }: LikePostInput) {
+    return this.postService.like(user.id, postId);
   }
 }

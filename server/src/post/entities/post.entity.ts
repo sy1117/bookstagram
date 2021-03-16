@@ -11,13 +11,14 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Comment } from './comment.entity';
+import { Like } from './like.entity';
 
 @Entity()
 @ObjectType()
 export class Post {
   @PrimaryGeneratedColumn()
   @Field((type) => ID)
-  id: number;
+  postId: number;
 
   @Column()
   @Field((type) => String)
@@ -36,16 +37,14 @@ export class Post {
   @Field(() => User)
   user: User;
 
-  @Field()
-  userId: string;
-
   @OneToMany((type) => Comment, (comment) => comment.post)
-  @Field(() => [Comment], { nullable: true })
+  @Field(() => [Comment], { defaultValue: [] })
   comments?: [Comment];
 
-  @OneToMany((type) => User, (user) => user.likes)
-  @Field(() => [User], { nullable: true })
-  likes?: [User];
+  @OneToMany((type) => Like, (like) => like.post)
+  @JoinColumn({ name: 'likeIds' })
+  @Field(() => [Like], { defaultValue: [] })
+  likes?: Like[];
 
   @UpdateDateColumn()
   @Field()
