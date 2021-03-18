@@ -1,13 +1,18 @@
 // import App from 'next/app'
 
-import { ApolloProvider } from '@apollo/client/react';
-import React from 'react';
-import { client } from '../apollo/config';
+import "@bookstagram/components/dist/main.css";
+
+import { ApolloProvider } from "@apollo/client/react";
+import React from "react";
+import { client } from "../apollo/config";
+import { Layout } from "@bookstagram/components";
 
 function MyApp({ Component, pageProps }: any) {
   return (
     <ApolloProvider client={client}>
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </ApolloProvider>
   );
 }

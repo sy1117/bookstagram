@@ -27,31 +27,83 @@ export type Comment = {
 };
 
 
+export type Like = {
+  __typename?: 'Like';
+  likeId: Scalars['ID'];
+  createdAt: Scalars['DateTime'];
+  user: User;
+  userId: Scalars['String'];
+  post: Post;
+  postId: Scalars['Float'];
+};
+
 export type Post = {
   __typename?: 'Post';
-  id: Scalars['ID'];
+  postId: Scalars['ID'];
+  bookName: Scalars['String'];
   bookImageURL: Scalars['String'];
   content: Scalars['String'];
   user: User;
-  comments?: Maybe<Array<Comment>>;
-  likes?: Maybe<Array<User>>;
+  comments: Array<Comment>;
+  likes: Array<Like>;
+  updatedAt: Scalars['DateTime'];
+  createdAt: Scalars['DateTime'];
 };
 
 export type User = {
   __typename?: 'User';
-  id: Scalars['ID'];
-  userName: Scalars['String'];
+  id: Scalars['String'];
   password: Scalars['String'];
+  posts: Array<Post>;
+  comments: Array<Comment>;
+  likes: Array<Post>;
+  followings: Array<User>;
+  followers: Array<User>;
+};
+
+export type CreateAccountOutput = {
+  __typename?: 'CreateAccountOutput';
+  ok: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
+  user: User;
+};
+
+export type UserOutput = {
+  __typename?: 'UserOutput';
+  id: Scalars['String'];
+};
+
+export type SeeProfileOutput = {
+  __typename?: 'SeeProfileOutput';
+  ok: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
+  user: UserOutput;
+};
+
+export type EditProfileOutput = {
+  __typename?: 'EditProfileOutput';
+  ok: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
+  user?: Maybe<UserOutput>;
+};
+
+export type LoginOutput = {
+  __typename?: 'LoginOutput';
+  ok: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
+  token: Scalars['String'];
 };
 
 export type LikePostOutput = {
   __typename?: 'LikePostOutput';
   ok: Scalars['Boolean'];
   error?: Maybe<Scalars['String']>;
+  post: Post;
 };
 
 export type Query = {
   __typename?: 'Query';
+  seeProfile: SeeProfileOutput;
   posts: Array<Post>;
   post: Post;
 };
@@ -63,7 +115,9 @@ export type QueryPostArgs = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  login: User;
+  login: LoginOutput;
+  createAccount: CreateAccountOutput;
+  editProfile: EditProfileOutput;
   createPost: Post;
   updatePost: Post;
   removePost: Post;
@@ -73,7 +127,17 @@ export type Mutation = {
 
 export type MutationLoginArgs = {
   password: Scalars['String'];
-  userName: Scalars['String'];
+  id: Scalars['String'];
+};
+
+
+export type MutationCreateAccountArgs = {
+  createAccountInput: CreateAccountInput;
+};
+
+
+export type MutationEditProfileArgs = {
+  editProfileInput: EditProfileInput;
 };
 
 
@@ -93,23 +157,33 @@ export type MutationRemovePostArgs = {
 
 
 export type MutationLikePostArgs = {
-  input: LikePostInput;
+  likePostInput: LikePostInput;
+};
+
+export type CreateAccountInput = {
+  id: Scalars['String'];
+  password: Scalars['String'];
+};
+
+export type EditProfileInput = {
+  password?: Maybe<Scalars['String']>;
 };
 
 export type CreatePostInput = {
-  /** Example field (placeholder) */
-  exampleField: Scalars['Int'];
+  bookName: Scalars['String'];
+  bookImageURL: Scalars['String'];
+  content: Scalars['String'];
 };
 
 export type UpdatePostInput = {
-  /** Example field (placeholder) */
-  exampleField?: Maybe<Scalars['Int']>;
+  bookName?: Maybe<Scalars['String']>;
+  bookImageURL?: Maybe<Scalars['String']>;
+  content?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
 };
 
 export type LikePostInput = {
-  /** post id */
-  postId: Scalars['Int'];
+  postId: Scalars['ID'];
 };
 
 export type GetAllPostsQueryVariables = Exact<{ [key: string]: never; }>;
@@ -119,23 +193,22 @@ export type GetAllPostsQuery = (
   { __typename?: 'Query' }
   & { posts: Array<(
     { __typename?: 'Post' }
-    & Pick<Post, 'id' | 'bookImageURL' | 'content'>
-    & { user: (
-      { __typename?: 'User' }
-      & Pick<User, 'userName'>
-    ), comments?: Maybe<Array<(
+    & Pick<Post, 'postId' | 'bookImageURL' | 'content'>
+    & { comments: Array<(
       { __typename?: 'Comment' }
       & Pick<Comment, 'content'>
-      & { user: (
-        { __typename?: 'User' }
-        & Pick<User, 'userName'>
-      ) }
-    )>> }
+    )>, likes: Array<(
+      { __typename?: 'Like' }
+      & Pick<Like, 'userId'>
+    )>, user: (
+      { __typename?: 'User' }
+      & Pick<User, 'id'>
+    ) }
   )> }
 );
 
 export type LoginMutationVariables = Exact<{
-  userName: Scalars['String'];
+  id: Scalars['String'];
   password: Scalars['String'];
 }>;
 
@@ -143,8 +216,8 @@ export type LoginMutationVariables = Exact<{
 export type LoginMutation = (
   { __typename?: 'Mutation' }
   & { login: (
-    { __typename?: 'User' }
-    & Pick<User, 'id' | 'userName'>
+    { __typename?: 'LoginOutput' }
+    & Pick<LoginOutput, 'ok' | 'token' | 'error'>
   ) }
 );
 
@@ -152,17 +225,17 @@ export type LoginMutation = (
 export const GetAllPostsDocument = gql`
     query getAllPosts {
   posts {
-    id
+    postId
     bookImageURL
     content
-    user {
-      userName
-    }
     comments {
       content
-      user {
-        userName
-      }
+    }
+    likes {
+      userId
+    }
+    user {
+      id
     }
   }
 }
@@ -195,10 +268,11 @@ export type GetAllPostsQueryHookResult = ReturnType<typeof useGetAllPostsQuery>;
 export type GetAllPostsLazyQueryHookResult = ReturnType<typeof useGetAllPostsLazyQuery>;
 export type GetAllPostsQueryResult = Apollo.QueryResult<GetAllPostsQuery, GetAllPostsQueryVariables>;
 export const LoginDocument = gql`
-    mutation login($userName: String!, $password: String!) {
-  login(userName: $userName, password: $password) {
-    id
-    userName
+    mutation login($id: String!, $password: String!) {
+  login(id: $id, password: $password) {
+    ok
+    token
+    error
   }
 }
     `;
@@ -217,7 +291,7 @@ export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutati
  * @example
  * const [loginMutation, { data, loading, error }] = useLoginMutation({
  *   variables: {
- *      userName: // value for 'userName'
+ *      id: // value for 'id'
  *      password: // value for 'password'
  *   },
  * });

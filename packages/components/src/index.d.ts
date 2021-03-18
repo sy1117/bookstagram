@@ -3,7 +3,6 @@ declare module "*.scss" {
   export default content;
 }
 
-
 declare module "*.jpg" {
   const content: { readonly [className: string]: string };
   export default content;

@@ -1,22 +1,36 @@
-import dynamic from "next/dynamic";
+// import { Feed } from "@bookstagram/components";
 import React from "react";
-import Layout from "../layout/Layout";
-// const Feed = dynamic(() =>
-//   import("@bookstagram/components").then((mod) => mod.Feed),
-// );
-import Feed from "@bookstagram/components";
+import { useGetAllPostsQuery } from "../apollo/__generated__/models";
+import { Feed } from "@bookstagram/components";
+import { NextPage } from "next";
 
-const Main = () => {
+const Main: NextPage<{}> = () => {
   const { data, error } = useGetAllPostsQuery();
   const posts = data?.posts || [];
 
+  console.log(Feed);
+
   return (
-    <Layout>
-      {posts.map((data: any, idx) => (
-        <Feed data={data} />
+    // <Layout>
+    <>
+      {posts.map(({ content, bookImageURL, user, likes }, idx) => (
+        //@ts-ignore
+        <Feed
+          content={content}
+          imageURL={bookImageURL}
+          userId={user?.id}
+          likes={likes.length}
+        />
       ))}
-    </Layout>
+    </>
   );
 };
+
+export async function getServerSideProps() {
+  console.log(Feed);
+  return {
+    props: {}, // will be passed to the page component as props
+  };
+}
 
 export default Main;

@@ -33,12 +33,14 @@ export class PostService {
 
   async findAll() {
     return await this.postRepository.find({
-      relations: ['user', 'comments', 'comments.user'],
+      relations: ['user', 'comments', 'comments.user', 'likes', 'likes.user'],
     });
   }
 
   async findOne(postId: number) {
-    return await this.postRepository.findOne(postId);
+    return await this.postRepository.findOne(postId, {
+      relations: ['user', 'comments', 'comments.user', 'likes', 'likes.user'],
+    });
   }
 
   update(id: number, updatePostInput: UpdatePostInput) {
@@ -50,16 +52,22 @@ export class PostService {
   }
 
   async like(userId: string, postId: number) {
-    const post = await this.postRepository.findOne(postId);
-    const user = await this.userService.findOne(userId);
-    const like = await this.likeRepository.create({
-      post,
-      user,
-    });
-    await this.likeRepository.save(like);
-    return {
-      ok: true,
-      post: await this.postRepository.findOne(postId, { relations: ['likes'] }),
-    };
+    try {
+      const post = await this.postRepository.findOne(postId);
+      const user = await this.userService.findOne(userId);
+      const like = await this.likeRepository.create({
+        post,
+        user,
+      });
+      await this.likeRepository.save(like);
+      return {
+        ok: true,
+        post: await this.postRepository.findOne(postId, {
+          relations: ['likes'],
+        }),
+      };
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

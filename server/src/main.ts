@@ -4,6 +4,7 @@ import 'reflect-metadata';
 import * as bodyParser from 'body-parser';
 import * as passport from 'passport';
 import * as expressSession from 'express-session';
+import { express as voyagerMiddleware } from 'graphql-voyager/middleware';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -17,6 +18,7 @@ async function bootstrap() {
       saveUninitialized: true,
     }),
   );
+  app.use('/voyager', voyagerMiddleware({ endpointUrl: '/graphql' }));
   app.use(bodyParser.json());
   app.use(passport.initialize());
   app.use(passport.session());

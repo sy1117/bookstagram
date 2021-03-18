@@ -1,15 +1,22 @@
 {
   "compilerOptions": {
     "outDir": "./dist/",
-    "noImplicitAny": true,
-    "module": "es6",
-    "target": "es5",
+    "sourceMap": true,
+    "module": "commonjs",
+    "removeComments": true,
+    "baseUrl": "./",
+    "paths": {
+      "components/*": ["src/components/*"]
+    },
+    "lib": ["dom", "esnext.asynciterable"],
+    "target": "es6",
+    "importHelpers": true,
     "jsx": "react",
     "allowJs": true,
     "declaration": true,
     "declarationDir": "./dist/",
     "declarationMap": true,
-    "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "esModuleInterop": true
   }
 }

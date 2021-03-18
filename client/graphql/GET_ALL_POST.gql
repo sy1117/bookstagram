@@ -1,16 +1,16 @@
 query getAllPosts {
-	posts {
-		id
-		bookImageURL
-		content
-		user {
-			userName
-		}
-		comments{
-			content
-			user {
-				userName
-			}
-		}
-	}
+  posts {
+    postId
+    bookImageURL
+    content
+    comments {
+      content
+    }
+    likes {
+      id
+    }
+    user {
+      id
+    }
+  }
 }
