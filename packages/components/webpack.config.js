@@ -9,7 +9,7 @@ module.exports = {
     filename: "main.js",
     publicPath: "/dist/",
     libraryTarget: "umd",
-    globalObject: "this",
+    // globalObject: "this",
     publicPath: "/dist/",
   },
   target: "node",
@@ -38,27 +38,17 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           MiniCssExtractPlugin.loader,
-          // Creates `style` nodes from JS strings
-          // "style-loader",
-          // Translates CSS into CommonJS
           {
             loader: "css-loader",
             options: {
               importLoaders: 1,
               modules: true,
-              // modules: {
-              //   compileType: "module",
-              //   mode: "local",
-              //   exportOnlyLocals: true,
-              // },
             },
           },
           "postcss-loader",
-          // Compiles Sass to CSS
           {
             loader: "sass-loader",
             options: {
-              // Prefer `dart-sass`
               implementation: require("node-sass"),
             },
           },

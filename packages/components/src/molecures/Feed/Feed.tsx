@@ -18,7 +18,7 @@ export interface FeedProps {
   likes: number;
 }
 
-const Feed: React.FC<FeedProps> = ({
+export const Feed: React.FC<FeedProps> = ({
   content,
   imageURL,
   userId,
