@@ -8,6 +8,8 @@ import { client } from "../apollo/config";
 import { Layout } from "@bookstagram/components";
 
 function MyApp({ Component, pageProps }: any) {
+  // If user is not logged in, return login component
+
   return (
     <ApolloProvider client={client}>
       <Layout>

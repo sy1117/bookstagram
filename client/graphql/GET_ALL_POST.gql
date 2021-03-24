@@ -2,15 +2,19 @@ query getAllPosts {
   posts {
     postId
     bookImageURL
+    bookName
     content
     comments {
+      user {
+        userId
+      }
       content
     }
-    likes {
-      id
-    }
     user {
-      id
+      userId
+    }
+    likes {
+      likeId
     }
   }
 }

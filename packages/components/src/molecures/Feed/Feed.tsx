@@ -6,41 +6,43 @@ import { IComment, Comment } from "./Comment";
 import { HeartOutlined } from "@ant-design/icons";
 import { IconHeart } from "../../atoms/Icon/Icon";
 
-console.log(styles);
 export interface FeedProps {
   content: string;
   imageURL: string;
+  title: string;
   userId: string;
-  // user: {
-  //   id: string;
-  // };
   comments?: Array<any>;
   likes: number;
+  onComment?: any;
 }
 
 export const Feed: React.FC<FeedProps> = ({
   content,
   imageURL,
   userId,
-  // user: { id },
+  title,
   likes,
   comments,
+  onComment,
 }) => {
+  const commentHandler = (event) => {
+    event.preventDefault();
+    onComment(event);
+  };
+
   return (
     <div className={styles.contents_box}>
       <article className={styles.contents}>
         <header className={styles.top}>
           <div className={styles.user_container}>
             <div className={styles.profile_img}>
-              <img src="imgs/thumb.jpeg" alt="프로필이미지" />
+              <img src="imgs/thumb.jpeg" alt="프로필 이미지" />
             </div>
             <div className={styles.user_name}>
               <div className={clsx(styles.nick_name, styles.m_text)}>
                 {userId}
               </div>
-              <div className={clsx(styles.country, styles.s_text)}>
-                Seoul, South Korea
-              </div>
+              <div className={clsx(styles.country, styles.s_text)}>{title}</div>
             </div>
           </div>
           <div className={styles.sprite_more_icon} data-name="more">
@@ -60,7 +62,7 @@ export const Feed: React.FC<FeedProps> = ({
         </header>
         <div className={styles.img_section}>
           <div className={styles.trans_inner}>
-            <div>
+            <div className={styles.img_container}>
               <img src={imageURL} alt="visual01" />
             </div>
           </div>
@@ -81,12 +83,13 @@ export const Feed: React.FC<FeedProps> = ({
             ></div>
           </div>
         </div>
-        {likes > 0 && (
-          <div className={clsx(styles.likes, styles.m_text)}>
-            좋아요 <span id="like-count-39">{likes}</span>{" "}
-            <span id="bookmark-count-39"></span>개
-          </div>
-        )}
+        {/* {likes > 0 && ( */}
+        <div className={clsx(styles.likes, styles.m_text)}>
+          좋아요 <span id="like-count-39">{likes}</span>{" "}
+          <span id="bookmark-count-39"></span>개
+        </div>
+        {/* )} */}
+        <div className={styles.content}>{content}</div>
         <div className={styles.comment_container}>
           {comments?.map((comment) => (
             <Comment data={comment as any} />
@@ -103,13 +106,15 @@ export const Feed: React.FC<FeedProps> = ({
         </div>
         <div className={styles.timer}>1시간 전</div>
         <div className={styles.comment_field} id=" add-comment-post37">
-          <input type="text" placeholder="댓글달기..." />
-          <div
-            className={clsx(styles.upload_btn, styles.m_text)}
-            data-name="comment"
-          >
-            게시
-          </div>
+          <form onSubmit={commentHandler}>
+            <input type="text" name="content" placeholder="댓글달기..." />
+            <button
+              className={clsx(styles.upload_btn, styles.m_text)}
+              data-name="comment"
+            >
+              게시
+            </button>
+          </form>
         </div>
       </article>
     </div>

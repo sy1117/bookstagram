@@ -1,5 +1,5 @@
-mutation login($id: String!, $password: String!) {
-  login(id: $id, password: $password) {
+mutation login($userId: String!, $password: String!) {
+  login(userId: $userId, password: $password) {
     ok
     token
     error

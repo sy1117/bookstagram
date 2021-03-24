@@ -1,8 +1,4 @@
 import { Injectable, Global } from '@nestjs/common';
-import {
-  CreateAccountInput,
-  CreateAccountOutput,
-} from './dto/create-account.dto';
 import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -10,6 +6,8 @@ import { JwtService } from '../jwt/jwt.service';
 import { EditProfileInput, EditProfileOutput } from './dto/edit-profile.input';
 import { LoginOutput } from './dto/login.dto';
 import { SeeProfileOutput } from './dto/see-profile.dto';
+import { CreateUserInput, CreateUserOutput } from './dto/create-user.dto';
+import { FollowOutput } from './dto/follow.dto';
 @Injectable()
 @Global()
 export class UsersService {
@@ -23,13 +21,13 @@ export class UsersService {
     return await this.userRepository.findOne(id);
   }
 
-  async findById(id: string): Promise<SeeProfileOutput> {
+  async findByUserId(userId: string): Promise<SeeProfileOutput> {
     try {
-      const user = await this.userRepository.findOne(id);
+      const user = await this.userRepository.findOne({ userId });
       if (!user) {
         return {
           ok: false,
-          error: `id:${id} not exists `,
+          error: `userId:${userId} not exists `,
         };
       }
       return {
@@ -45,18 +43,18 @@ export class UsersService {
   }
 
   async create({
-    id,
+    userId,
     password,
-  }: CreateAccountInput): Promise<CreateAccountOutput> {
+  }: CreateUserInput): Promise<CreateUserOutput> {
     try {
-      if (await this.userRepository.findOne({ id })) {
+      if (await this.userRepository.findOne({ userId })) {
         return {
           ok: false,
-          error: `id:${id} already exists `,
+          error: `id:${userId} already exists `,
         };
       }
       const user = await this.userRepository.create({
-        id,
+        userId,
         password,
       });
       await this.userRepository.save(user);
@@ -72,12 +70,13 @@ export class UsersService {
     }
   }
 
-  async login(id: string, password: string): Promise<LoginOutput> {
+  async login(userId: string, password: string): Promise<LoginOutput> {
     try {
-      const user = await this.userRepository.findOneOrFail();
+      const user = await this.userRepository.findOne({ userId });
+      console.log(user, user.checkPassword(password));
 
       if (user.checkPassword(password)) {
-        const token = await this.jwtService.sign(user.id);
+        const token = await this.jwtService.sign(user.userId);
         return {
           ok: true,
           token,
@@ -116,5 +115,21 @@ export class UsersService {
         error: error.message,
       };
     }
+  }
+
+  async follow(followeeId: string): Promise<FollowOutput> {
+    const user = await this.userRepository.findOne({
+      userId: followeeId,
+    });
+    if (!user) {
+      return {
+        ok: false,
+        error: 'Cannot found user ',
+      };
+    }
+    return {
+      ok: true,
+      follower: user,
+    };
   }
 }

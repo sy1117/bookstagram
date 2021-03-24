@@ -37,7 +37,7 @@ import { AppResolver } from './app.resolver';
       entities: [User, Like, Post, Comment],
     }),
     GraphQLModule.forRoot({
-      autoSchemaFile: join(process.cwd(), 'src/_generated/schema.gql'),
+      autoSchemaFile: join(process.cwd(), 'src/__generated__/schema.gql'),
       introspection: true,
       // sortSchema: true,
     }),

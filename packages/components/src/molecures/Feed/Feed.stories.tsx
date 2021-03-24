@@ -14,5 +14,11 @@ export default {
 const content = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis vitae a natus vel officia dignissimos ipsam ratione iste quas quidem?`;
 
 export const Normal = () => (
-  <Feed content={content} imageURL={"d"} userId={"testuser"} likes={330}></Feed>
+  <Feed
+    content={content}
+    title={"booktitle"}
+    imageURL={"d"}
+    userId={"testuser"}
+    likes={330}
+  ></Feed>
 );

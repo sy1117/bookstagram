@@ -6,8 +6,9 @@ import { useLoginMutation } from "../apollo/__generated__/models";
 
 const LoginPage = () => {
   const [login] = useLoginMutation({
-    onCompleted() {
+    onCompleted({ login: { token } }) {
       isLoggedInVar(true);
+      localStorage.setItem("jwt", token);
     },
   });
 
@@ -15,13 +16,13 @@ const LoginPage = () => {
     e.preventDefault();
     const { target } = e;
     const formData = new FormData(target as HTMLFormElement);
-    const userName = formData.get("userName") as string;
+    const userId = formData.get("userId") as string;
     const password = formData.get("password") as string;
 
     try {
       login({
         variables: {
-          userName,
+          userId,
           password,
         },
       });
@@ -38,12 +39,10 @@ const LoginPage = () => {
       <div className={styles.form} onSubmit={submitHandler}>
         <form action="#">
           <p className={styles.login_user_name}>
-            <label htmlFor="user_name">사용자명:</label>
-            <input type="text" id="user_name" name="userName" />
+            <input type="text" id="userId" name="userId" />
           </p>
 
           <p className={styles.login_user_password}>
-            <label htmlFor="user_password">비밀번호:</label>
             <input type="text" id="user_password" name="password" />
           </p>
           <input

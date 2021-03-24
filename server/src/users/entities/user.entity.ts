@@ -4,7 +4,6 @@ import {
   Column,
   BeforeInsert,
   BeforeUpdate,
-  PrimaryColumn,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -13,18 +12,19 @@ import * as bcrypt from 'bcrypt';
 import { InternalServerErrorException } from '@nestjs/common';
 import { Post } from 'src/post/entities/post.entity';
 import { Comment } from 'src/post/entities/comment.entity';
+import { Like } from 'src/post/entities/like.entity';
 
-export enum UserRole {
-  HOST = 'HOST',
-  LISTENER = 'LISTENER',
-}
 @ObjectType()
 @Entity()
 export class User {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
+  @Field(() => Number)
+  id: number;
+
+  @Column({ unique: true })
   @Field(() => String)
   @IsString()
-  id: string;
+  userId: string;
 
   @Column({ select: false })
   @Field(() => String)
@@ -39,17 +39,9 @@ export class User {
   @Field(() => [Comment])
   comments: Comment[];
 
-  @OneToMany((type) => Post, (post) => post.likes)
-  @Field(() => [Post])
-  likes: Post[];
-
-  @OneToMany((type) => User, (user) => user.followings)
-  @Field(() => [User])
-  followings: User[];
-
-  @OneToMany((type) => User, (user) => user.followers)
-  @Field(() => [User])
-  followers: User[];
+  @OneToMany((type) => Like, (like) => like.userId)
+  @Field(() => [Like])
+  likes: Like[];
 
   @BeforeInsert()
   @BeforeUpdate()

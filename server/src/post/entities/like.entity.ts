@@ -6,6 +6,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
   Unique,
 } from 'typeorm';
@@ -30,9 +31,9 @@ export class Like {
 
   @Column()
   @Field()
-  userId: string;
+  userId: number;
 
-  @ManyToOne((type) => Post, (post) => post.likes)
+  @OneToOne((type) => Post, (post) => post.likes)
   @JoinColumn({ name: 'postId' })
   @Field(() => Post)
   post: Post;

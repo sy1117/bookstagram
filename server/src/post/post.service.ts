@@ -7,6 +7,7 @@ import { Comment } from './entities/comment.entity';
 import { Post } from './entities/post.entity';
 import { Like } from './entities/like.entity';
 import { UsersService } from 'src/users/users.service';
+import { CreateCommentInput } from './dto/create-comment.dto';
 
 @Injectable()
 export class PostService {
@@ -51,14 +52,28 @@ export class PostService {
     return `This action removes a #${id} post`;
   }
 
-  async like(userId: string, postId: number) {
+  async like(userId: number, postId: number) {
     try {
-      const post = await this.postRepository.findOne(postId);
-      const user = await this.userService.findOne(userId);
-      const like = await this.likeRepository.create({
+      const post = await this.postRepository.findOne({ postId });
+      const user = await this.userService.findOne({ userId });
+
+      let like = await this.likeRepository.findOne({
+        userId: user.id,
+        postId,
+      });
+
+      if (like) {
+        return {
+          ok: false,
+          error: 'already likes',
+        };
+      }
+
+      like = await this.likeRepository.create({
         post,
         user,
       });
+
       await this.likeRepository.save(like);
       return {
         ok: true,
@@ -67,7 +82,28 @@ export class PostService {
         }),
       };
     } catch (error) {
-      console.log(error);
+      return {
+        ok: false,
+        error: error,
+      };
     }
+  }
+
+  async comment(userId: string, { content, postId }: CreateCommentInput) {
+    const { user } = await this.userService.findByUserId(userId);
+    if (!user) return false;
+
+    const post = await this.postRepository.findOne(postId);
+    if (!post) return false;
+
+    const comment = await this.commentRepository.create({
+      content,
+      user,
+      post,
+    });
+
+    await this.commentRepository.save(comment);
+
+    return comment;
   }
 }

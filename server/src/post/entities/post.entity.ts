@@ -4,7 +4,6 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -17,7 +16,7 @@ import { Like } from './like.entity';
 @ObjectType()
 export class Post {
   @PrimaryGeneratedColumn()
-  @Field((type) => ID)
+  @Field((type) => Number)
   postId: number;
 
   @Column()
@@ -32,8 +31,7 @@ export class Post {
   @Field((type) => String)
   content: string;
 
-  @ManyToOne((type) => User, (user) => user.posts, { nullable: true })
-  @JoinColumn({ name: 'userId' })
+  @ManyToOne((type) => User, (user) => user.posts)
   @Field(() => User)
   user: User;
 
@@ -42,7 +40,6 @@ export class Post {
   comments?: [Comment];
 
   @OneToMany((type) => Like, (like) => like.post)
-  @JoinColumn({ name: 'likeIds' })
   @Field(() => [Like], { defaultValue: [] })
   likes?: Like[];
 

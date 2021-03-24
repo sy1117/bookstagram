@@ -18,94 +18,101 @@ export type Scalars = {
 
 export type Comment = {
   __typename?: 'Comment';
-  id: Scalars['ID'];
-  createdAt: Scalars['DateTime'];
-  updatedAt: Scalars['DateTime'];
   content: Scalars['String'];
-  user: User;
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
   post: Post;
+  updatedAt: Scalars['DateTime'];
+  user: User;
 };
 
 
 export type Like = {
   __typename?: 'Like';
-  likeId: Scalars['ID'];
   createdAt: Scalars['DateTime'];
-  user: User;
-  userId: Scalars['String'];
+  likeId: Scalars['ID'];
   post: Post;
   postId: Scalars['Float'];
+  user: User;
+  userId: Scalars['Float'];
 };
 
 export type Post = {
   __typename?: 'Post';
-  postId: Scalars['ID'];
-  bookName: Scalars['String'];
   bookImageURL: Scalars['String'];
-  content: Scalars['String'];
-  user: User;
+  bookName: Scalars['String'];
   comments: Array<Comment>;
-  likes: Array<Like>;
-  updatedAt: Scalars['DateTime'];
+  content: Scalars['String'];
   createdAt: Scalars['DateTime'];
+  likes: Array<Like>;
+  postId: Scalars['Float'];
+  updatedAt: Scalars['DateTime'];
+  user: User;
 };
 
 export type User = {
   __typename?: 'User';
-  id: Scalars['String'];
+  comments: Array<Comment>;
+  id: Scalars['Float'];
+  likes: Array<Like>;
   password: Scalars['String'];
   posts: Array<Post>;
-  comments: Array<Comment>;
-  likes: Array<Post>;
-  followings: Array<User>;
-  followers: Array<User>;
-};
-
-export type CreateAccountOutput = {
-  __typename?: 'CreateAccountOutput';
-  ok: Scalars['Boolean'];
-  error?: Maybe<Scalars['String']>;
-  user: User;
+  userId: Scalars['String'];
 };
 
 export type UserOutput = {
   __typename?: 'UserOutput';
-  id: Scalars['String'];
+  id: Scalars['Float'];
 };
 
 export type SeeProfileOutput = {
   __typename?: 'SeeProfileOutput';
-  ok: Scalars['Boolean'];
   error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
   user: UserOutput;
 };
 
 export type EditProfileOutput = {
   __typename?: 'EditProfileOutput';
-  ok: Scalars['Boolean'];
   error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
   user?: Maybe<UserOutput>;
 };
 
 export type LoginOutput = {
   __typename?: 'LoginOutput';
-  ok: Scalars['Boolean'];
   error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
   token: Scalars['String'];
+};
+
+export type CreateUserOutput = {
+  __typename?: 'CreateUserOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+  user?: Maybe<User>;
+};
+
+export type FollowOutput = {
+  __typename?: 'FollowOutput';
+  error?: Maybe<Scalars['String']>;
+  follower: User;
+  ok: Scalars['Boolean'];
 };
 
 export type LikePostOutput = {
   __typename?: 'LikePostOutput';
-  ok: Scalars['Boolean'];
   error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
   post: Post;
 };
 
 export type Query = {
   __typename?: 'Query';
-  seeProfile: SeeProfileOutput;
-  posts: Array<Post>;
   post: Post;
+  posts: Array<Post>;
+  seeProfile: SeeProfileOutput;
+  whoAmI: User;
 };
 
 
@@ -115,29 +122,26 @@ export type QueryPostArgs = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  login: LoginOutput;
-  createAccount: CreateAccountOutput;
-  editProfile: EditProfileOutput;
+  comment: Comment;
+  createComment: Comment;
   createPost: Post;
-  updatePost: Post;
-  removePost: Post;
+  createUser: CreateUserOutput;
+  editProfile: EditProfileOutput;
+  follow: FollowOutput;
   likePost: LikePostOutput;
+  login: LoginOutput;
+  removePost: Post;
+  updatePost: Post;
 };
 
 
-export type MutationLoginArgs = {
-  password: Scalars['String'];
-  id: Scalars['String'];
+export type MutationCommentArgs = {
+  createComment: CreateCommentInput;
 };
 
 
-export type MutationCreateAccountArgs = {
-  createAccountInput: CreateAccountInput;
-};
-
-
-export type MutationEditProfileArgs = {
-  editProfileInput: EditProfileInput;
+export type MutationCreateCommentArgs = {
+  createCommentInput: CreateCommentInput;
 };
 
 
@@ -146,8 +150,24 @@ export type MutationCreatePostArgs = {
 };
 
 
-export type MutationUpdatePostArgs = {
-  updatePostInput: UpdatePostInput;
+export type MutationCreateUserArgs = {
+  createUserInput: CreateUserInput;
+};
+
+
+export type MutationEditProfileArgs = {
+  editProfileInput: EditProfileInput;
+};
+
+
+export type MutationLikePostArgs = {
+  likePostInput: LikePostInput;
+};
+
+
+export type MutationLoginArgs = {
+  password: Scalars['String'];
+  userId: Scalars['String'];
 };
 
 
@@ -156,13 +176,13 @@ export type MutationRemovePostArgs = {
 };
 
 
-export type MutationLikePostArgs = {
-  likePostInput: LikePostInput;
+export type MutationUpdatePostArgs = {
+  updatePostInput: UpdatePostInput;
 };
 
-export type CreateAccountInput = {
-  id: Scalars['String'];
+export type CreateUserInput = {
   password: Scalars['String'];
+  userId: Scalars['String'];
 };
 
 export type EditProfileInput = {
@@ -170,21 +190,59 @@ export type EditProfileInput = {
 };
 
 export type CreatePostInput = {
-  bookName: Scalars['String'];
   bookImageURL: Scalars['String'];
+  bookName: Scalars['String'];
   content: Scalars['String'];
 };
 
 export type UpdatePostInput = {
-  bookName?: Maybe<Scalars['String']>;
   bookImageURL?: Maybe<Scalars['String']>;
+  bookName?: Maybe<Scalars['String']>;
   content?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
 };
 
 export type LikePostInput = {
-  postId: Scalars['ID'];
+  postId: Scalars['Float'];
 };
+
+export type CreateCommentInput = {
+  content: Scalars['String'];
+  postId: Scalars['Float'];
+};
+
+export type CreateCommentMutationVariables = Exact<{
+  postId: Scalars['Float'];
+  content: Scalars['String'];
+}>;
+
+
+export type CreateCommentMutation = (
+  { __typename?: 'Mutation' }
+  & { createComment: (
+    { __typename?: 'Comment' }
+    & Pick<Comment, 'content'>
+    & { user: (
+      { __typename?: 'User' }
+      & Pick<User, 'userId'>
+    ) }
+  ) }
+);
+
+export type CreatePostMutationVariables = Exact<{
+  bookImageURL: Scalars['String'];
+  bookName: Scalars['String'];
+  content: Scalars['String'];
+}>;
+
+
+export type CreatePostMutation = (
+  { __typename?: 'Mutation' }
+  & { createPost: (
+    { __typename?: 'Post' }
+    & Pick<Post, 'postId' | 'bookImageURL' | 'bookName' | 'content'>
+  ) }
+);
 
 export type GetAllPostsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -193,22 +251,26 @@ export type GetAllPostsQuery = (
   { __typename?: 'Query' }
   & { posts: Array<(
     { __typename?: 'Post' }
-    & Pick<Post, 'postId' | 'bookImageURL' | 'content'>
+    & Pick<Post, 'postId' | 'bookImageURL' | 'bookName' | 'content'>
     & { comments: Array<(
       { __typename?: 'Comment' }
       & Pick<Comment, 'content'>
-    )>, likes: Array<(
-      { __typename?: 'Like' }
-      & Pick<Like, 'userId'>
+      & { user: (
+        { __typename?: 'User' }
+        & Pick<User, 'userId'>
+      ) }
     )>, user: (
       { __typename?: 'User' }
-      & Pick<User, 'id'>
-    ) }
+      & Pick<User, 'userId'>
+    ), likes: Array<(
+      { __typename?: 'Like' }
+      & Pick<Like, 'likeId'>
+    )> }
   )> }
 );
 
 export type LoginMutationVariables = Exact<{
-  id: Scalars['String'];
+  userId: Scalars['String'];
   password: Scalars['String'];
 }>;
 
@@ -222,20 +284,101 @@ export type LoginMutation = (
 );
 
 
+export const CreateCommentDocument = gql`
+    mutation createComment($postId: Float!, $content: String!) {
+  createComment(createCommentInput: {postId: $postId, content: $content}) {
+    content
+    user {
+      userId
+    }
+  }
+}
+    `;
+export type CreateCommentMutationFn = Apollo.MutationFunction<CreateCommentMutation, CreateCommentMutationVariables>;
+
+/**
+ * __useCreateCommentMutation__
+ *
+ * To run a mutation, you first call `useCreateCommentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateCommentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createCommentMutation, { data, loading, error }] = useCreateCommentMutation({
+ *   variables: {
+ *      postId: // value for 'postId'
+ *      content: // value for 'content'
+ *   },
+ * });
+ */
+export function useCreateCommentMutation(baseOptions?: Apollo.MutationHookOptions<CreateCommentMutation, CreateCommentMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateCommentMutation, CreateCommentMutationVariables>(CreateCommentDocument, options);
+      }
+export type CreateCommentMutationHookResult = ReturnType<typeof useCreateCommentMutation>;
+export type CreateCommentMutationResult = Apollo.MutationResult<CreateCommentMutation>;
+export type CreateCommentMutationOptions = Apollo.BaseMutationOptions<CreateCommentMutation, CreateCommentMutationVariables>;
+export const CreatePostDocument = gql`
+    mutation createPost($bookImageURL: String!, $bookName: String!, $content: String!) {
+  createPost(
+    createPostInput: {bookImageURL: $bookImageURL, bookName: $bookName, content: $content}
+  ) {
+    postId
+    bookImageURL
+    bookName
+    content
+  }
+}
+    `;
+export type CreatePostMutationFn = Apollo.MutationFunction<CreatePostMutation, CreatePostMutationVariables>;
+
+/**
+ * __useCreatePostMutation__
+ *
+ * To run a mutation, you first call `useCreatePostMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePostMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPostMutation, { data, loading, error }] = useCreatePostMutation({
+ *   variables: {
+ *      bookImageURL: // value for 'bookImageURL'
+ *      bookName: // value for 'bookName'
+ *      content: // value for 'content'
+ *   },
+ * });
+ */
+export function useCreatePostMutation(baseOptions?: Apollo.MutationHookOptions<CreatePostMutation, CreatePostMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreatePostMutation, CreatePostMutationVariables>(CreatePostDocument, options);
+      }
+export type CreatePostMutationHookResult = ReturnType<typeof useCreatePostMutation>;
+export type CreatePostMutationResult = Apollo.MutationResult<CreatePostMutation>;
+export type CreatePostMutationOptions = Apollo.BaseMutationOptions<CreatePostMutation, CreatePostMutationVariables>;
 export const GetAllPostsDocument = gql`
     query getAllPosts {
   posts {
     postId
     bookImageURL
+    bookName
     content
     comments {
+      user {
+        userId
+      }
       content
     }
-    likes {
+    user {
       userId
     }
-    user {
-      id
+    likes {
+      likeId
     }
   }
 }
@@ -268,8 +411,8 @@ export type GetAllPostsQueryHookResult = ReturnType<typeof useGetAllPostsQuery>;
 export type GetAllPostsLazyQueryHookResult = ReturnType<typeof useGetAllPostsLazyQuery>;
 export type GetAllPostsQueryResult = Apollo.QueryResult<GetAllPostsQuery, GetAllPostsQueryVariables>;
 export const LoginDocument = gql`
-    mutation login($id: String!, $password: String!) {
-  login(id: $id, password: $password) {
+    mutation login($userId: String!, $password: String!) {
+  login(userId: $userId, password: $password) {
     ok
     token
     error
@@ -291,7 +434,7 @@ export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutati
  * @example
  * const [loginMutation, { data, loading, error }] = useLoginMutation({
  *   variables: {
- *      id: // value for 'id'
+ *      userId: // value for 'userId'
  *      password: // value for 'password'
  *   },
  * });

@@ -8,6 +8,8 @@ import { UsersService } from 'src/users/users.service';
 import { AuthUser } from 'src/auth/auth-user.decorator';
 import { GqlAuthGuard } from 'src/auth/auth.guard';
 import { UseGuards } from '@nestjs/common';
+import { CreateCommentInput } from './dto/create-comment.dto';
+import { Comment } from './entities/comment.entity';
 
 @Resolver(() => Post)
 export class PostResolver {
@@ -22,12 +24,12 @@ export class PostResolver {
     @AuthUser() user,
     @Args('createPostInput') createPostInput: CreatePostInput,
   ) {
-    console.log('createpost', user);
     return this.postService.create(user, createPostInput);
   }
 
   @Query(() => [Post], { name: 'posts' })
-  findAll() {
+  findAll(@AuthUser() user) {
+    console.log(user);
     return this.postService.findAll();
   }
 
@@ -46,8 +48,18 @@ export class PostResolver {
     return this.postService.remove(id);
   }
 
+  @UseGuards(GqlAuthGuard)
   @Mutation(() => LikePostOutput)
   likePost(@AuthUser() user, @Args('likePostInput') { postId }: LikePostInput) {
-    return this.postService.like(user.id, postId);
+    return this.postService.like(user.userId, postId);
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => Comment)
+  createComment(
+    @AuthUser() user,
+    @Args('createCommentInput') createComment: CreateCommentInput,
+  ) {
+    return this.postService.comment(user?.userId, createComment);
   }
 }

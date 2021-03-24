@@ -102,7 +102,7 @@ type Mutation {
   updatePost(updatePostInput: UpdatePostInput!): Post!
   removePost(id: Int!): Post!
   likePost(likePostInput: LikePostInput!): LikePostOutput!
-  comment(createComment: CreateCommentInput!): Comment!
+  createComment(createCommentInput: CreateCommentInput!): Comment!
 }
 
 input CreateUserInput {

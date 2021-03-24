@@ -1,0 +1,18 @@
+mutation createPost(
+  $bookImageURL: String!
+  $bookName: String!
+  $content: String!
+) {
+  createPost(
+    createPostInput: {
+      bookImageURL: $bookImageURL
+      bookName: $bookName
+      content: $content
+    }
+  ) {
+    postId
+    bookImageURL
+    bookName
+    content
+  }
+}
