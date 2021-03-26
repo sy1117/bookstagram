@@ -8,6 +8,7 @@
     "paths": {
       "components/*": ["src/components/*"]
     },
+    "sourceRoot": "src",
     "lib": ["dom", "esnext.asynciterable"],
     "target": "es6",
     "importHelpers": true,

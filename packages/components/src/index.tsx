@@ -1,10 +1,12 @@
 import * as React from "react";
 import _Header from "./organisms/Header/Header";
-import _Feed from "./molecures/Feed/Feed";
+import _PostCard from "./molecures/PostCard/PostCard";
 import _ImageUpload from "./molecures/ImageUpload/ImageUpload";
 import _Layout from "./layouts/Layout";
 import _Popover from "./molecures/Popover/Popover";
 import _Input from "./atoms/Input/Input";
+import _ActionIcons from "./molecures/PostCard/ActionIcons";
+// import "normalize.css";
 
 export const Button: React.FC = ({ children }) => {
   return <button>{children}</button>;
@@ -13,7 +15,8 @@ export const Layout = _Layout;
 
 export const Header = _Header;
 
-export const Feed = _Feed;
+export const PostCard = _PostCard;
+export const ActionIcons = _ActionIcons;
 
 export const ImageUpload = _ImageUpload;
 
@@ -24,7 +27,8 @@ export const Input = _Input;
 export default {
   Header,
   Button,
-  Feed,
+  PostCard,
   ImageUpload,
+  ActionIcons,
   Popover,
 };

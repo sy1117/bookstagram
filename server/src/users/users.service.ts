@@ -73,7 +73,6 @@ export class UsersService {
   async login(userId: string, password: string): Promise<LoginOutput> {
     try {
       const user = await this.userRepository.findOne({ userId });
-      console.log(user, user.checkPassword(password));
 
       if (user.checkPassword(password)) {
         const token = await this.jwtService.sign(user.userId);

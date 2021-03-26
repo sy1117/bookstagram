@@ -1,0 +1,38 @@
+.comment_field {
+  display: flex;
+  min-height: 56px;
+  padding: 0 20px;
+  position: relative;
+
+  .icon {
+    height: 100%;
+    margin: auto 0;
+    margin-right: 20px;
+  }
+
+  .upload_btn {
+    border: none;
+    background: none;
+    color: #3897f0;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    /*pointer-events: none;*/
+    opacity: 0.6;
+  }
+
+  input {
+    width: auto;
+    height: 56px;
+    border: none;
+    outline: none;
+    background: transparent;
+
+    &:focus ~ .upload_btn {
+      pointer-events: initial;
+      opacity: 1;
+    }
+  }
+}

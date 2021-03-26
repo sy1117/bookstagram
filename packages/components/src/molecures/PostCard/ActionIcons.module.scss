@@ -1,0 +1,22 @@
+.left_icons {
+  display: flex;
+
+  & > div {
+    margin-right: 10px;
+    cursor: pointer;
+  }
+
+  .like_icon {
+    -webkit-animation-duration: 0.45s;
+    animation-duration: 0.45s;
+    -webkit-animation-name: like-button-animation;
+    animation-name: like-button-animation;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+.right_icon > div {
+  cursor: pointer;
+}

@@ -80,8 +80,13 @@
     }
   }
 
-  .content {
+  .content_container {
     padding: 5px 20px;
+    word-break: break-all;
+
+    .m_text {
+      margin-right: 5px;
+    }
   }
 
   .bottom_icons {
@@ -89,17 +94,6 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    .left_icons {
-      display: flex;
-
-      & > div {
-        margin-right: 10px;
-        cursor: pointer;
-      }
-    }
-    .right_icon > div {
-      cursor: pointer;
-    }
   }
   .likes {
     padding: 5px 20px;
@@ -111,6 +105,16 @@
     // justify-content: space-between;
     // align-items: center;
     padding: 5px 20px;
+
+    .show_all_btn {
+      background: 0 0;
+      border: 0;
+      color: #8e8e8e;
+      color: rgba(var(--f52, 142, 142, 142), 1);
+      line-height: inherit;
+      margin: 0;
+      text-decoration: none;
+    }
 
     .comment {
       display: flex;
@@ -126,48 +130,54 @@
       }
     }
   }
-}
 
-.contents .timer {
-  font-size: 10px;
-  letter-spacing: 0.2px;
-  color: #999;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.09);
-  padding: 10px 20px;
-}
+  .timer {
+    font-size: 10px;
+    letter-spacing: 0.2px;
+    color: #999;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+    padding: 10px 20px;
+  }
 
-.contents .comment_field {
-  min-height: 56px;
-  padding: 0 20px;
-  position: relative;
-}
+  .comment_field {
+    display: flex;
+    min-height: 56px;
+    padding: 0 20px;
+    position: relative;
 
-.contents .comment_field input {
-  width: 100%;
-  height: 56px;
-  border: none;
-  outline: none;
-  background: transparent;
-}
+    .icon {
+      height: 100%;
+      margin: auto 0;
+      margin-right: 20px;
+    }
 
-.contents .comment_field input:focus ~ .upload_btn {
-  pointer-events: initial;
-  opacity: 1;
-}
+    .upload_btn {
+      border: none;
+      background: none;
+      color: #3897f0;
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      /*pointer-events: none;*/
+      opacity: 0.6;
+    }
 
-.contents .comment_field .upload_btn {
-  border: none;
-  background: none;
-  color: #3897f0;
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  /*pointer-events: none;*/
-  opacity: 0.6;
-}
+    input {
+      width: auto;
+      height: 56px;
+      border: none;
+      outline: none;
+      background: transparent;
 
+      &:focus ~ .upload_btn {
+        pointer-events: initial;
+        opacity: 1;
+      }
+    }
+  }
+}
 .m_text {
   font-size: 14px;
   font-weight: bold;

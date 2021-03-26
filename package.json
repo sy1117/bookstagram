@@ -15,6 +15,7 @@
     "start": "npm run start:dev",
     "generate": "lerna run build --parallel --scope @bookstagram/codegen",
     "start:dev": "lerna run start --parallel",
+    "client": "lerna run start --scope @bookstagram/client",
     "server": "lerna run start:dev --scope @bookstagram/server",
     "storybook": "lerna run storybook"
   },

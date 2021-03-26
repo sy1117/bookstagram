@@ -6,7 +6,7 @@ import {
   useCreateCommentMutation,
   useGetAllPostsQuery,
 } from "../apollo/__generated__/models";
-import { Feed } from "@bookstagram/components";
+import { PostCard, ActionIcons } from "@bookstagram/components";
 import { NextPage } from "next";
 
 const Main: NextPage<{}> = () => {
@@ -43,14 +43,16 @@ const Main: NextPage<{}> = () => {
           { content, bookImageURL, bookName, user, likes, comments, postId },
           idx,
         ) => (
-          <Feed
+          <PostCard
+            profileURL={"s"}
             content={content}
             imageURL={bookImageURL}
-            title={bookName}
-            userId={user?.userId}
-            likes={likes.length}
-            comments={comments}
-            onComment={commentHandler(postId)}
+            subTitle={bookName}
+            title={user?.userId}
+            // likes={likes.length}
+            actionIcons={<ActionIcons />}
+            // comments={comments}
+            // onComment={commentHandler(postId)}
           />
         ),
       )}

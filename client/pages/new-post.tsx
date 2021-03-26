@@ -1,11 +1,11 @@
 import React, { FormEvent, FormEventHandler, useState } from "react";
 import styles from "./new-post.module.scss";
-import { ImageUpload, Popover, Input } from "@bookstagram/components";
+import { Input } from "@bookstagram/components";
 import { useCreatePostMutation } from "../apollo/__generated__/models";
 
-interface Props {}
+interface IProps {}
 
-const NewPost = (props: Props) => {
+const NewPost = (props: IProps) => {
   const [modal, setModal] = useState<boolean>(false);
   const [createPost] = useCreatePostMutation();
 
@@ -16,6 +16,7 @@ const NewPost = (props: Props) => {
     event.preventDefault();
 
     const formdata = new FormData(event.currentTarget);
+
     createPost({
       variables: {
         bookImageURL: formdata.get("bookImageURL") as string,
