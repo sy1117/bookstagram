@@ -12,6 +12,7 @@ module.exports = {
     // globalObject: "this",
     publicPath: "/dist/",
   },
+  externals: ["react"],
   target: "node",
   plugins: [new MiniCssExtractPlugin()],
   module: {

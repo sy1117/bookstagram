@@ -10,6 +10,7 @@ export default {
 } as Meta;
 
 export const Normal = () => {
+  // const [{ show, hide }] = useModal(false);
   const [visible, setvisible] = useState(false);
   return (
     <>

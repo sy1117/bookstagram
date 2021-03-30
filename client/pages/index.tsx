@@ -8,11 +8,13 @@ import {
 } from "../apollo/__generated__/models";
 import { PostCard, ActionIcons } from "@bookstagram/components";
 import { NextPage } from "next";
+import { Modal } from "@bookstagram/components";
 
 const Main: NextPage<{}> = () => {
   const { data, error, loading } = useGetAllPostsQuery();
   const posts = (data?.posts as Post[]) || [];
   const [postList, setPostList] = useState(posts);
+  const [detailvisible, setdetailvisible] = useState(false);
 
   useEffect(() => {
     setPostList(posts);
@@ -50,12 +52,24 @@ const Main: NextPage<{}> = () => {
             subTitle={bookName}
             title={user?.userId}
             // likes={likes.length}
-            actionIcons={<ActionIcons />}
+            actionIcons={
+              <ActionIcons
+                onCommentClick={() => {
+                  setdetailvisible(true);
+                }}
+              />
+            }
             // comments={comments}
             // onComment={commentHandler(postId)}
           />
         ),
       )}
+      <Modal
+        visible={detailvisible}
+        onClose={() => {
+          setdetailvisible(false);
+        }}
+      ></Modal>
     </>
   );
 };

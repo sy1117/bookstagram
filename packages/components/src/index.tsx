@@ -6,6 +6,7 @@ import _Layout from "./layouts/Layout";
 import _Popover from "./molecures/Popover/Popover";
 import _Input from "./atoms/Input/Input";
 import _ActionIcons from "./molecures/PostCard/ActionIcons";
+import _Modal from "./organisms/Modal/Modal";
 // import "normalize.css";
 
 export const Button: React.FC = ({ children }) => {
@@ -24,11 +25,14 @@ export const Popover = _Popover;
 
 export const Input = _Input;
 
+export const Modal = _Modal;
+
 export default {
   Header,
   Button,
   PostCard,
   ImageUpload,
   ActionIcons,
+  Modal,
   Popover,
 };

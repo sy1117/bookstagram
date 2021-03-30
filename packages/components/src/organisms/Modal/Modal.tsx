@@ -1,15 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 //@ts-ignore
 import styles from "./Modal.module.scss";
 import CommentField from "../../molecures/CommentField/CommentField";
 
-export const useModal = (initialValue: boolean) => {
-  const [visible, setvisible] = useState<boolean>(false);
+// export const useModal = (initialValue: boolean) => {
+//   const [visible, setvisible] = useState<boolean>(false);
 
-  useEffect(() => {}, [visible]);
+//   useEffect(() => {
+//     let div = document.createElement("div");
+//     div.id = "modal-container";
+//     document.body.appendChild(div);
 
-  return <Modal visible={visible}></Modal>;
-};
+//     return () => {
+//       document.body.removeChild(div);
+//     };
+//   }, [window]);
+
+//   useEffect(() => {
+//     console.log("he", Modal, document.getElementById("modal-container"));
+//     return ReactDOM.createPortal(
+//       <span>stes</span>,
+//       document.getElementById("modal-container"),
+//     );
+//   }, [visible]);
+
+//   return [
+//     {
+//       show: () => {
+//         setvisible(true);
+//       },
+//       hide: () => {
+//         setvisible(false);
+//       },
+//     },
+//   ];
+// };
 
 const CloseButton = ({ onClick }) => (
   <div className={styles.close_btn} onClick={onClick}>
@@ -108,14 +133,64 @@ export interface ModalProps {
   onClose?: () => void;
 }
 
-const Modal: React.FC<ModalProps> = ({ visible = true, onClose }) => {
+// const Modal: React.FC<ModalProps> = ({ visible = true, onClose }) => {
+//   useEffect(() => {
+//     let div = document.createElement("div");
+//     div.id = "modal-container";
+//     document.body.appendChild(div);
+
+//     return () => {
+//       document.body.removeChild(div);
+//     };
+//   }, [document]);
+
+//   const el = document && document.getElementById("modal-container");
+//   return (
+//     el &&
+//     ReactDOM.createPortal(
+//       <div className={styles.root} hidden={!visible}>
+//         <div className={styles.container}>
+//           <CloseButton onClick={onClose} />
+//           <Dialog />
+//         </div>
+//       </div>,
+//       document.getElementById("modal-container"),
+//     )
+//   );
+// };
+
+// export default Modal;
+
+function useLockBodyScroll(current) {
+  useEffect(() => {
+    console.log(current);
+  }, [current]); // Empty array ensures effect is only run on mount and unmount
+}
+
+const Modal: React.FC<ModalProps> = ({ visible = false, onClose }) => {
+  const ref = useRef(null);
+
+  // useLockBodyScroll(ref.current);
+  // useEffect(() => {
+  //   if (document) {
+  //     let div = document.createElement("div");
+  //     div.id = "modal-container";
+  //     document.body.appendChild(div);
+
+  //     return () => {
+  //       document.body.removeChild(div);
+  //     };
+  //   }
+  // }, []);
   return (
-    <div className={styles.root} hidden={!visible}>
-      <div className={styles.container}>
-        <CloseButton onClick={onClose} />
-        <Dialog />
+    visible && (
+      <div className={styles.root} hidden={!visible}>
+        <div className={styles.container}>
+          <CloseButton onClick={onClose} />
+          <Dialog />
+        </div>
       </div>
-    </div>
+    )
   );
 };
 

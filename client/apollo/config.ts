@@ -55,6 +55,8 @@ const httpLink = new HttpLink({
 
 export const client = new ApolloClient({
   cache: new InMemoryCache(),
+  ssrMode: true,
+
   // link: from([link, new HttpLink({uri: '/graphql'})])
   link: from([errorLink, authMiddleware, httpLink]),
 });
