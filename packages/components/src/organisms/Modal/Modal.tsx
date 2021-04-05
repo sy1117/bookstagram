@@ -61,7 +61,7 @@ const DialogHeader = () => (
         <img src="imgs/thumb.jpeg" alt="" />
       </div>
       <div className={styles.user_name}>
-        <div className={styles.nick_name}>KindTiger</div>
+        <div className={styles.nick_name}>hey</div>
         <div className={styles.country}>Seoul, South Korea</div>
       </div>
     </div>
@@ -120,9 +120,7 @@ const Dialog: React.FC<{}> = () => (
           <Comment />
           <Comment />
         </div>
-        <div>
-          <CommentField />
-        </div>
+        <div>{/* <CommentField /> */}</div>
       </div>
     </div>
   </div>
@@ -160,16 +158,7 @@ export interface ModalProps {
 // };
 
 // export default Modal;
-
-function useLockBodyScroll(current) {
-  useEffect(() => {
-    console.log(current);
-  }, [current]); // Empty array ensures effect is only run on mount and unmount
-}
-
 const Modal: React.FC<ModalProps> = ({ visible = false, onClose }) => {
-  const ref = useRef(null);
-
   // useLockBodyScroll(ref.current);
   // useEffect(() => {
   //   if (document) {

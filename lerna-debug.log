@@ -1,12 +1,14 @@
 0 silly argv {
 0 silly argv   _: [ 'add' ],
-0 silly argv   scope: '@bookstagram/server',
+0 silly argv   scope: '@bookstagram/components',
+0 silly argv   dev: true,
+0 silly argv   D: true,
 0 silly argv   globs: [],
 0 silly argv   lernaVersion: '3.22.1',
 0 silly argv   '$0': 'lerna',
-0 silly argv   pkg: 'reflect-metadatas'
+0 silly argv   pkg: 'webpack-extenral-react'
 0 silly argv }
 1 notice cli v3.22.1
 2 verbose rootPath /Users/soyoung/Desktop/workspace/bookstagram
-3 error Error: 404 Not Found - GET https://registry.npmjs.org/reflect-metadatas - Not found
+3 error Error: 404 Not Found - GET https://registry.npmjs.org/webpack-extenral-react - Not found
 3 error     at /Users/soyoung/Desktop/workspace/bookstagram/node_modules/@evocateur/npm-registry-fetch/check-response.js:104:15

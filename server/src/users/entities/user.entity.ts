@@ -26,6 +26,11 @@ export class User {
   @IsString()
   userId: string;
 
+  @Column({ nullable: true })
+  @Field(() => String)
+  @IsString()
+  profileImageURL: string;
+
   @Column({ select: false })
   @Field(() => String)
   @IsString()

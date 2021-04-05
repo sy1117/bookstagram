@@ -27,6 +27,7 @@ export class PostResolver {
     return this.postService.create(user, createPostInput);
   }
 
+  @UseGuards(GqlAuthGuard)
   @Query(() => [Post], { name: 'posts' })
   findAll(@AuthUser() user) {
     console.log(user);

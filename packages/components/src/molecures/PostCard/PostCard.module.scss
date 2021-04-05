@@ -83,10 +83,15 @@
   .content_container {
     padding: 5px 20px;
     word-break: break-all;
+  }
 
-    .m_text {
-      margin-right: 5px;
-    }
+  .m_text {
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .s_text {
+    font-size: 12px;
   }
 
   .bottom_icons {

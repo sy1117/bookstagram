@@ -12,7 +12,6 @@ module.exports = {
     // globalObject: "this",
     publicPath: "/dist/",
   },
-  externals: ["react"],
   target: "node",
   plugins: [new MiniCssExtractPlugin()],
   module: {
@@ -36,7 +35,7 @@ module.exports = {
       {
         test: /\.(sa|sc|c)ss$/i,
         sideEffects: true,
-        exclude: /node_modules/,
+        exclude: [/node_modules/, /\.stories.tsx$/],
         use: [
           MiniCssExtractPlugin.loader,
           {
@@ -59,5 +58,22 @@ module.exports = {
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js", ".scss"],
+  },
+  externals: {
+    // Use external version of React
+    react: {
+      root: "React",
+      amd: "react",
+      commonjs: "react",
+      commonjs2: "react",
+      umd: "react",
+    },
+    "react-dom": {
+      root: "ReactDOM",
+      amd: "react",
+      commonjs: "react",
+      commonjs2: "react",
+      umd: "react",
+    },
   },
 };

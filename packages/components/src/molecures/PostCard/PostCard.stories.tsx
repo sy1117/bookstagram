@@ -16,7 +16,7 @@ const content = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis v
 
 export const Normal = () => (
   <PostCard
-    profileURL={
+    profileImageURL={
       "https://instagram.fjrs8-1.fna.fbcdn.net/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=instagram.fjrs8-1.fna.fbcdn.net&_nc_ohc=hLTkwc3uTqUAX_XtCE4&ccb=7-4&oh=8de804fc6efffe6b0a222043b06583dc&oe=6087738F&_nc_sid=cff2a4&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2-ccb7-4"
     }
     title={"userName"}
@@ -40,7 +40,7 @@ export const LikedPost = () => {
   return (
     <PostCard
       content={content}
-      profileURL={
+      profileImageURL={
         "https://instagram.fjrs8-1.fna.fbcdn.net/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=instagram.fjrs8-1.fna.fbcdn.net&_nc_ohc=hLTkwc3uTqUAX_XtCE4&ccb=7-4&oh=8de804fc6efffe6b0a222043b06583dc&oe=6087738F&_nc_sid=cff2a4&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2-ccb7-4"
       }
       subTitle={"booktitle"}

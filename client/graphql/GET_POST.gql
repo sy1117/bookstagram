@@ -1,0 +1,22 @@
+query getPost($postId: Int!) {
+  post(id: $postId) {
+    bookImageURL
+    bookName
+    content
+    comments {
+      user {
+        userId
+        profileImageURL
+      }
+      content
+      createdAt
+    }
+    user {
+      userId
+      profileImageURL
+    }
+    likes {
+      likeId
+    }
+  }
+}

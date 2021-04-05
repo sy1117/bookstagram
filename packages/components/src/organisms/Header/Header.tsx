@@ -6,7 +6,7 @@ import styles from "./Header.module.scss";
 import logo from "./logo.png";
 
 interface MenuDataBase {
-  path: string;
+  path?: string;
   icon: JSX.Element;
 }
 
@@ -45,7 +45,8 @@ const Menus = ({ data }) => (
       }
       return (
         <div className={styles.dropdown}>
-          <a href={path}>{icon}</a>
+          {path && <a href={path}>{icon}</a>}
+          {!path && icon}
           <div className={styles.dropdown_content}>
             {dropdownMenu.map(({ path, name }) => (
               <a href={path}>{name}</a>

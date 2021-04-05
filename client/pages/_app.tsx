@@ -2,13 +2,26 @@
 
 import "@bookstagram/components/dist/main.css";
 
-import { ApolloProvider } from "@apollo/client/react";
+import { ApolloProvider, useApolloClient } from "@apollo/client/react";
 import React from "react";
 import { client } from "../apollo/config";
-import { Layout } from "@bookstagram/components";
+import { AppProps } from "next/app";
+import Layout from "../layout/Layout";
+import { Icons } from "@bookstagram/components";
 
-function MyApp({ Component, pageProps }: any) {
-  // If user is not logged in, return login component
+const { IconHome, IconDirect, IconExplore, IconActivity } = Icons;
+
+const MyApp = ({ Component, pageProps, router }: AppProps) => {
+  if (router.route === "/_error") {
+    return <Component {...pageProps} />;
+  }
+  if (router.route === "/log-in" || router.route === "/log-out") {
+    return (
+      <ApolloProvider client={client}>
+        <Component {...pageProps} />
+      </ApolloProvider>
+    );
+  }
 
   return (
     <ApolloProvider client={client}>
@@ -17,7 +30,7 @@ function MyApp({ Component, pageProps }: any) {
       </Layout>
     </ApolloProvider>
   );
-}
+};
 
 // Only uncomment this method if you have blocking data requirements for
 // every single page in your application. This disables the ability to

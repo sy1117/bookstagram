@@ -57,6 +57,7 @@ export type User = {
   likes: Array<Like>;
   password: Scalars['String'];
   posts: Array<Post>;
+  profileImageURL: Scalars['String'];
   userId: Scalars['String'];
 };
 
@@ -269,6 +270,33 @@ export type GetAllPostsQuery = (
   )> }
 );
 
+export type GetPostQueryVariables = Exact<{
+  postId: Scalars['Int'];
+}>;
+
+
+export type GetPostQuery = (
+  { __typename?: 'Query' }
+  & { post: (
+    { __typename?: 'Post' }
+    & Pick<Post, 'bookImageURL' | 'bookName' | 'content'>
+    & { comments: Array<(
+      { __typename?: 'Comment' }
+      & Pick<Comment, 'content' | 'createdAt'>
+      & { user: (
+        { __typename?: 'User' }
+        & Pick<User, 'userId' | 'profileImageURL'>
+      ) }
+    )>, user: (
+      { __typename?: 'User' }
+      & Pick<User, 'userId' | 'profileImageURL'>
+    ), likes: Array<(
+      { __typename?: 'Like' }
+      & Pick<Like, 'likeId'>
+    )> }
+  ) }
+);
+
 export type LoginMutationVariables = Exact<{
   userId: Scalars['String'];
   password: Scalars['String'];
@@ -280,6 +308,17 @@ export type LoginMutation = (
   & { login: (
     { __typename?: 'LoginOutput' }
     & Pick<LoginOutput, 'ok' | 'token' | 'error'>
+  ) }
+);
+
+export type WhoAmIQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type WhoAmIQuery = (
+  { __typename?: 'Query' }
+  & { whoAmI: (
+    { __typename?: 'User' }
+    & Pick<User, 'userId' | 'profileImageURL'>
   ) }
 );
 
@@ -410,6 +449,58 @@ export function useGetAllPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetAllPostsQueryHookResult = ReturnType<typeof useGetAllPostsQuery>;
 export type GetAllPostsLazyQueryHookResult = ReturnType<typeof useGetAllPostsLazyQuery>;
 export type GetAllPostsQueryResult = Apollo.QueryResult<GetAllPostsQuery, GetAllPostsQueryVariables>;
+export const GetPostDocument = gql`
+    query getPost($postId: Int!) {
+  post(id: $postId) {
+    bookImageURL
+    bookName
+    content
+    comments {
+      user {
+        userId
+        profileImageURL
+      }
+      content
+      createdAt
+    }
+    user {
+      userId
+      profileImageURL
+    }
+    likes {
+      likeId
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetPostQuery__
+ *
+ * To run a query within a React component, call `useGetPostQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostQuery({
+ *   variables: {
+ *      postId: // value for 'postId'
+ *   },
+ * });
+ */
+export function useGetPostQuery(baseOptions: Apollo.QueryHookOptions<GetPostQuery, GetPostQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostQuery, GetPostQueryVariables>(GetPostDocument, options);
+      }
+export function useGetPostLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostQuery, GetPostQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostQuery, GetPostQueryVariables>(GetPostDocument, options);
+        }
+export type GetPostQueryHookResult = ReturnType<typeof useGetPostQuery>;
+export type GetPostLazyQueryHookResult = ReturnType<typeof useGetPostLazyQuery>;
+export type GetPostQueryResult = Apollo.QueryResult<GetPostQuery, GetPostQueryVariables>;
 export const LoginDocument = gql`
     mutation login($userId: String!, $password: String!) {
   login(userId: $userId, password: $password) {
@@ -446,3 +537,38 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const WhoAmIDocument = gql`
+    query whoAmI {
+  whoAmI {
+    userId
+    profileImageURL
+  }
+}
+    `;
+
+/**
+ * __useWhoAmIQuery__
+ *
+ * To run a query within a React component, call `useWhoAmIQuery` and pass it any options that fit your needs.
+ * When your component renders, `useWhoAmIQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useWhoAmIQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useWhoAmIQuery(baseOptions?: Apollo.QueryHookOptions<WhoAmIQuery, WhoAmIQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<WhoAmIQuery, WhoAmIQueryVariables>(WhoAmIDocument, options);
+      }
+export function useWhoAmILazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<WhoAmIQuery, WhoAmIQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<WhoAmIQuery, WhoAmIQueryVariables>(WhoAmIDocument, options);
+        }
+export type WhoAmIQueryHookResult = ReturnType<typeof useWhoAmIQuery>;
+export type WhoAmILazyQueryHookResult = ReturnType<typeof useWhoAmILazyQuery>;
+export type WhoAmIQueryResult = Apollo.QueryResult<WhoAmIQuery, WhoAmIQueryVariables>;

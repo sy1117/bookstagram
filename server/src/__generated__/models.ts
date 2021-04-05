@@ -56,6 +56,7 @@ export type User = {
   likes: Array<Like>;
   password: Scalars['String'];
   posts: Array<Post>;
+  profileImageURL: Scalars['String'];
   userId: Scalars['String'];
 };
 
@@ -387,6 +388,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   likes?: Resolver<Array<ResolversTypes['Like']>, ParentType, ContextType>;
   password?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   posts?: Resolver<Array<ResolversTypes['Post']>, ParentType, ContextType>;
+  profileImageURL?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   userId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };

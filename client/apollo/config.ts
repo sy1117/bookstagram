@@ -8,6 +8,7 @@ import {
 } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 import { isLoggedInVar } from "./auth";
+import { useRouter } from "next/router";
 
 const getToken = () => {
   const token = localStorage.getItem("jwt");
@@ -30,10 +31,14 @@ const authMiddleware = new ApolloLink((operation: Operation, forward: any) => {
 // Log any GraphQL errors or network error that occurred
 const errorLink = onError(
   ({ graphQLErrors, networkError, forward, operation, response }) => {
-    // console.log(graphQLErrors, networkError)
+    if (networkError) alert("네트워크 에러가 발생하였습니다");
     // console.log(graphQLErrors && graphQLErrors[0]?.extensions?.exception.status)
     if (graphQLErrors) {
       const status = graphQLErrors[0]?.extensions?.exception.status;
+
+      if (status === 401) {
+        window.location.pathname = "/log-in";
+      }
       if (status === 403) {
         isLoggedInVar(false);
         forward(operation);

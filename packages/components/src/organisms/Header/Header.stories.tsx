@@ -34,7 +34,7 @@ export const Normal = () => (
             />
           </span>
         ),
-        dropdownMenu: [{ path: "/logout", name: "로그아웃" }],
+        dropdownMenu: [{ path: "/log-out", name: "로그아웃" }],
       },
     ]}
   />

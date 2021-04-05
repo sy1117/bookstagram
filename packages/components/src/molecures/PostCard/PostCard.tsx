@@ -5,7 +5,7 @@ import clsx from "clsx";
 import { IconSmile } from "../../atoms/Icon/Icon";
 
 export interface PostCardProps {
-  profileURL: string;
+  profileImageURL: string;
   title: string;
   subTitle: string;
   imageURL: string;
@@ -26,16 +26,13 @@ const defaultProfileImage =
 export const PostCard: React.FC<PostCardProps> = ({
   title,
   subTitle,
-  profileURL = defaultProfileImage,
+  profileImageURL = defaultProfileImage,
   imageURL,
   content,
   actionIcons,
-
-  // like = false,
   likes = 0,
   comments = 0,
   onComment,
-  // onLike,
 }) => {
   const commentHandler = (event: FormEvent) => {
     event.preventDefault();
@@ -47,7 +44,7 @@ export const PostCard: React.FC<PostCardProps> = ({
         <header className={styles.top}>
           <div className={styles.user_container}>
             <div className={styles.profile_img}>
-              <img src={profileURL} alt="프로필 이미지" />
+              <img src={profileImageURL} alt="프로필 이미지" />
             </div>
             <div className={styles.user_name}>
               <div className={clsx(styles.nick_name, styles.m_text)}>
@@ -117,7 +114,7 @@ export const PostCard: React.FC<PostCardProps> = ({
             <div className={styles.icon}>
               <IconSmile />
             </div>
-            <input type="text" name="comment" placeholder="댓글달기..." />
+            <input type="text" name="content" placeholder="댓글달기..." />
             <button
               className={clsx(styles.upload_btn, styles.m_text)}
               data-name="comment"

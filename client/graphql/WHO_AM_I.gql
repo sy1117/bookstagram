@@ -1,0 +1,6 @@
+query whoAmI {
+  whoAmI {
+    userId
+    profileImageURL
+  }
+}
