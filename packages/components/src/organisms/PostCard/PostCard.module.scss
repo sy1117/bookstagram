@@ -16,34 +16,6 @@
   @media (max-width: 735px) {
     width: 100%;
   }
-  .top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-
-    .profile_img {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      overflow: hidden;
-      margin-right: 10px;
-      img {
-        width: 100%;
-      }
-    }
-
-    .user_container {
-      display: flex;
-    }
-  }
-  .sprite_more_icon {
-    position: relative;
-  }
-
-  .sprite_more_icon.on .toggle_box {
-    display: block;
-  }
 
   .toggle_box {
     text-align: center;
@@ -83,15 +55,6 @@
   .content_container {
     padding: 5px 20px;
     word-break: break-all;
-  }
-
-  .m_text {
-    font-size: 14px;
-    font-weight: bold;
-  }
-
-  .s_text {
-    font-size: 12px;
   }
 
   .bottom_icons {

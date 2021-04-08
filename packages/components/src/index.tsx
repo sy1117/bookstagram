@@ -1,11 +1,11 @@
 import * as React from "react";
 import _Header from "./organisms/Header/Header";
-import _PostCard from "./molecures/PostCard/PostCard";
+import _PostCard from "./organisms/PostCard/PostCard";
 import _ImageUpload from "./molecures/ImageUpload/ImageUpload";
 import _Layout from "./layouts/Layout";
 import _Popover from "./molecures/Popover/Popover";
 import _Input from "./atoms/Input/Input";
-import _ActionIcons from "./molecures/PostCard/ActionIcons";
+import _ActionIcons from "./organisms/PostCard/ActionIcons";
 import _Modal from "./organisms/Modal/Modal";
 import _PostModal from "./organisms/PostModal/PostModal";
 import * as _Icons from "./atoms/Icon/Icon";

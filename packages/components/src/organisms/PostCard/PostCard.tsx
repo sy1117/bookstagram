@@ -1,8 +1,9 @@
 import React, { FormEvent } from "react";
 //@ts-ignore
 import styles from "./PostCard.module.scss";
+import CommentField from "../../molecures/CommentField/CommentField";
+import PostHeader from "../../molecures/PostHeader/PostHeader";
 import clsx from "clsx";
-import { IconSmile } from "../../atoms/Icon/Icon";
 
 export interface PostCardProps {
   profileImageURL: string;
@@ -41,57 +42,32 @@ export const PostCard: React.FC<PostCardProps> = ({
   return (
     <div className={styles.contents_box}>
       <article className={styles.contents}>
-        <header className={styles.top}>
-          <div className={styles.user_container}>
-            <div className={styles.profile_img}>
-              <img src={profileImageURL} alt="프로필 이미지" />
-            </div>
-            <div className={styles.user_name}>
-              <div className={clsx(styles.nick_name, styles.m_text)}>
-                {title}
-              </div>
-              <div className={clsx(styles.country, styles.s_text)}>
-                {subTitle}
-              </div>
-            </div>
-          </div>
-          <div className={styles.sprite_more_icon} data-name="more">
-            <ul className={styles.toggle_box}>
-              <li>
-                <input
-                  type="submit"
-                  className={styles.follow}
-                  value="팔로우"
-                  name="follow"
-                />
-              </li>
-              <li>수정</li>
-              <li>삭제</li>
-            </ul>
-          </div>
-        </header>
-        <div className={styles.img_section}>
+        <PostHeader
+          profileImageURL={profileImageURL}
+          userName={title}
+          postTitle={subTitle}
+        />
+        <section className={styles.img_section}>
           <div className={styles.trans_inner}>
             <div className={styles.img_container}>
               <img src={imageURL} alt="image" />
             </div>
           </div>
-        </div>
-        <div className={styles.bottom_icons}>{actionIcons}</div>
-        {/* {likes > 0 && ( */}
-        <div className={clsx(styles.likes, styles.m_text)}>
+        </section>
+        <section className={styles.bottom_icons}>{actionIcons}</section>
+        <section className={clsx(styles.likes, styles.m_text)}>
           <span>
-            좋아요 <span id="like-count-39">{likes}</span>개{"\t"}
+            좋아요 <span>{likes}</span>개{"\t"}
           </span>
           <span>
-            댓글 <span id="like-count-39">{comments}</span>개{" "}
+            댓글 <span>{comments}</span>개{" "}
           </span>
-        </div>
-        <div className={styles.content_container}>
+        </section>
+        <section className={styles.content_container}>
           <span className={styles.m_text}>{title}</span>
           <span className={styles.content}>{content}</span>
-        </div>
-        <div className={styles.comment_container}>
+        </section>
+        <section className={styles.comment_container}>
           <a className={styles.show_all_btn} href={"#"}>
             댓글 {comments}개 모두 보기{" "}
           </a>
@@ -107,22 +83,25 @@ export const PostCard: React.FC<PostCardProps> = ({
                     <div className={styles.small_heart}>
                         <div className={styles.sprite_small_heart_icon_outline}></div>
                     </div> */}
-        </div>
-        <div className={styles.timer}>1시간 전</div>
-        <form onSubmit={commentHandler}>
-          <div className={styles.comment_field} id=" add-comment-post37">
-            <div className={styles.icon}>
-              <IconSmile />
+        </section>
+        <section className={styles.timer}>1시간 전</section>
+        <section>
+          <CommentField onSubmit={commentHandler} />
+          {/* <form onSubmit={commentHandler}>
+            <div className={styles.comment_field} id=" add-comment-post37">
+              <div className={styles.icon}>
+                <IconSmile />
+              </div>
+              <input type="text" name="content" placeholder="댓글달기..." />
+              <button
+                className={clsx(styles.upload_btn, styles.m_text)}
+                data-name="comment"
+              >
+                게시
+              </button>
             </div>
-            <input type="text" name="content" placeholder="댓글달기..." />
-            <button
-              className={clsx(styles.upload_btn, styles.m_text)}
-              data-name="comment"
-            >
-              게시
-            </button>
-          </div>
-        </form>
+          </form> */}
+        </section>
       </article>
     </div>
   );

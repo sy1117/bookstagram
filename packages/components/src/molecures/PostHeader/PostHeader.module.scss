@@ -1,0 +1,28 @@
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+
+  .user_container {
+    display: flex;
+
+    .m_text {
+      font-size: 1em;
+      margin-right: 1em;
+      font-weight: bold;
+    }
+
+    .s_text {
+      font-size: 12px;
+    }
+  }
+
+  .sprite_more_icon {
+    position: relative;
+  }
+
+  .sprite_more_icon.on .toggle_box {
+    display: block;
+  }
+}
