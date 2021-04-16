@@ -6,17 +6,30 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { GqlExecutionContext } from '@nestjs/graphql';
+import { JwtService } from 'src/jwt/jwt.service';
 import { User } from 'src/users/entities/user.entity';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class GqlAuthGuard implements CanActivate {
-  constructor(private readonly reflector: Reflector) {}
-  canActivate(context: ExecutionContext) {
+  constructor(
+    private readonly reflector: Reflector,
+    private readonly jwtService: JwtService,
+    private readonly usersService: UsersService,
+  ) {}
+  async canActivate(context: ExecutionContext) {
     const gqlContext = GqlExecutionContext.create(context).getContext();
-    const user: User = gqlContext.req.user;
+    const { token } = gqlContext;
+    if (!token) return false;
+
+    const decode: any = this.jwtService.verify(token.toString());
+    const user = await this.usersService.findOne({
+      userId: decode.userId,
+    });
     if (!user) {
       throw new UnauthorizedException();
     }
+    gqlContext['user'] = user;
     return true;
   }
 }

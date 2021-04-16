@@ -136,3 +136,7 @@ input CreateCommentInput {
   content: String!
   postId: Float!
 }
+
+type Subscription {
+  commentAdded: Comment!
+}

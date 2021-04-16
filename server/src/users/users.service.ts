@@ -106,7 +106,7 @@ export class UsersService {
       const updatedUser = await this.userRepository.save(user);
       return {
         ok: true,
-        user: user,
+        user: updatedUser,
       };
     } catch (error) {
       return {
