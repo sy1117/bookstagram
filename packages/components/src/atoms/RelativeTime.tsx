@@ -1,5 +1,4 @@
 import React from "react";
-//@ts-ignore
 import styles from "./RelativeTime.module.scss";
 
 const timeForToday = (value) => {

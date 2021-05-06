@@ -1,8 +1,7 @@
 import clsx from "clsx";
 import React from "react";
 import Profileimage from "../../atoms/ProfileImage/ProfileImage";
-//@ts-ignore
-import styles from "./UserHeader.module.scss";
+import styles from "./PostHeader.module.scss";
 
 export interface PostHeaderProps {
   profileImageURL: string;

@@ -1,13 +1,11 @@
 {
   "compilerOptions": {
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
     "outDir": "./dist/",
     "sourceMap": true,
     "module": "commonjs",
     "removeComments": true,
     "baseUrl": "./",
-    "paths": {
-      "components/*": ["src/components/*"]
-    },
     "sourceRoot": "src",
     "lib": ["dom", "esnext.asynciterable"],
     "target": "es6",

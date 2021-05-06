@@ -31,26 +31,22 @@
     background-color: white;
     align-items: center;
     margin: auto;
-    // max-width: 815px;
     pointer-events: auto;
-    // width: 100%;
     position: relative;
     height: 450px;
 
     .dialog_container {
-      // width: 100%;
       display: flex;
 
       .image {
         margin: 0 auto;
-        // width: 480px;
+        min-width: 450px;
+        background-color: darkgray;
         height: 450px;
         img {
           max-width: 480px;
           max-height: 450px;
-          // width: 100%;
           height: 100%;
-          // object-fit: contain;
           margin: auto;
           overflow: hidden;
         }
@@ -61,7 +57,6 @@
         height: 100%;
         flex-direction: column;
         width: 335px;
-        // background-color: purple;
       }
     }
   }
@@ -105,7 +100,6 @@
 
 .content_container {
   font-size: 0.8em;
-  // padding: 5px 20px;
   display: block;
   word-break: break-all;
 }

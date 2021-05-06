@@ -1,5 +1,4 @@
 import React from "react";
-//@ts-ignore
 import styles from "./Popover.module.scss";
 
 export interface IProps {}

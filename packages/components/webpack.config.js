@@ -3,14 +3,13 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   mode: "production",
-  entry: "./src/index.tsx",
+  entry: path.resolve(__dirname, "/src/index.tsx"),
   output: {
     path: path.resolve(__dirname, "./dist/"),
     filename: "main.js",
     publicPath: "/dist/",
     libraryTarget: "umd",
-    // globalObject: "this",
-    publicPath: "/dist/",
+    globalObject: "this",
   },
   target: "node",
   plugins: [new MiniCssExtractPlugin()],
@@ -38,14 +37,15 @@ module.exports = {
         exclude: [/node_modules/, /\.stories.tsx$/],
         use: [
           MiniCssExtractPlugin.loader,
+          // {
+          //   loader: "typings-for-css-modules-loader?modules&sass&namedExport",
+          // },
           {
             loader: "css-loader",
             options: {
-              importLoaders: 1,
               modules: true,
             },
           },
-          // "postcss-loader",
           {
             loader: "sass-loader",
             options: {
@@ -59,21 +59,5 @@ module.exports = {
   resolve: {
     extensions: [".tsx", ".ts", ".js", ".scss"],
   },
-  externals: {
-    // Use external version of React
-    react: {
-      root: "React",
-      amd: "react",
-      commonjs: "react",
-      commonjs2: "react",
-      umd: "react",
-    },
-    "react-dom": {
-      root: "ReactDOM",
-      amd: "react",
-      commonjs: "react",
-      commonjs2: "react",
-      umd: "react",
-    },
-  },
+  externals: ["react", "react-dom"],
 };

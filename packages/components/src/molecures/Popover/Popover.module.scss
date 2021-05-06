@@ -1,28 +1,2 @@
 .root {
-  align-items: center;
-  // background-color: rgba(0, 0, 0, 0.65);
-  bottom: 0;
-  // -webkit-box-orient: vertical;
-  // -webkit-box-direction: normal;
-  // -webkit-flex-direction: column;
-  // -ms-flex-direction: column;
-  flex-direction: column;
-  left: 0;
-  // -webkit-overflow-scrolling: touch;
-  overflow-y: auto;
-  position: fixed;
-  right: 0;
-  // -webkit-tap-highlight-color: transparent;
-  top: 0;
-  z-index: 999;
-  display: flex;
-
-  .popover {
-    margin: auto;
-    width: 400px;
-    background-color: white;
-    border-radius: 12px;
-    max-height: 100%;
-    justify-content: center;
-  }
 }

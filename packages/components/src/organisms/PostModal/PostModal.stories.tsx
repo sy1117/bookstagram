@@ -8,8 +8,8 @@ export default {
   title: "Organisms/PostModal",
   component: PostModal,
 } as Meta;
+
 export const Normal = () => {
-  // const [{ show, hide }] = useModal(false);
   const [visible, setvisible] = useState(false);
   return (
     <>
@@ -20,8 +20,8 @@ export const Normal = () => {
         content={
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, hic?"
         }
-        mainImageURL={" "}
-        profileImageURL={" "}
+        mainImageURL={"test.jpg"}
+        profileImageURL={"test.jpg"}
         comments={[]}
         visible={visible}
         onClose={() => setvisible(false)}

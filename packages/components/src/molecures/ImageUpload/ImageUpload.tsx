@@ -1,5 +1,4 @@
 import React from "react";
-//@ts-ignore
 import styles from "./ImageUpload.module.scss";
 
 const ImageUpload = () => {

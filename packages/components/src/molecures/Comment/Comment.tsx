@@ -1,6 +1,5 @@
 import React from "react";
 import RelativeTime from "../../atoms/RelativeTime";
-//@ts-ignore
 import styles from "./Comment.module.scss";
 
 export interface CommentProps {

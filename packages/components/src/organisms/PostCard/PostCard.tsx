@@ -1,5 +1,4 @@
 import React, { FormEvent } from "react";
-//@ts-ignore
 import styles from "./PostCard.module.scss";
 import CommentField from "../../molecures/CommentField/CommentField";
 import PostHeader from "../../molecures/PostHeader/PostHeader";

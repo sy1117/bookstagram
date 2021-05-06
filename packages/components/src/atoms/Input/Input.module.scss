@@ -10,3 +10,49 @@
   text-align: left;
   margin-top: 1em;
 }
+
+.search_box {
+  position: relative;
+
+  .search_field {
+    height: 28px;
+    width: -webkit-fill-available;
+
+    background: #fafafa;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    padding: 3px 30px;
+    color: #999;
+    font-weight: 400;
+    text-align: left;
+    outline: none;
+    font-size: 0.8rem;
+
+    &::placeholder {
+      font-size: 0;
+    }
+
+    &:focus::placeholder {
+      font-size: 0.8rem;
+    }
+
+    &:focus ~ .fake_field > span:nth-child(1) {
+      transform: translateX(-105px);
+    }
+
+    &:focus ~ .fake_field > span:nth-child(2) {
+      display: none;
+    }
+  }
+  .fake_field {
+    font-size: 0.8rem;
+    color: #999;
+    font-weight: 400;
+    text-align: left;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+}

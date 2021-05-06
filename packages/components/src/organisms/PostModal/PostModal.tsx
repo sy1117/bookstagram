@@ -1,8 +1,8 @@
 import React, { FormEventHandler } from "react";
-//@ts-ignore
 import styles from "./PostModal.module.scss";
 import CommentField from "../../molecures/CommentField/CommentField";
 import Comment, { CommentProps } from "../../molecures/Comment/Comment";
+import PostHeader from "../../molecures/PostHeader/PostHeader";
 
 const CloseButton = ({ onClick }) => (
   <div className={styles.close_btn} onClick={onClick}>
@@ -20,27 +20,6 @@ const CloseButton = ({ onClick }) => (
       ></path>
     </svg>
   </div>
-);
-
-const DialogHeader = ({ profileImageURL, userName, bookName }) => (
-  <header className="top">
-    <div className={styles.user_container}>
-      <div className={styles.profile_img}>
-        <img src={profileImageURL} alt="" />
-      </div>
-      <div className={styles.user_name}>
-        <div className={styles.nick_name}>{userName}</div>
-        <div className={styles.country}>{bookName}</div>
-      </div>
-    </div>
-    {/* <div className={styles.sprite_more_icon} data-name="more">
-      <ul className={styles.more_detail}>
-        <li>팔로우</li>
-        <li>수정</li>
-        <li>삭제</li>
-      </ul>
-    </div> */}
-  </header>
 );
 
 export interface PostModalProps {
@@ -66,9 +45,6 @@ const PostModal: React.FC<PostModalProps> = ({
   content,
   bookName,
 }) => {
-  console.log(userName);
-  console.log(content);
-
   return (
     visible && (
       <div className={styles.root} hidden={!visible}>
@@ -80,12 +56,11 @@ const PostModal: React.FC<PostModalProps> = ({
                 <img src={mainImageURL} />
               </div>
               <div className={styles.content}>
-                <DialogHeader
+                <PostHeader
                   profileImageURL={profileImageURL}
                   userName={userName}
-                  bookName={bookName}
+                  postTitle={bookName}
                 />
-
                 <div className={styles.scroll_section}>
                   <div className={styles.content_container}>
                     <span className={styles.m_text}>{userName}</span>

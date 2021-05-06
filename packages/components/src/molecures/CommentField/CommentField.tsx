@@ -1,7 +1,6 @@
 import clsx from "clsx";
 import React, { FormEvent, FormEventHandler } from "react";
 import { IconSmile } from "../../atoms/Icon/Icon";
-//@ts-ignore
 import styles from "./Comment.module.scss";
 
 export interface CommentFieldProps {

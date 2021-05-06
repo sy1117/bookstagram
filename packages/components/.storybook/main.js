@@ -1,12 +1,11 @@
-const path = require("path");
-
-// your app's webpack.config.js
-const custom = require("../webpack.config.js");
-
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const custom = require("../webpack.config");
 
 module.exports = {
-  stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
+  core: {
+    builder: "webpack5",
+  },
+  stories: ["/src/**/*.stories.@(js|jsx|ts|tsx)"],
   addons: [
     "storybook-css-modules-preset",
     "@storybook/addon-docs",
@@ -14,6 +13,8 @@ module.exports = {
     "@storybook/addon-essentials",
     "@storybook/react",
     "storybook-addon-react-docgen",
+    "@storybook/preset-scss",
+    "@storybook/addon-postcss",
   ],
   typescript: {
     check: false,
@@ -25,33 +26,44 @@ module.exports = {
         prop.parent ? !/node_modules/.test(prop.parent.fileName) : true,
     },
   },
-  webpackFinal: async (config) => {
-    config.module.rules.push({
-      test: /\.scss$/,
-      use: [
-        { loader: "style-loader" },
-        {
-          loader: "css-loader",
-          options: {
-            importLoaders: 1,
-            modules: true,
-          },
-        },
-        {
-          loader: "sass-loader",
-          options: {
-            implementation: require("node-sass"),
-          },
-        },
-      ],
-    });
-    console.log(config.module.rules);
-    // console.log(config.module.rules);
-    return config;
-    // return {
-    //   ...config,
-    //   // plugins: [...config.plugins, ...custom.plugins],
-    //   module: { ...config.module, rules: custom.module.rules },
-    // };
+  webpackFinal: (config) => {
+    config.plugins.push(new MiniCssExtractPlugin());
+    // config.plugins.push(new HtmlWebpackPlugin());
+
+    return {
+      ...config,
+      module: {
+        ...config.module,
+        rules: custom.module.rules,
+      },
+    };
   },
+  // webpackFinal: async (config) => {
+  //   config.module.rules.push({
+  //     test: /\.scss$/,
+  //     use: [
+  //       { loader: "style-loader" },
+  //       {
+  //         loader: "css-loader",
+  //         options: {
+  //           importLoaders: 1,
+  //           modules: true,
+  //         },
+  //       },
+  //       {
+  //         loader: "sass-loader",
+  //         options: {
+  //           implementation: require("node-sass"),
+  //         },
+  //       },
+  //     ],
+  //   });
+  //   // console.log(config.module.rules);
+  //   return config;
+  //   // return {
+  //   //   ...config,
+  //   //   // plugins: [...config.plugins, ...custom.plugins],
+  //   //   module: { ...config.module, rules: custom.module.rules },
+  //   // };
+  // },
 };

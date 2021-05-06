@@ -1,6 +1,5 @@
 import React from "react";
 import { IconHeart, IconComment } from "../../atoms/Icon/Icon";
-//@ts-ignore
 import styles from "./ActionIcons.module.scss";
 
 export interface ActionIconsProps {

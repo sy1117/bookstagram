@@ -1,16 +1,20 @@
 import React from "react";
-import Header from "../organisms/Header/Header";
+import Header, { HeaderProps } from "../organisms/Header/Header";
 
-export interface LayoutProps {
-  menus: Array<{ path: string; icon: any }>;
+export interface LayoutProps extends HeaderProps {
   profileImageURL: string;
   logoutURL: string;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, menus }) => {
+const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const onMenuClick = (
+    menuKey: "home" | "direct" | "explore" | "heart" | "profile",
+  ) => {
+    alert(menuKey);
+  };
   return (
     <>
-      <Header menus={menus} />
+      <Header onMenuClick={onMenuClick} />
       <main style={{ paddingTop: "34px", backgroundColor: "#fafafa" }}>
         {children}
       </main>

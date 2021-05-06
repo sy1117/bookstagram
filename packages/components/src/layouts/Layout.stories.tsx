@@ -2,14 +2,7 @@ import React from "react";
 import { Meta } from "@storybook/react";
 import Layout from "./Layout";
 import * as Icons from "../atoms/Icon/Icon";
-const {
-  IconHome,
-  IconComment,
-  IconActivity,
-  IconSmile,
-  IconExplore,
-  IconDirect,
-} = Icons;
+const { IconHome, IconActivity, IconExplore, IconDirect } = Icons;
 
 export default {
   title: "Layouts/Layout",

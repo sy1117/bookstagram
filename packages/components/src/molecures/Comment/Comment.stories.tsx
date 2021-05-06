@@ -14,9 +14,9 @@ export const Normal = () => {
   return (
     <Comment
       profileImageURL={""}
-      content={test}
-      createdAt={"4시간전"}
-      userName={"123"}
+      content={"comment content"}
+      createdAt={"2021-12-31 12:30:12"}
+      userName={"userName"}
     />
   );
 };
