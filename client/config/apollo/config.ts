@@ -5,10 +5,12 @@ import {
   HttpLink,
   InMemoryCache,
   Operation,
+  split,
 } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
-import { isLoggedInVar } from "./auth";
-import { useRouter } from "next/router";
+import { isLoggedInVar } from "../../state/auth";
+import { WebSocketLink } from "@apollo/client/link/ws";
+import { getMainDefinition } from "@apollo/client/utilities";
 
 const getToken = () => {
   const token = localStorage.getItem("jwt");
@@ -54,14 +56,40 @@ const errorLink = onError(
   },
 );
 
+const wsLink = process.browser
+  ? new WebSocketLink({
+      uri: "ws://localhost:3001/graphql",
+      options: {
+        reconnect: true,
+        connectionParams: {
+          "X-JWT": getToken(),
+        },
+      },
+    })
+  : null;
+
 const httpLink = new HttpLink({
   uri: "http://localhost:3001/graphql",
 });
 
+const httpLinks = from([errorLink, authMiddleware, httpLink]);
+
+const splitLink = wsLink
+  ? split(
+      ({ query }) => {
+        const definition = getMainDefinition(query);
+        return (
+          definition.kind === "OperationDefinition" &&
+          definition.operation === "subscription"
+        );
+      },
+      from([authMiddleware, wsLink]),
+      httpLinks,
+    )
+  : httpLinks;
+
 export const client = new ApolloClient({
   cache: new InMemoryCache(),
   ssrMode: true,
-
-  // link: from([link, new HttpLink({uri: '/graphql'})])
-  link: from([errorLink, authMiddleware, httpLink]),
+  link: splitLink,
 });

@@ -1,7 +1,7 @@
 import React, { FormEvent, FormEventHandler, useState } from "react";
 import styles from "./new-post.module.scss";
 import { Input } from "@bookstagram/components";
-import { useCreatePostMutation } from "../apollo/__generated__/models";
+import { useCreatePostMutation } from "../__generated__/models";
 
 interface IProps {}
 

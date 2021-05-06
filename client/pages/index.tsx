@@ -5,13 +5,13 @@ import {
   Post,
   useCreateCommentMutation,
   useGetAllPostsQuery,
-  useGetPostLazyQuery,
   useGetPostQuery,
-} from "../apollo/__generated__/models";
-import { PostCard, ActionIcons } from "@bookstagram/components";
-import { NextPage } from "next";
+} from "../__generated__/models";
 import { PostModal } from "@bookstagram/components";
+import { NextPage } from "next";
 import useLockBodyScroll from "../hooks/useLockBodyScroll";
+import { PostCard } from "@bookstagram/components";
+import { ActionIcons } from "@bookstagram/components";
 
 const DetailModal: React.FC<{
   onClose: any;
@@ -27,7 +27,7 @@ const DetailModal: React.FC<{
 
   const commentHandler = async (event: FormEvent) => {
     await onComment(event);
-    refetch();
+    // refetch();
   };
 
   return (
@@ -61,15 +61,12 @@ const Main: NextPage<{}> = () => {
   const posts = (data?.posts as Post[]) || [];
   const [postList, setPostList] = useState(posts);
   const [detailvisible, setdetailvisible] = useState<number | false>(false);
-
   useEffect(() => {
     setPostList(posts);
   }, [data, loading]);
-
   const [comment] = useCreateCommentMutation({
-    refetchQueries: [{ query: GetAllPostsDocument }],
+    // refetchQueries: [{ query: GetAllPostsDocument }],
   });
-
   const commentHandler = (postId: number) => async (event: any) => {
     event.preventDefault();
     event.stopPropagation();
@@ -85,7 +82,6 @@ const Main: NextPage<{}> = () => {
       formEl.reset();
     }
   };
-
   return (
     <>
       {posts.map(
@@ -109,7 +105,6 @@ const Main: NextPage<{}> = () => {
                 }}
               />
             }
-            comments={comments.length}
             onComment={commentHandler(postId)}
           />
         ),
@@ -124,11 +119,5 @@ const Main: NextPage<{}> = () => {
     </>
   );
 };
-
-export async function getServerSideProps() {
-  return {
-    props: {}, // will be passed to the page component as props
-  };
-}
 
 export default Main;

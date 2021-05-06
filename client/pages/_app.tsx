@@ -1,15 +1,10 @@
-// import App from 'next/app'
-
+import App from "next/app";
 import "@bookstagram/components/dist/main.css";
-
 import { ApolloProvider, useApolloClient } from "@apollo/client/react";
 import React from "react";
-import { client } from "../apollo/config";
+import { client } from "../config/apollo/config";
 import { AppProps } from "next/app";
 import Layout from "../layout/Layout";
-import { Icons } from "@bookstagram/components";
-
-const { IconHome, IconDirect, IconExplore, IconActivity } = Icons;
 
 const MyApp = ({ Component, pageProps, router }: AppProps) => {
   if (router.route === "/_error") {

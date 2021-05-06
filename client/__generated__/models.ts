@@ -18,47 +18,47 @@ export type Scalars = {
 
 export type Comment = {
   __typename?: 'Comment';
-  content: Scalars['String'];
-  createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
-  post: Post;
+  createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
+  content: Scalars['String'];
   user: User;
+  post: Post;
 };
 
 
 export type Like = {
   __typename?: 'Like';
-  createdAt: Scalars['DateTime'];
   likeId: Scalars['ID'];
-  post: Post;
-  postId: Scalars['Float'];
+  createdAt: Scalars['DateTime'];
   user: User;
   userId: Scalars['Float'];
+  post: Post;
+  postId: Scalars['Float'];
 };
 
 export type Post = {
   __typename?: 'Post';
-  bookImageURL: Scalars['String'];
-  bookName: Scalars['String'];
-  comments: Array<Comment>;
-  content: Scalars['String'];
-  createdAt: Scalars['DateTime'];
-  likes: Array<Like>;
   postId: Scalars['Float'];
-  updatedAt: Scalars['DateTime'];
+  bookName: Scalars['String'];
+  bookImageURL: Scalars['String'];
+  content: Scalars['String'];
   user: User;
+  comments: Array<Comment>;
+  likes: Array<Like>;
+  updatedAt: Scalars['DateTime'];
+  createdAt: Scalars['DateTime'];
 };
 
 export type User = {
   __typename?: 'User';
-  comments: Array<Comment>;
   id: Scalars['Float'];
-  likes: Array<Like>;
+  userId: Scalars['String'];
+  profileImageURL: Scalars['String'];
   password: Scalars['String'];
   posts: Array<Post>;
-  profileImageURL: Scalars['String'];
-  userId: Scalars['String'];
+  comments: Array<Comment>;
+  likes: Array<Like>;
 };
 
 export type UserOutput = {
@@ -68,52 +68,52 @@ export type UserOutput = {
 
 export type SeeProfileOutput = {
   __typename?: 'SeeProfileOutput';
-  error?: Maybe<Scalars['String']>;
   ok: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
   user: UserOutput;
 };
 
 export type EditProfileOutput = {
   __typename?: 'EditProfileOutput';
-  error?: Maybe<Scalars['String']>;
   ok: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
   user?: Maybe<UserOutput>;
 };
 
 export type LoginOutput = {
   __typename?: 'LoginOutput';
-  error?: Maybe<Scalars['String']>;
   ok: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
   token: Scalars['String'];
 };
 
 export type CreateUserOutput = {
   __typename?: 'CreateUserOutput';
-  error?: Maybe<Scalars['String']>;
   ok: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
   user?: Maybe<User>;
 };
 
 export type FollowOutput = {
   __typename?: 'FollowOutput';
+  ok: Scalars['Boolean'];
   error?: Maybe<Scalars['String']>;
   follower: User;
-  ok: Scalars['Boolean'];
 };
 
 export type LikePostOutput = {
   __typename?: 'LikePostOutput';
-  error?: Maybe<Scalars['String']>;
   ok: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
   post: Post;
 };
 
 export type Query = {
   __typename?: 'Query';
-  post: Post;
-  posts: Array<Post>;
-  seeProfile: SeeProfileOutput;
   whoAmI: User;
+  seeProfile: SeeProfileOutput;
+  posts: Array<Post>;
+  post: Post;
 };
 
 
@@ -123,31 +123,21 @@ export type QueryPostArgs = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  comment: Comment;
-  createComment: Comment;
-  createPost: Post;
+  login: LoginOutput;
   createUser: CreateUserOutput;
   editProfile: EditProfileOutput;
   follow: FollowOutput;
-  likePost: LikePostOutput;
-  login: LoginOutput;
-  removePost: Post;
+  createPost: Post;
   updatePost: Post;
+  removePost: Post;
+  likePost: LikePostOutput;
+  createComment: Comment;
 };
 
 
-export type MutationCommentArgs = {
-  createComment: CreateCommentInput;
-};
-
-
-export type MutationCreateCommentArgs = {
-  createCommentInput: CreateCommentInput;
-};
-
-
-export type MutationCreatePostArgs = {
-  createPostInput: CreatePostInput;
+export type MutationLoginArgs = {
+  password: Scalars['String'];
+  userId: Scalars['String'];
 };
 
 
@@ -161,14 +151,13 @@ export type MutationEditProfileArgs = {
 };
 
 
-export type MutationLikePostArgs = {
-  likePostInput: LikePostInput;
+export type MutationCreatePostArgs = {
+  createPostInput: CreatePostInput;
 };
 
 
-export type MutationLoginArgs = {
-  password: Scalars['String'];
-  userId: Scalars['String'];
+export type MutationUpdatePostArgs = {
+  updatePostInput: UpdatePostInput;
 };
 
 
@@ -177,13 +166,18 @@ export type MutationRemovePostArgs = {
 };
 
 
-export type MutationUpdatePostArgs = {
-  updatePostInput: UpdatePostInput;
+export type MutationLikePostArgs = {
+  likePostInput: LikePostInput;
+};
+
+
+export type MutationCreateCommentArgs = {
+  createCommentInput: CreateCommentInput;
 };
 
 export type CreateUserInput = {
-  password: Scalars['String'];
   userId: Scalars['String'];
+  password: Scalars['String'];
 };
 
 export type EditProfileInput = {
@@ -191,14 +185,14 @@ export type EditProfileInput = {
 };
 
 export type CreatePostInput = {
-  bookImageURL: Scalars['String'];
   bookName: Scalars['String'];
+  bookImageURL: Scalars['String'];
   content: Scalars['String'];
 };
 
 export type UpdatePostInput = {
-  bookImageURL?: Maybe<Scalars['String']>;
   bookName?: Maybe<Scalars['String']>;
+  bookImageURL?: Maybe<Scalars['String']>;
   content?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
 };
@@ -211,6 +205,26 @@ export type CreateCommentInput = {
   content: Scalars['String'];
   postId: Scalars['Float'];
 };
+
+export type Subscription = {
+  __typename?: 'Subscription';
+  commentAdded: Comment;
+};
+
+export type OnCommentAddedSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type OnCommentAddedSubscription = (
+  { __typename?: 'Subscription' }
+  & { commentAdded: (
+    { __typename?: 'Comment' }
+    & Pick<Comment, 'createdAt' | 'content'>
+    & { user: (
+      { __typename?: 'User' }
+      & Pick<User, 'userId' | 'profileImageURL'>
+    ) }
+  ) }
+);
 
 export type CreateCommentMutationVariables = Exact<{
   postId: Scalars['Float'];
@@ -323,6 +337,40 @@ export type WhoAmIQuery = (
 );
 
 
+export const OnCommentAddedDocument = gql`
+    subscription onCommentAdded {
+  commentAdded {
+    createdAt
+    content
+    user {
+      userId
+      profileImageURL
+    }
+  }
+}
+    `;
+
+/**
+ * __useOnCommentAddedSubscription__
+ *
+ * To run a query within a React component, call `useOnCommentAddedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useOnCommentAddedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useOnCommentAddedSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useOnCommentAddedSubscription(baseOptions?: Apollo.SubscriptionHookOptions<OnCommentAddedSubscription, OnCommentAddedSubscriptionVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<OnCommentAddedSubscription, OnCommentAddedSubscriptionVariables>(OnCommentAddedDocument, options);
+      }
+export type OnCommentAddedSubscriptionHookResult = ReturnType<typeof useOnCommentAddedSubscription>;
+export type OnCommentAddedSubscriptionResult = Apollo.SubscriptionResult<OnCommentAddedSubscription>;
 export const CreateCommentDocument = gql`
     mutation createComment($postId: Float!, $content: String!) {
   createComment(createCommentInput: {postId: $postId, content: $content}) {

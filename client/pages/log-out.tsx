@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-import { logout } from "../apollo/auth";
+import { logout } from "../state/auth";
 
 const Logout = () => {
   const router = useRouter();

@@ -1,31 +1,56 @@
-import dynamic from "next/dynamic";
-
-const Layout = dynamic(() =>
-  import("@bookstagram/components").then((mod) => mod.Layout),
-);
-
-// export default Layout;
-
-// import dynamic from "next/dynamic";
-// import { Layout } from "@bookstagram/components";
-
-import { Icons } from "@bookstagram/components";
-import { useWhoAmIQuery } from "../apollo/__generated__/models";
+import { Icons, Layout } from "@bookstagram/components";
+import { addNotifications, notifications } from "../state/notifications";
+import {
+  useOnCommentAddedSubscription,
+  useWhoAmIQuery,
+} from "../__generated__/models";
 
 const { IconHome, IconDirect, IconExplore, IconActivity } = Icons;
+console.log(IconExplore);
+
+const Notifications = () => {
+  const notis = notifications();
+  return (
+    <>
+      <span>test</span>
+      {notis.map(({ user }) => (
+        <div>{user.userId}</div>
+      ))}
+    </>
+  );
+};
 
 const LayoutWrapper: React.FC = ({ children }) => {
   const { loading, data } = useWhoAmIQuery();
-  console.log(children, data);
-  // return <span>tes</span>;
 
-  const menus = [
-    { path: "/", icon: <IconHome /> },
-    { path: "/new-post", icon: <IconDirect /> },
-    { path: "/friends", icon: <IconExplore /> },
-    { path: "/notifications", icon: <IconActivity /> },
+  useOnCommentAddedSubscription({
+    onSubscriptionComplete() {},
+    onSubscriptionData({ subscriptionData: { data } }) {
+      alert("내 포스트에 새로운 댓글이 추가되었습니다");
+      if (data?.commentAdded) {
+        addNotifications({
+          user: {
+            userId: data.commentAdded.user.userId,
+            profileImageURL: data.commentAdded.user.profileImageURL,
+          },
+          content: data.commentAdded.content,
+          createdAt: data.commentAdded.createdAt,
+          type: "COMMENT_ADDED",
+        });
+      }
+    },
+  });
+  const menus: Array<any> = [
+    // { path: "/", icon: <IconHome /> },
+    // { path: "/new-post", icon: <IconDirect /> },
+    // { path: "/friends", icon: <IconExplore /> },
+    // {
+    //   path: "/notifications",
+    //   icon: <IconActivity />,
+    //   dropdownMenu: <Notifications />,
+    // },
     {
-      // path: "/profile",
+      path: "/profile",
       icon: (
         <span>
           <img
