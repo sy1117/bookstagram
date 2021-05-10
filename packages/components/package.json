@@ -14,7 +14,8 @@
     "start": "webpack --watch",
     "build": "webpack ",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "chromatic": "npx chromatic --project-token 4d62cafe6686"
   },
   "dependencies": {
     "@ant-design/icons": "^4.5.0",
@@ -29,7 +30,8 @@
     "typescript-plugin-css-modules": "^3.2.0",
     "url-loader": "^4.1.1",
     "webpack": "^5.36.2",
-    "webpack-cli": "^4.2.0"
+    "webpack-cli": "^4.2.0",
+    "webpack-node-externals": "^3.0.0"
   },
   "peerDependencies": {
     "react": "17.0.1",
@@ -46,6 +48,7 @@
     "@storybook/preset-scss": "^1.0.3",
     "@storybook/react": "^6.2.9",
     "babel-loader": "^8.2.2",
+    "chromatic": "^5.8.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "sass": "^1.32.12",

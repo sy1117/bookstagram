@@ -1,5 +1,6 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const nodeExternals = require("webpack-node-externals");
 
 module.exports = {
   mode: "production",
@@ -59,5 +60,5 @@ module.exports = {
   resolve: {
     extensions: [".tsx", ".ts", ".js", ".scss"],
   },
-  externals: ["react", "react-dom"],
+  externals: [nodeExternals(), "react", "react-dom", "antd"],
 };
