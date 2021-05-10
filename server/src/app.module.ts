@@ -1,16 +1,10 @@
-import {
-  MiddlewareConsumer,
-  Module,
-  NestModule,
-  RequestMethod,
-} from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AppService } from './app.service';
 import { GraphQLModule } from '@nestjs/graphql';
 import { UsersModule } from './users/users.module';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
 import { PostModule } from './post/post.module';
-import { JwtMiddleware } from './jwt/jwt.middleware';
 import { JwtModule } from './jwt/jwt.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -20,6 +14,7 @@ import { Like } from './post/entities/like.entity';
 import { Comment } from './post/entities/comment.entity';
 import { AppResolver } from './app.resolver';
 import { CommonModule } from './common/common.module';
+import { Follow } from './users/entities/follow.entity';
 
 @Module({
   imports: [
@@ -35,7 +30,7 @@ import { CommonModule } from './common/common.module';
       port: 5432,
       database: 'bookstagram',
       synchronize: true,
-      entities: [User, Like, Post, Comment],
+      entities: [User, Like, Post, Comment, Follow],
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/__generated__/schema.gql'),

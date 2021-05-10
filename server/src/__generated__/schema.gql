@@ -79,6 +79,7 @@ type FollowOutput {
   ok: Boolean!
   error: String
   follower: User!
+  following: User!
 }
 
 type LikePostOutput {
@@ -98,7 +99,7 @@ type Mutation {
   login(password: String!, userId: String!): LoginOutput!
   createUser(createUserInput: CreateUserInput!): CreateUserOutput!
   editProfile(editProfileInput: EditProfileInput!): EditProfileOutput!
-  follow: FollowOutput!
+  follow(followingUserId: String!): FollowOutput!
   createPost(createPostInput: CreatePostInput!): Post!
   updatePost(updatePostInput: UpdatePostInput!): Post!
   removePost(id: Int!): Post!

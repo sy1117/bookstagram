@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
 import { AuthUser } from 'src/auth/auth-user.decorator';
@@ -24,10 +24,10 @@ export class UsersResolver {
     return this.usersService.login(userId, password);
   }
 
+  @UseGuards(GqlAuthGuard)
   @Query(() => User)
   async whoAmI(@AuthUser() auth: User) {
     const { user } = await this.usersService.findByUserId(auth.userId);
-    console.log(user);
     return user;
   }
 
@@ -46,7 +46,10 @@ export class UsersResolver {
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => FollowOutput)
-  follow(@AuthUser() user: User, userId: string) {
-    return this.usersService.follow(userId);
+  follow(
+    @AuthUser() user: User,
+    @Args('followingUserId') followingUserId: string,
+  ) {
+    return this.usersService.follow(followingUserId, user);
   }
 }

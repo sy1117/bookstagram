@@ -20,15 +20,18 @@ export class GqlAuthGuard implements CanActivate {
   async canActivate(context: ExecutionContext) {
     const gqlContext = GqlExecutionContext.create(context).getContext();
     const { token } = gqlContext;
+    console.log('token', gqlContext);
     if (!token) return false;
 
     const decode: any = this.jwtService.verify(token.toString());
     const user = await this.usersService.findOne({
       userId: decode.userId,
     });
+    console.log('user', user);
     if (!user) {
       throw new UnauthorizedException();
     }
+    context['user'] = user;
     gqlContext['user'] = user;
     return true;
   }

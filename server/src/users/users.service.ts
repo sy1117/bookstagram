@@ -8,12 +8,15 @@ import { LoginOutput } from './dto/login.dto';
 import { SeeProfileOutput } from './dto/see-profile.dto';
 import { CreateUserInput, CreateUserOutput } from './dto/create-user.dto';
 import { FollowOutput } from './dto/follow.dto';
+import { Follow } from './entities/follow.entity';
 @Injectable()
 @Global()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    @InjectRepository(Follow)
+    private readonly followRepository: Repository<Follow>,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -116,19 +119,29 @@ export class UsersService {
     }
   }
 
-  async follow(followeeId: string): Promise<FollowOutput> {
-    const user = await this.userRepository.findOne({
-      userId: followeeId,
+  async follow(
+    followingUserId: string,
+    followerUser: User,
+  ): Promise<FollowOutput> {
+    const followingUser = await this.userRepository.findOne({
+      userId: followingUserId,
     });
-    if (!user) {
+    if (!followingUser) {
       return {
         ok: false,
         error: 'Cannot found user ',
       };
     }
+    const followerUserId = followerUser.userId;
+    const follow = await this.followRepository.create({
+      followerUserId,
+      followingUserId,
+    });
+    await this.followRepository.save(follow);
     return {
       ok: true,
-      follower: user,
+      follower: followerUser,
+      following: followingUser,
     };
   }
 }

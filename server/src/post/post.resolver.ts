@@ -79,15 +79,13 @@ export class PostResolver {
     }
     return result;
   }
-  @UseGuards(GqlAuthGuard)
+
   @Subscription((returns) => Comment, {
-    filter: (payload, variables, context) => {
-      if (!context.user) return false;
-      return payload.commentAdded?.user.userId === context.user.userId;
+    filter: ({ commentAdded, user }) => {
+      return commentAdded?.user.userId === user.userId;
     },
   })
-  commentAdded(@AuthUser() user) {
-    console.log(user);
+  commentAdded() {
     return this.pubSub.asyncIterator('commentAdded');
   }
 }

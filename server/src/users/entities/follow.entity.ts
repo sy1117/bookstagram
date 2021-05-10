@@ -14,8 +14,8 @@ export class Follow {
   createdAt: string;
 
   @Column()
-  followerId: number;
+  followingUserId: string;
 
   @Column()
-  followeeId: number;
+  followerUserId: string;
 }

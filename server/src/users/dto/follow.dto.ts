@@ -6,4 +6,6 @@ import { User } from '../entities/user.entity';
 export class FollowOutput extends CoreOutput {
   @Field()
   follower?: User;
+  @Field()
+  following?: User;
 }
