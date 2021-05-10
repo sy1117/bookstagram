@@ -55,7 +55,6 @@
     "start:dev": "lerna run start --parallel",
     "client": "lerna run start --scope @bookstagram/client",
     "server": "lerna run start:dev --scope @bookstagram/server  --parallel",
-    "storybook": "lerna run storybook",
-    "build-storybook": "lerna run build-storybook --scope @bookstagram/componennts"
+    "storybook": "lerna run storybook"
   }
 }
