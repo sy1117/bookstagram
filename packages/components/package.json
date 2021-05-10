@@ -24,6 +24,7 @@
     "file-loader": "^6.2.0",
     "image-webpack-loader": "^7.0.1",
     "mini-css-extract-plugin": "^1.6.0",
+    "node-sass": "^6.0.0",
     "postcss-loader": "^4.2.0",
     "sass-loader": "^11.0.1",
     "typescript": "^4.2.2",
