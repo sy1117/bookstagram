@@ -24,6 +24,9 @@ jobs:
 
 
         # 👇 Adds Chromatic as a step in the workflow
+      - name: Move To Directory
+        run: cd packages/components
+
       - name: Publish to Chromatic
         run: cd packages/components
         uses: chromaui/action@v1
