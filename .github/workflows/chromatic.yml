@@ -31,4 +31,6 @@ jobs:
           token: ${{ secrets.GIT_TOKEN }}
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          storybookBuildDir: packages/components/storyboook-static
+          storybookBuildDir: packages/components/storybook-static
+          skip: true
+          allowConsoleErrors
