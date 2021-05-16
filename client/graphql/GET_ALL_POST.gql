@@ -7,6 +7,7 @@ query getAllPosts {
     comments {
       user {
         userId
+        profileImageURL
       }
       content
     }
@@ -16,5 +17,7 @@ query getAllPosts {
     likes {
       likeId
     }
+    createdAt
+    updatedAt
   }
 }

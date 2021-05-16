@@ -25,6 +25,48 @@ export type Comment = {
   post: Post;
 };
 
+export type CreateCommentInput = {
+  content: Scalars['String'];
+  postId: Scalars['Float'];
+};
+
+export type CreatePostInput = {
+  bookName: Scalars['String'];
+  bookImageURL: Scalars['String'];
+  content: Scalars['String'];
+};
+
+export type CreateUserInput = {
+  userId: Scalars['String'];
+  password: Scalars['String'];
+};
+
+export type CreateUserOutput = {
+  __typename?: 'CreateUserOutput';
+  ok: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
+  user?: Maybe<User>;
+};
+
+
+export type EditProfileInput = {
+  password?: Maybe<Scalars['String']>;
+};
+
+export type EditProfileOutput = {
+  __typename?: 'EditProfileOutput';
+  ok: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
+  user?: Maybe<UserOutput>;
+};
+
+export type FollowOutput = {
+  __typename?: 'FollowOutput';
+  ok: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
+  follower: User;
+  following: User;
+};
 
 export type Like = {
   __typename?: 'Like';
@@ -36,68 +78,8 @@ export type Like = {
   postId: Scalars['Float'];
 };
 
-export type Post = {
-  __typename?: 'Post';
+export type LikePostInput = {
   postId: Scalars['Float'];
-  bookName: Scalars['String'];
-  bookImageURL: Scalars['String'];
-  content: Scalars['String'];
-  user: User;
-  comments: Array<Comment>;
-  likes: Array<Like>;
-  updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-};
-
-export type User = {
-  __typename?: 'User';
-  id: Scalars['Float'];
-  userId: Scalars['String'];
-  profileImageURL: Scalars['String'];
-  password: Scalars['String'];
-  posts: Array<Post>;
-  comments: Array<Comment>;
-  likes: Array<Like>;
-};
-
-export type UserOutput = {
-  __typename?: 'UserOutput';
-  id: Scalars['Float'];
-};
-
-export type SeeProfileOutput = {
-  __typename?: 'SeeProfileOutput';
-  ok: Scalars['Boolean'];
-  error?: Maybe<Scalars['String']>;
-  user: UserOutput;
-};
-
-export type EditProfileOutput = {
-  __typename?: 'EditProfileOutput';
-  ok: Scalars['Boolean'];
-  error?: Maybe<Scalars['String']>;
-  user?: Maybe<UserOutput>;
-};
-
-export type LoginOutput = {
-  __typename?: 'LoginOutput';
-  ok: Scalars['Boolean'];
-  error?: Maybe<Scalars['String']>;
-  token: Scalars['String'];
-};
-
-export type CreateUserOutput = {
-  __typename?: 'CreateUserOutput';
-  ok: Scalars['Boolean'];
-  error?: Maybe<Scalars['String']>;
-  user?: Maybe<User>;
-};
-
-export type FollowOutput = {
-  __typename?: 'FollowOutput';
-  ok: Scalars['Boolean'];
-  error?: Maybe<Scalars['String']>;
-  follower: User;
 };
 
 export type LikePostOutput = {
@@ -107,17 +89,11 @@ export type LikePostOutput = {
   post: Post;
 };
 
-export type Query = {
-  __typename?: 'Query';
-  whoAmI: User;
-  seeProfile: SeeProfileOutput;
-  posts: Array<Post>;
-  post: Post;
-};
-
-
-export type QueryPostArgs = {
-  id: Scalars['Int'];
+export type LoginOutput = {
+  __typename?: 'LoginOutput';
+  ok: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
+  token: Scalars['String'];
 };
 
 export type Mutation = {
@@ -150,6 +126,11 @@ export type MutationEditProfileArgs = {
 };
 
 
+export type MutationFollowArgs = {
+  followingUserId: Scalars['String'];
+};
+
+
 export type MutationCreatePostArgs = {
   createPostInput: CreatePostInput;
 };
@@ -174,19 +155,42 @@ export type MutationCreateCommentArgs = {
   createCommentInput: CreateCommentInput;
 };
 
-export type CreateUserInput = {
-  userId: Scalars['String'];
-  password: Scalars['String'];
-};
-
-export type EditProfileInput = {
-  password?: Maybe<Scalars['String']>;
-};
-
-export type CreatePostInput = {
+export type Post = {
+  __typename?: 'Post';
+  postId: Scalars['Float'];
   bookName: Scalars['String'];
   bookImageURL: Scalars['String'];
   content: Scalars['String'];
+  user: User;
+  comments: Array<Comment>;
+  likes: Array<Like>;
+  updatedAt: Scalars['DateTime'];
+  createdAt: Scalars['DateTime'];
+};
+
+export type Query = {
+  __typename?: 'Query';
+  whoAmI: User;
+  seeProfile: SeeProfileOutput;
+  posts: Array<Post>;
+  post: Post;
+};
+
+
+export type QueryPostArgs = {
+  id: Scalars['Int'];
+};
+
+export type SeeProfileOutput = {
+  __typename?: 'SeeProfileOutput';
+  ok: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
+  user: UserOutput;
+};
+
+export type Subscription = {
+  __typename?: 'Subscription';
+  commentAdded: Comment;
 };
 
 export type UpdatePostInput = {
@@ -196,18 +200,20 @@ export type UpdatePostInput = {
   id: Scalars['Int'];
 };
 
-export type LikePostInput = {
-  postId: Scalars['Float'];
+export type User = {
+  __typename?: 'User';
+  id: Scalars['Float'];
+  userId: Scalars['String'];
+  profileImageURL: Scalars['String'];
+  password: Scalars['String'];
+  posts: Array<Post>;
+  comments: Array<Comment>;
+  likes: Array<Like>;
 };
 
-export type CreateCommentInput = {
-  content: Scalars['String'];
-  postId: Scalars['Float'];
-};
-
-export type Subscription = {
-  __typename?: 'Subscription';
-  commentAdded: Comment;
+export type UserOutput = {
+  __typename?: 'UserOutput';
+  id: Scalars['Float'];
 };
 
 
@@ -291,29 +297,29 @@ export type ResolversTypes = {
   Comment: ResolverTypeWrapper<Comment>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   String: ResolverTypeWrapper<Scalars['String']>;
-  DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
-  Like: ResolverTypeWrapper<Like>;
+  CreateCommentInput: CreateCommentInput;
   Float: ResolverTypeWrapper<Scalars['Float']>;
+  CreatePostInput: CreatePostInput;
+  CreateUserInput: CreateUserInput;
+  CreateUserOutput: ResolverTypeWrapper<CreateUserOutput>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
+  EditProfileInput: EditProfileInput;
+  EditProfileOutput: ResolverTypeWrapper<EditProfileOutput>;
+  FollowOutput: ResolverTypeWrapper<FollowOutput>;
+  Like: ResolverTypeWrapper<Like>;
+  LikePostInput: LikePostInput;
+  LikePostOutput: ResolverTypeWrapper<LikePostOutput>;
+  LoginOutput: ResolverTypeWrapper<LoginOutput>;
+  Mutation: ResolverTypeWrapper<{}>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   Post: ResolverTypeWrapper<Post>;
+  Query: ResolverTypeWrapper<{}>;
+  SeeProfileOutput: ResolverTypeWrapper<SeeProfileOutput>;
+  Subscription: ResolverTypeWrapper<{}>;
+  UpdatePostInput: UpdatePostInput;
   User: ResolverTypeWrapper<User>;
   UserOutput: ResolverTypeWrapper<UserOutput>;
-  SeeProfileOutput: ResolverTypeWrapper<SeeProfileOutput>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  EditProfileOutput: ResolverTypeWrapper<EditProfileOutput>;
-  LoginOutput: ResolverTypeWrapper<LoginOutput>;
-  CreateUserOutput: ResolverTypeWrapper<CreateUserOutput>;
-  FollowOutput: ResolverTypeWrapper<FollowOutput>;
-  LikePostOutput: ResolverTypeWrapper<LikePostOutput>;
-  Query: ResolverTypeWrapper<{}>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
-  Mutation: ResolverTypeWrapper<{}>;
-  CreateUserInput: CreateUserInput;
-  EditProfileInput: EditProfileInput;
-  CreatePostInput: CreatePostInput;
-  UpdatePostInput: UpdatePostInput;
-  LikePostInput: LikePostInput;
-  CreateCommentInput: CreateCommentInput;
-  Subscription: ResolverTypeWrapper<{}>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -321,29 +327,29 @@ export type ResolversParentTypes = {
   Comment: Comment;
   ID: Scalars['ID'];
   String: Scalars['String'];
-  DateTime: Scalars['DateTime'];
-  Like: Like;
+  CreateCommentInput: CreateCommentInput;
   Float: Scalars['Float'];
+  CreatePostInput: CreatePostInput;
+  CreateUserInput: CreateUserInput;
+  CreateUserOutput: CreateUserOutput;
+  Boolean: Scalars['Boolean'];
+  DateTime: Scalars['DateTime'];
+  EditProfileInput: EditProfileInput;
+  EditProfileOutput: EditProfileOutput;
+  FollowOutput: FollowOutput;
+  Like: Like;
+  LikePostInput: LikePostInput;
+  LikePostOutput: LikePostOutput;
+  LoginOutput: LoginOutput;
+  Mutation: {};
+  Int: Scalars['Int'];
   Post: Post;
+  Query: {};
+  SeeProfileOutput: SeeProfileOutput;
+  Subscription: {};
+  UpdatePostInput: UpdatePostInput;
   User: User;
   UserOutput: UserOutput;
-  SeeProfileOutput: SeeProfileOutput;
-  Boolean: Scalars['Boolean'];
-  EditProfileOutput: EditProfileOutput;
-  LoginOutput: LoginOutput;
-  CreateUserOutput: CreateUserOutput;
-  FollowOutput: FollowOutput;
-  LikePostOutput: LikePostOutput;
-  Query: {};
-  Int: Scalars['Int'];
-  Mutation: {};
-  CreateUserInput: CreateUserInput;
-  EditProfileInput: EditProfileInput;
-  CreatePostInput: CreatePostInput;
-  UpdatePostInput: UpdatePostInput;
-  LikePostInput: LikePostInput;
-  CreateCommentInput: CreateCommentInput;
-  Subscription: {};
 };
 
 export type CommentResolvers<ContextType = any, ParentType extends ResolversParentTypes['Comment'] = ResolversParentTypes['Comment']> = {
@@ -356,9 +362,31 @@ export type CommentResolvers<ContextType = any, ParentType extends ResolversPare
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type CreateUserOutputResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateUserOutput'] = ResolversParentTypes['CreateUserOutput']> = {
+  ok?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
   name: 'DateTime';
 }
+
+export type EditProfileOutputResolvers<ContextType = any, ParentType extends ResolversParentTypes['EditProfileOutput'] = ResolversParentTypes['EditProfileOutput']> = {
+  ok?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['UserOutput']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type FollowOutputResolvers<ContextType = any, ParentType extends ResolversParentTypes['FollowOutput'] = ResolversParentTypes['FollowOutput']> = {
+  ok?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  follower?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  following?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
 
 export type LikeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Like'] = ResolversParentTypes['Like']> = {
   likeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -368,6 +396,32 @@ export type LikeResolvers<ContextType = any, ParentType extends ResolversParentT
   post?: Resolver<ResolversTypes['Post'], ParentType, ContextType>;
   postId?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type LikePostOutputResolvers<ContextType = any, ParentType extends ResolversParentTypes['LikePostOutput'] = ResolversParentTypes['LikePostOutput']> = {
+  ok?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  post?: Resolver<ResolversTypes['Post'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type LoginOutputResolvers<ContextType = any, ParentType extends ResolversParentTypes['LoginOutput'] = ResolversParentTypes['LoginOutput']> = {
+  ok?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  token?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  login?: Resolver<ResolversTypes['LoginOutput'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'password' | 'userId'>>;
+  createUser?: Resolver<ResolversTypes['CreateUserOutput'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'createUserInput'>>;
+  editProfile?: Resolver<ResolversTypes['EditProfileOutput'], ParentType, ContextType, RequireFields<MutationEditProfileArgs, 'editProfileInput'>>;
+  follow?: Resolver<ResolversTypes['FollowOutput'], ParentType, ContextType, RequireFields<MutationFollowArgs, 'followingUserId'>>;
+  createPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationCreatePostArgs, 'createPostInput'>>;
+  updatePost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationUpdatePostArgs, 'updatePostInput'>>;
+  removePost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationRemovePostArgs, 'id'>>;
+  likePost?: Resolver<ResolversTypes['LikePostOutput'], ParentType, ContextType, RequireFields<MutationLikePostArgs, 'likePostInput'>>;
+  createComment?: Resolver<ResolversTypes['Comment'], ParentType, ContextType, RequireFields<MutationCreateCommentArgs, 'createCommentInput'>>;
 };
 
 export type PostResolvers<ContextType = any, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {
@@ -381,6 +435,24 @@ export type PostResolvers<ContextType = any, ParentType extends ResolversParentT
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  whoAmI?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  seeProfile?: Resolver<ResolversTypes['SeeProfileOutput'], ParentType, ContextType>;
+  posts?: Resolver<Array<ResolversTypes['Post']>, ParentType, ContextType>;
+  post?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<QueryPostArgs, 'id'>>;
+};
+
+export type SeeProfileOutputResolvers<ContextType = any, ParentType extends ResolversParentTypes['SeeProfileOutput'] = ResolversParentTypes['SeeProfileOutput']> = {
+  ok?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['UserOutput'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
+  commentAdded?: SubscriptionResolver<ResolversTypes['Comment'], "commentAdded", ParentType, ContextType>;
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
@@ -399,87 +471,22 @@ export type UserOutputResolvers<ContextType = any, ParentType extends ResolversP
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type SeeProfileOutputResolvers<ContextType = any, ParentType extends ResolversParentTypes['SeeProfileOutput'] = ResolversParentTypes['SeeProfileOutput']> = {
-  ok?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  user?: Resolver<ResolversTypes['UserOutput'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type EditProfileOutputResolvers<ContextType = any, ParentType extends ResolversParentTypes['EditProfileOutput'] = ResolversParentTypes['EditProfileOutput']> = {
-  ok?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  user?: Resolver<Maybe<ResolversTypes['UserOutput']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type LoginOutputResolvers<ContextType = any, ParentType extends ResolversParentTypes['LoginOutput'] = ResolversParentTypes['LoginOutput']> = {
-  ok?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  token?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type CreateUserOutputResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateUserOutput'] = ResolversParentTypes['CreateUserOutput']> = {
-  ok?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type FollowOutputResolvers<ContextType = any, ParentType extends ResolversParentTypes['FollowOutput'] = ResolversParentTypes['FollowOutput']> = {
-  ok?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  follower?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type LikePostOutputResolvers<ContextType = any, ParentType extends ResolversParentTypes['LikePostOutput'] = ResolversParentTypes['LikePostOutput']> = {
-  ok?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  post?: Resolver<ResolversTypes['Post'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  whoAmI?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
-  seeProfile?: Resolver<ResolversTypes['SeeProfileOutput'], ParentType, ContextType>;
-  posts?: Resolver<Array<ResolversTypes['Post']>, ParentType, ContextType>;
-  post?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<QueryPostArgs, 'id'>>;
-};
-
-export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  login?: Resolver<ResolversTypes['LoginOutput'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'password' | 'userId'>>;
-  createUser?: Resolver<ResolversTypes['CreateUserOutput'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'createUserInput'>>;
-  editProfile?: Resolver<ResolversTypes['EditProfileOutput'], ParentType, ContextType, RequireFields<MutationEditProfileArgs, 'editProfileInput'>>;
-  follow?: Resolver<ResolversTypes['FollowOutput'], ParentType, ContextType>;
-  createPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationCreatePostArgs, 'createPostInput'>>;
-  updatePost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationUpdatePostArgs, 'updatePostInput'>>;
-  removePost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationRemovePostArgs, 'id'>>;
-  likePost?: Resolver<ResolversTypes['LikePostOutput'], ParentType, ContextType, RequireFields<MutationLikePostArgs, 'likePostInput'>>;
-  createComment?: Resolver<ResolversTypes['Comment'], ParentType, ContextType, RequireFields<MutationCreateCommentArgs, 'createCommentInput'>>;
-};
-
-export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
-  commentAdded?: SubscriptionResolver<ResolversTypes['Comment'], "commentAdded", ParentType, ContextType>;
-};
-
 export type Resolvers<ContextType = any> = {
   Comment?: CommentResolvers<ContextType>;
+  CreateUserOutput?: CreateUserOutputResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
+  EditProfileOutput?: EditProfileOutputResolvers<ContextType>;
+  FollowOutput?: FollowOutputResolvers<ContextType>;
   Like?: LikeResolvers<ContextType>;
+  LikePostOutput?: LikePostOutputResolvers<ContextType>;
+  LoginOutput?: LoginOutputResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
   Post?: PostResolvers<ContextType>;
+  Query?: QueryResolvers<ContextType>;
+  SeeProfileOutput?: SeeProfileOutputResolvers<ContextType>;
+  Subscription?: SubscriptionResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
   UserOutput?: UserOutputResolvers<ContextType>;
-  SeeProfileOutput?: SeeProfileOutputResolvers<ContextType>;
-  EditProfileOutput?: EditProfileOutputResolvers<ContextType>;
-  LoginOutput?: LoginOutputResolvers<ContextType>;
-  CreateUserOutput?: CreateUserOutputResolvers<ContextType>;
-  FollowOutput?: FollowOutputResolvers<ContextType>;
-  LikePostOutput?: LikePostOutputResolvers<ContextType>;
-  Query?: QueryResolvers<ContextType>;
-  Mutation?: MutationResolvers<ContextType>;
-  Subscription?: SubscriptionResolvers<ContextType>;
 };
 
 

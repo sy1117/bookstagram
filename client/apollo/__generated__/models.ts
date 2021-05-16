@@ -26,6 +26,48 @@ export type Comment = {
   post: Post;
 };
 
+export type CreateCommentInput = {
+  content: Scalars['String'];
+  postId: Scalars['Float'];
+};
+
+export type CreatePostInput = {
+  bookName: Scalars['String'];
+  bookImageURL: Scalars['String'];
+  content: Scalars['String'];
+};
+
+export type CreateUserInput = {
+  userId: Scalars['String'];
+  password: Scalars['String'];
+};
+
+export type CreateUserOutput = {
+  __typename?: 'CreateUserOutput';
+  ok: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
+  user?: Maybe<User>;
+};
+
+
+export type EditProfileInput = {
+  password?: Maybe<Scalars['String']>;
+};
+
+export type EditProfileOutput = {
+  __typename?: 'EditProfileOutput';
+  ok: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
+  user?: Maybe<UserOutput>;
+};
+
+export type FollowOutput = {
+  __typename?: 'FollowOutput';
+  ok: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
+  follower: User;
+  following: User;
+};
 
 export type Like = {
   __typename?: 'Like';
@@ -37,68 +79,8 @@ export type Like = {
   postId: Scalars['Float'];
 };
 
-export type Post = {
-  __typename?: 'Post';
+export type LikePostInput = {
   postId: Scalars['Float'];
-  bookName: Scalars['String'];
-  bookImageURL: Scalars['String'];
-  content: Scalars['String'];
-  user: User;
-  comments: Array<Comment>;
-  likes: Array<Like>;
-  updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-};
-
-export type User = {
-  __typename?: 'User';
-  id: Scalars['Float'];
-  userId: Scalars['String'];
-  profileImageURL: Scalars['String'];
-  password: Scalars['String'];
-  posts: Array<Post>;
-  comments: Array<Comment>;
-  likes: Array<Like>;
-};
-
-export type UserOutput = {
-  __typename?: 'UserOutput';
-  id: Scalars['Float'];
-};
-
-export type SeeProfileOutput = {
-  __typename?: 'SeeProfileOutput';
-  ok: Scalars['Boolean'];
-  error?: Maybe<Scalars['String']>;
-  user: UserOutput;
-};
-
-export type EditProfileOutput = {
-  __typename?: 'EditProfileOutput';
-  ok: Scalars['Boolean'];
-  error?: Maybe<Scalars['String']>;
-  user?: Maybe<UserOutput>;
-};
-
-export type LoginOutput = {
-  __typename?: 'LoginOutput';
-  ok: Scalars['Boolean'];
-  error?: Maybe<Scalars['String']>;
-  token: Scalars['String'];
-};
-
-export type CreateUserOutput = {
-  __typename?: 'CreateUserOutput';
-  ok: Scalars['Boolean'];
-  error?: Maybe<Scalars['String']>;
-  user?: Maybe<User>;
-};
-
-export type FollowOutput = {
-  __typename?: 'FollowOutput';
-  ok: Scalars['Boolean'];
-  error?: Maybe<Scalars['String']>;
-  follower: User;
 };
 
 export type LikePostOutput = {
@@ -108,17 +90,11 @@ export type LikePostOutput = {
   post: Post;
 };
 
-export type Query = {
-  __typename?: 'Query';
-  whoAmI: User;
-  seeProfile: SeeProfileOutput;
-  posts: Array<Post>;
-  post: Post;
-};
-
-
-export type QueryPostArgs = {
-  id: Scalars['Int'];
+export type LoginOutput = {
+  __typename?: 'LoginOutput';
+  ok: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
+  token: Scalars['String'];
 };
 
 export type Mutation = {
@@ -151,6 +127,11 @@ export type MutationEditProfileArgs = {
 };
 
 
+export type MutationFollowArgs = {
+  followingUserId: Scalars['String'];
+};
+
+
 export type MutationCreatePostArgs = {
   createPostInput: CreatePostInput;
 };
@@ -175,19 +156,42 @@ export type MutationCreateCommentArgs = {
   createCommentInput: CreateCommentInput;
 };
 
-export type CreateUserInput = {
-  userId: Scalars['String'];
-  password: Scalars['String'];
-};
-
-export type EditProfileInput = {
-  password?: Maybe<Scalars['String']>;
-};
-
-export type CreatePostInput = {
+export type Post = {
+  __typename?: 'Post';
+  postId: Scalars['Float'];
   bookName: Scalars['String'];
   bookImageURL: Scalars['String'];
   content: Scalars['String'];
+  user: User;
+  comments: Array<Comment>;
+  likes: Array<Like>;
+  updatedAt: Scalars['DateTime'];
+  createdAt: Scalars['DateTime'];
+};
+
+export type Query = {
+  __typename?: 'Query';
+  whoAmI: User;
+  seeProfile: SeeProfileOutput;
+  posts: Array<Post>;
+  post: Post;
+};
+
+
+export type QueryPostArgs = {
+  id: Scalars['Int'];
+};
+
+export type SeeProfileOutput = {
+  __typename?: 'SeeProfileOutput';
+  ok: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
+  user: UserOutput;
+};
+
+export type Subscription = {
+  __typename?: 'Subscription';
+  commentAdded: Comment;
 };
 
 export type UpdatePostInput = {
@@ -197,18 +201,20 @@ export type UpdatePostInput = {
   id: Scalars['Int'];
 };
 
-export type LikePostInput = {
-  postId: Scalars['Float'];
+export type User = {
+  __typename?: 'User';
+  id: Scalars['Float'];
+  userId: Scalars['String'];
+  profileImageURL: Scalars['String'];
+  password: Scalars['String'];
+  posts: Array<Post>;
+  comments: Array<Comment>;
+  likes: Array<Like>;
 };
 
-export type CreateCommentInput = {
-  content: Scalars['String'];
-  postId: Scalars['Float'];
-};
-
-export type Subscription = {
-  __typename?: 'Subscription';
-  commentAdded: Comment;
+export type UserOutput = {
+  __typename?: 'UserOutput';
+  id: Scalars['Float'];
 };
 
 export type OnCommentAddedSubscriptionVariables = Exact<{ [key: string]: never; }>;
@@ -266,13 +272,13 @@ export type GetAllPostsQuery = (
   { __typename?: 'Query' }
   & { posts: Array<(
     { __typename?: 'Post' }
-    & Pick<Post, 'postId' | 'bookImageURL' | 'bookName' | 'content'>
+    & Pick<Post, 'postId' | 'bookImageURL' | 'bookName' | 'content' | 'createdAt' | 'updatedAt'>
     & { comments: Array<(
       { __typename?: 'Comment' }
       & Pick<Comment, 'content'>
       & { user: (
         { __typename?: 'User' }
-        & Pick<User, 'userId'>
+        & Pick<User, 'userId' | 'profileImageURL'>
       ) }
     )>, user: (
       { __typename?: 'User' }
@@ -458,6 +464,7 @@ export const GetAllPostsDocument = gql`
     comments {
       user {
         userId
+        profileImageURL
       }
       content
     }
@@ -467,6 +474,8 @@ export const GetAllPostsDocument = gql`
     likes {
       likeId
     }
+    createdAt
+    updatedAt
   }
 }
     `;
