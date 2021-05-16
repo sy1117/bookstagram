@@ -31,7 +31,7 @@ type Post {
   bookImageURL: String!
   content: String!
   user: User!
-  comments: [Comment!]!
+  comments(take: Float, skip: Float): [Comment!]!
   likes: [Like!]!
   updatedAt: DateTime!
   createdAt: DateTime!

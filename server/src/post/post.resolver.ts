@@ -5,7 +5,8 @@ import {
   Args,
   Int,
   Subscription,
-  GqlExecutionContext,
+  ResolveField,
+  Parent,
 } from '@nestjs/graphql';
 import { PostService } from './post.service';
 import { Post } from './entities/post.entity';
@@ -44,6 +45,16 @@ export class PostResolver {
   @Query(() => [Post], { name: 'posts' })
   findAll(@AuthUser() user) {
     return this.postService.findAll();
+  }
+
+  @ResolveField()
+  async comments(
+    @Parent() post: Post,
+    @Args('skip', { nullable: true }) skip: number,
+    @Args('take', { nullable: true }) take: number,
+  ) {
+    const { postId } = post;
+    return this.postService.findAllComments({ postId, skip, take });
   }
 
   @Query(() => Post, { name: 'post' })

@@ -106,4 +106,23 @@ export class PostService {
 
     return comment;
   }
+
+  async findAllComments({
+    postId,
+    skip,
+    take,
+  }: {
+    postId: number;
+    skip: number;
+    take: number;
+  }) {
+    return await this.commentRepository.find({
+      where: {
+        post: { postId },
+      },
+      relations: ['user'],
+      skip,
+      take,
+    });
+  }
 }
