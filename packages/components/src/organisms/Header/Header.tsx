@@ -4,10 +4,9 @@ import styles from "./Header.module.scss";
 import Logo from "./Logo";
 import Menu from "./Menu";
 
+export type MenuType = "home" | "direct" | "explore" | "heart" | "profile";
 export interface HeaderProps {
-  onMenuClick?: (
-    menuKey: "home" | "direct" | "explore" | "heart" | "profile",
-  ) => void;
+  onMenuClick?: (menuKey: MenuType) => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {

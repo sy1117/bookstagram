@@ -1,8 +1,10 @@
 import React, { FormEvent } from "react";
 import styles from "./PostCard.module.scss";
+import Comment from "../../molecures/Comment/Comment";
 import CommentField from "../../molecures/CommentField/CommentField";
 import PostHeader from "../../molecures/PostHeader/PostHeader";
 import clsx from "clsx";
+import RelativeTime from "../../atoms/RelativeTime/RelativeTime";
 
 export interface PostCardProps {
   profileImageURL: string;
@@ -12,11 +14,11 @@ export interface PostCardProps {
   content: string;
   // icons: JSX.Element;
   actionIcons?: JSX.Element;
-  // comments?: Array<any>;
   // like?: boolean;
   likes?: number;
-  comments?: number;
+  comments?: Array<any>;
   onComment?: (event: FormEvent) => void;
+  createdAt?: string;
   // onLike?: () => void;
 }
 
@@ -31,13 +33,15 @@ export const PostCard: React.FC<PostCardProps> = ({
   content,
   actionIcons,
   likes = 0,
-  comments = 0,
+  comments,
   onComment,
+  createdAt,
 }) => {
   const commentHandler = (event: FormEvent) => {
     event.preventDefault();
     onComment(event);
   };
+
   return (
     <div className={styles.contents_box}>
       <article className={styles.contents}>
@@ -47,7 +51,8 @@ export const PostCard: React.FC<PostCardProps> = ({
           postTitle={subTitle}
         />
         <section className={styles.img_section}>
-          <div className={styles.trans_inner}>
+          {/* <div className={styles.trans_inner}> */}
+          <div>
             <div className={styles.img_container}>
               <img src={imageURL} alt="image" />
             </div>
@@ -59,20 +64,27 @@ export const PostCard: React.FC<PostCardProps> = ({
             좋아요 <span>{likes}</span>개{"\t"}
           </span>
           <span>
-            댓글 <span>{comments}</span>개{" "}
+            댓글 <span>{comments.length}</span>개{" "}
           </span>
         </section>
         <section className={styles.content_container}>
-          <span className={styles.m_text}>{title}</span>
-          <span className={styles.content}>{content}</span>
+          <span className={styles.m_text}>{title}</span>&nbsp;
+          {/* <span className={styles.content}>{content}</span> */}
+          <span>{content}</span>
         </section>
         <section className={styles.comment_container}>
-          <a className={styles.show_all_btn} href={"#"}>
-            댓글 {comments}개 모두 보기{" "}
+          <a className={styles.show_all_btn} onClick={commentHandler}>
+            댓글 {comments.length}개 모두 보기{" "}
           </a>
-          {/* {comments?.map((comment) => (
-            <Comment data={comment as any} />
-          ))} */}
+          {comments?.length &&
+            Array.from(comments)
+              .splice(0, 2)
+              .map((comment) => (
+                <Comment
+                  userName={comment.user.userId}
+                  content={comment.content}
+                />
+              ))}
           {/* <div className={styles.comment} id="comment-list-ajax-post37">
                         <div className={clsx(styles.comment, styles.detail)}>
                             <div className={clsx(styles.nick_name, styles.m_text)}>dongdong2</div>
@@ -82,8 +94,9 @@ export const PostCard: React.FC<PostCardProps> = ({
                     <div className={styles.small_heart}>
                         <div className={styles.sprite_small_heart_icon_outline}></div>
                     </div> */}
+          <br />
+          <RelativeTime datetime={createdAt} />
         </section>
-        <section className={styles.timer}>1시간 전</section>
         <section>
           <CommentField onSubmit={commentHandler} />
           {/* <form onSubmit={commentHandler}>

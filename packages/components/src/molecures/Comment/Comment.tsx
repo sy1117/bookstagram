@@ -1,12 +1,12 @@
 import React from "react";
-import RelativeTime from "../../atoms/RelativeTime";
+import RelativeTime from "../../atoms/RelativeTime/RelativeTime";
 import styles from "./Comment.module.scss";
 
 export interface CommentProps {
-  profileImageURL: string;
+  profileImageURL?: string;
   content: string;
   userName: string;
-  createdAt: string;
+  createdAt?: string;
 }
 
 const Comment: React.FC<CommentProps> = ({
@@ -16,14 +16,16 @@ const Comment: React.FC<CommentProps> = ({
   createdAt,
 }) => (
   <div className={styles.user_detail}>
-    <div className={styles.user}>
-      <img src={profileImageURL} alt="user" />
-    </div>
+    {profileImageURL && (
+      <div className={styles.user}>
+        <img src={profileImageURL} alt="user" />
+      </div>
+    )}
     <div className={styles.comment}>
-      <span className={styles.user_id}>{userName}</span>
-      {content}
+      <span className={styles.user_id}>{userName}</span>&nbsp;
+      <span>{content}</span>
       <div className={styles.time}>
-        <RelativeTime datetime={createdAt}></RelativeTime>
+        {createdAt && <RelativeTime datetime={createdAt}></RelativeTime>}
         {/* <span className="try_comment">답글 달기</span> */}
       </div>
       <div className={styles.icon_wrap}>

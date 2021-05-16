@@ -26,20 +26,13 @@ const menus: Array<MenuData> = [
   {
     icon: <IconActivity />,
     key: "heart",
-    dropdownMenu: [
-      {
-        key: "login",
-        icon: <IconActivity />,
-        title: "로그아웃",
-      },
-    ],
   },
   {
     icon: <ProfileImage url="test.jpg" size="small" />,
     key: "profile",
     dropdownMenu: [
       {
-        key: "login",
+        key: "logout",
         icon: <IconActivity />,
         title: "로그아웃",
       },
