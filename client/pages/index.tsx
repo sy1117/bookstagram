@@ -1,17 +1,17 @@
 // import { Feed } from "@bookstagram/components";
-import React, { FormEvent, FormEventHandler, useEffect, useState } from "react";
+import React, { FormEvent, FormEventHandler, useState } from "react";
+import { PostModal } from "@bookstagram/components";
+import { NextPage } from "next";
+import useLockBodyScroll from "../hooks/useLockBodyScroll";
+import { PostCard } from "@bookstagram/components";
+import { ActionIcons } from "@bookstagram/components";
 import {
   GetAllPostsDocument,
   Post,
   useCreateCommentMutation,
   useGetAllPostsQuery,
   useGetPostQuery,
-} from "../__generated__/models";
-import { PostModal } from "@bookstagram/components";
-import { NextPage } from "next";
-import useLockBodyScroll from "../hooks/useLockBodyScroll";
-import { PostCard } from "@bookstagram/components";
-import { ActionIcons } from "@bookstagram/components";
+} from "../apollo/__generated__/models";
 
 const DetailModal: React.FC<{
   onClose: any;
@@ -27,7 +27,6 @@ const DetailModal: React.FC<{
 
   const commentHandler = async (event: FormEvent) => {
     await onComment(event);
-    // refetch();
   };
 
   return (
@@ -40,32 +39,16 @@ const DetailModal: React.FC<{
       userName={data?.post.user.userId}
       content={data?.post.content}
       onComment={commentHandler}
-      comments={
-        data?.post.comments.map(
-          ({ content, user: { userId, profileImageURL }, createdAt }) => {
-            return {
-              content,
-              userName: userId,
-              profileImageURL,
-              createdAt,
-            };
-          },
-        ) || []
-      }
     ></PostModal>
   );
 };
 
 const Main: NextPage<{}> = () => {
-  const { data, error, loading } = useGetAllPostsQuery();
+  const { data, loading } = useGetAllPostsQuery();
   const posts = (data?.posts as Post[]) || [];
-  const [postList, setPostList] = useState(posts);
   const [detailvisible, setdetailvisible] = useState<number | false>(false);
-  useEffect(() => {
-    setPostList(posts);
-  }, [data, loading]);
   const [comment] = useCreateCommentMutation({
-    // refetchQueries: [{ query: GetAllPostsDocument }],
+    refetchQueries: [{ query: GetAllPostsDocument }],
   });
   const commentHandler = (postId: number) => async (event: any) => {
     event.preventDefault();
@@ -82,13 +65,20 @@ const Main: NextPage<{}> = () => {
       formEl.reset();
     }
   };
+
   return (
     <>
       {posts.map(
-        (
-          { content, bookImageURL, bookName, user, likes, comments, postId },
-          idx,
-        ) => (
+        ({
+          content,
+          bookImageURL,
+          bookName,
+          user,
+          likes,
+          comments,
+          postId,
+          createdAt,
+        }) => (
           <PostCard
             profileURL={"s"}
             content={content}
@@ -96,7 +86,7 @@ const Main: NextPage<{}> = () => {
             imageURL={bookImageURL || "https://picsum.photos/300/300.jpg"}
             subTitle={bookName}
             title={user?.userId}
-            comments={comments.length}
+            comments={comments || []}
             likes={likes.length}
             actionIcons={
               <ActionIcons
@@ -106,6 +96,7 @@ const Main: NextPage<{}> = () => {
               />
             }
             onComment={commentHandler(postId)}
+            createdAt={createdAt}
           />
         ),
       )}

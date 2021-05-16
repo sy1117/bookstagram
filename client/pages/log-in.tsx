@@ -2,10 +2,8 @@ import React, { FormEvent, FormEventHandler } from "react";
 import clsx from "clsx";
 import styles from "./login.module.scss";
 import { isLoggedInVar } from "../state/auth";
-import { useLoginMutation } from "../__generated__/models";
 import { useRouter } from "next/router";
-import { ApolloError } from "@apollo/client";
-import { userVar } from "../state/user";
+import { useLoginMutation } from "../apollo/__generated__/models";
 
 const LoginPage = () => {
   const router = useRouter();
