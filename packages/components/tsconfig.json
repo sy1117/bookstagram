@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
     "plugins": [{ "name": "typescript-plugin-css-modules" }],
+    "paths": {
+      "src/*": ["src/*"]
+    },
     "outDir": "./dist/",
     "sourceMap": true,
     "module": "commonjs",
