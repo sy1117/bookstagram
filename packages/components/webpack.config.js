@@ -7,12 +7,15 @@ module.exports = {
   entry: path.resolve(__dirname, "/src/index.tsx"),
   output: {
     path: path.resolve(__dirname, "./dist/"),
-    filename: "main.js",
     publicPath: "/dist/",
     libraryTarget: "umd",
     globalObject: "this",
   },
-  target: "node",
+  resolve: {
+    alias: {
+      src: path.resolve(__dirname, "src/"),
+    },
+  },
   plugins: [new MiniCssExtractPlugin()],
   module: {
     rules: [
@@ -38,9 +41,6 @@ module.exports = {
         exclude: [/node_modules/, /\.stories.tsx$/],
         use: [
           MiniCssExtractPlugin.loader,
-          // {
-          //   loader: "typings-for-css-modules-loader?modules&sass&namedExport",
-          // },
           {
             loader: "css-loader",
             options: {
@@ -60,5 +60,23 @@ module.exports = {
   resolve: {
     extensions: [".tsx", ".ts", ".js", ".scss"],
   },
-  externals: [nodeExternals(), "react", "react-dom", "antd"],
+  externals: [
+    nodeExternals(),
+    {
+      react: {
+        root: "React",
+        commonjs2: "react",
+        commonjs: "react",
+        amd: "react",
+        umd: "react",
+      },
+      "react-dom": {
+        root: "ReactDOM",
+        commonjs2: "react-dom",
+        commonjs: "react-dom",
+        amd: "react-dom",
+        umd: "react-dom",
+      },
+    },
+  ],
 };
