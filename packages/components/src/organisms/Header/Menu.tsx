@@ -8,37 +8,17 @@ import {
 } from "../../atoms/Icon/Icon";
 import ProfileImage from "../../atoms/ProfileImage/ProfileImage";
 import { useState } from "react";
+import { MenuType } from "./Header";
 
-interface MenuDataBase {
+interface MenuDataBase<T> {
   icon: JSX.Element;
-  key: string;
+  key: T;
   title?: string;
 }
 
-interface MenuData extends MenuDataBase {
-  dropdownMenu?: Array<MenuDataBase & { title: string }>;
+interface MenuData<T> extends MenuDataBase<T> {
+  dropdownMenu?: Array<MenuDataBase<T>>;
 }
-
-const menus: Array<MenuData> = [
-  { icon: <IconHome />, key: "home" },
-  { icon: <IconDirect />, key: "direct" },
-  { icon: <IconExplore />, key: "explore" },
-  {
-    icon: <IconActivity />,
-    key: "heart",
-  },
-  {
-    icon: <ProfileImage url="test.jpg" size="small" />,
-    key: "profile",
-    dropdownMenu: [
-      {
-        key: "logout",
-        icon: <IconActivity />,
-        title: "로그아웃",
-      },
-    ],
-  },
-];
 
 const MenuItem: React.FC<any> = ({
   icon,
@@ -85,12 +65,13 @@ const MenuItem: React.FC<any> = ({
         style={{ display: dropdownVisible ? "block" : "none" }}
       >
         {Array.isArray(dropdownMenu)
-          ? dropdownMenu.map(({ key: dropdownMenuKey, title }) => (
+          ? dropdownMenu.map(({ key: dropdownMenuKey, title }, idx) => (
               <a
                 tabIndex={1}
                 onClick={menuClickHandler}
                 data-role={"dropdownmenu"}
                 data-key={dropdownMenuKey}
+                key={idx}
               >
                 {title}
               </a>
@@ -101,10 +82,36 @@ const MenuItem: React.FC<any> = ({
   );
 };
 
-const Menu = ({ onMenuClick }) => {
-  const menuClickHandler: MouseEventHandler = (dataKey) => {
+export interface MenuProps {
+  onMenuClick: (menu: MenuType) => void;
+  profileImageURL: string;
+}
+
+const Menu: React.FC<MenuProps> = ({ onMenuClick, profileImageURL }) => {
+  const menus: Array<MenuData<MenuType>> = [
+    { icon: <IconHome />, key: "home" },
+    { icon: <IconDirect />, key: "direct" },
+    { icon: <IconExplore />, key: "explore" },
+    {
+      icon: <IconActivity />,
+      key: "heart",
+    },
+    {
+      icon: <ProfileImage url={profileImageURL} size="small" />,
+      key: "profile",
+      // dropdownMenu: [
+      //   {
+      //     key: "logout",
+      //     icon: <IconActivity />,
+      //     title: "로그아웃",
+      //   },
+      // ],
+    },
+  ];
+  const menuClickHandler = (dataKey: MenuType) => {
     if (onMenuClick) onMenuClick(dataKey);
   };
+
   return (
     <div className={styles.right_icons}>
       {menus?.map(({ icon, dropdownMenu, key }, idx) => {

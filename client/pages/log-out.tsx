@@ -12,7 +12,7 @@ const Logout = () => {
 
   logout();
 
-  return <div>...logout</div>;
+  return <div>logout...</div>;
 };
 
 export default Logout;

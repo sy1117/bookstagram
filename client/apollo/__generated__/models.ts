@@ -169,12 +169,32 @@ export type Post = {
   createdAt: Scalars['DateTime'];
 };
 
+
+export type PostCommentsArgs = {
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+};
+
 export type Query = {
   __typename?: 'Query';
   whoAmI: User;
   seeProfile: SeeProfileOutput;
   posts: Array<Post>;
+  comments: Array<Comment>;
   post: Post;
+};
+
+
+export type QueryPostsArgs = {
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryCommentsArgs = {
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  postId: Scalars['Float'];
 };
 
 
@@ -265,7 +285,10 @@ export type CreatePostMutation = (
   ) }
 );
 
-export type GetAllPostsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetAllPostsQueryVariables = Exact<{
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+}>;
 
 
 export type GetAllPostsQuery = (
@@ -282,7 +305,7 @@ export type GetAllPostsQuery = (
       ) }
     )>, user: (
       { __typename?: 'User' }
-      & Pick<User, 'userId'>
+      & Pick<User, 'userId' | 'profileImageURL'>
     ), likes: Array<(
       { __typename?: 'Like' }
       & Pick<Like, 'likeId'>
@@ -455,13 +478,13 @@ export type CreatePostMutationHookResult = ReturnType<typeof useCreatePostMutati
 export type CreatePostMutationResult = Apollo.MutationResult<CreatePostMutation>;
 export type CreatePostMutationOptions = Apollo.BaseMutationOptions<CreatePostMutation, CreatePostMutationVariables>;
 export const GetAllPostsDocument = gql`
-    query getAllPosts {
-  posts {
+    query getAllPosts($skip: Int, $take: Int) {
+  posts(skip: $skip, take: $take) {
     postId
     bookImageURL
     bookName
     content
-    comments {
+    comments(skip: 0, take: 2) {
       user {
         userId
         profileImageURL
@@ -470,6 +493,7 @@ export const GetAllPostsDocument = gql`
     }
     user {
       userId
+      profileImageURL
     }
     likes {
       likeId
@@ -492,6 +516,8 @@ export const GetAllPostsDocument = gql`
  * @example
  * const { data, loading, error } = useGetAllPostsQuery({
  *   variables: {
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
  *   },
  * });
  */

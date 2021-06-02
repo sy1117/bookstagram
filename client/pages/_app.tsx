@@ -1,18 +1,27 @@
-import App from "next/app";
 import "@bookstagram/components/dist/main.css";
-import { ApolloProvider } from "@apollo/client/react";
+import { ApolloProvider, useReactiveVar } from "@apollo/client/react";
 import React from "react";
 import { client } from "../config/apollo/config";
 import { AppProps } from "next/app";
 import HeaderLayout from "../layout/HeaderLayout";
 import { useWhoAmIQuery } from "../apollo/__generated__/models";
+import { isLoggedInVar } from "../state/auth";
+import { userVar } from "../state/user";
 
-const MyApp = ({ Component, pageProps, router, ...extra }: AppProps) => {
-  const { loading, data } = useWhoAmIQuery({
+const MyApp = ({ Component, pageProps, router }: AppProps) => {
+  const { loading } = useWhoAmIQuery({
     client,
+    onCompleted(result) {
+      if (result.whoAmI.__typename === "User") {
+        const {
+          whoAmI: { profileImageURL, userId },
+        } = result;
+        userVar({ profileImageURL, userId });
+      }
+    },
   });
-
-  const isLoggedIn = data?.whoAmI.__typename === "User";
+  const isLoggedIn = useReactiveVar(isLoggedInVar);
+  const user = useReactiveVar(userVar);
 
   if (loading) {
     return <div>loading...</div>;
@@ -60,23 +69,3 @@ const MyApp = ({ Component, pageProps, router, ...extra }: AppProps) => {
 // }
 
 export default MyApp;
-function authVar(authVar: any) {
-  throw new Error("Function not implemented.");
-}
-function withSession(
-  arg0: ({
-    req,
-    res,
-  }: {
-    req: any;
-    res: any;
-  }) => Promise<
-    | {
-        redirect: { destination: string; permanent: boolean };
-        props?: undefined;
-      }
-    | { props: { user: any }; redirect?: undefined }
-  >,
-) {
-  throw new Error("Function not implemented.");
-}

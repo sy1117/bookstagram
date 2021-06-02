@@ -1,7 +1,5 @@
 # `@bookstagram/client`
 
-> TODO: description
-
 ## Usage
 
 ```

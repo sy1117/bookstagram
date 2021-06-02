@@ -11,6 +11,7 @@ const LoginPage = () => {
     onCompleted({ login: { token } }) {
       isLoggedInVar(true);
       localStorage.setItem("jwt", token);
+      router.push("/");
     },
   });
 

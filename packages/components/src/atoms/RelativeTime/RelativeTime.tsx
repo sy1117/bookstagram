@@ -31,7 +31,6 @@ export interface RelativeTimeProps {
 }
 
 export const RelativeTime: React.FC<RelativeTimeProps> = ({ datetime }) => {
-  console.log(datetime);
   return <span className={styles.root}>{timeForToday(datetime)}</span>;
 };
 

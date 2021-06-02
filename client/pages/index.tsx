@@ -1,55 +1,24 @@
-// import { Feed } from "@bookstagram/components";
-import React, { FormEvent, FormEventHandler, useState } from "react";
-import { PostModal } from "@bookstagram/components";
-import { NextPage } from "next";
-import useLockBodyScroll from "../hooks/useLockBodyScroll";
+import React, { useState } from "react";
 import { PostCard } from "@bookstagram/components";
 import { ActionIcons } from "@bookstagram/components";
 import {
   GetAllPostsDocument,
   Post,
   useCreateCommentMutation,
-  useGetAllPostsQuery,
-  useGetPostQuery,
 } from "../apollo/__generated__/models";
+import PostModal from "../components/PostModal";
+import useFetchMore from "../hooks/useFetchMore";
 
-const DetailModal: React.FC<{
-  onClose: any;
-  dataId: number;
-  onComment: FormEventHandler;
-}> = ({ onClose, dataId, onComment }) => {
-  useLockBodyScroll();
-  const { data, refetch } = useGetPostQuery({
-    variables: {
-      postId: dataId,
-    },
-  });
+const OFFSET = 5;
 
-  const commentHandler = async (event: FormEvent) => {
-    await onComment(event);
-  };
-
-  return (
-    <PostModal
-      visible={true}
-      onClose={onClose}
-      profileImageURL={data?.post.user.profileImageURL}
-      mainImageURL={data?.post.bookImageURL}
-      bookName={data?.post.bookName}
-      userName={data?.post.user.userId}
-      content={data?.post.content}
-      onComment={commentHandler}
-    ></PostModal>
-  );
-};
-
-const Main: NextPage<{}> = () => {
-  const { data, loading } = useGetAllPostsQuery();
+const Main = () => {
+  const { data, loading } = useFetchMore(GetAllPostsDocument, OFFSET);
   const posts = (data?.posts as Post[]) || [];
   const [detailvisible, setdetailvisible] = useState<number | false>(false);
   const [comment] = useCreateCommentMutation({
     refetchQueries: [{ query: GetAllPostsDocument }],
   });
+
   const commentHandler = (postId: number) => async (event: any) => {
     event.preventDefault();
     event.stopPropagation();
@@ -69,20 +38,22 @@ const Main: NextPage<{}> = () => {
   return (
     <>
       {posts.map(
-        ({
-          content,
-          bookImageURL,
-          bookName,
-          user,
-          likes,
-          comments,
-          postId,
-          createdAt,
-        }) => (
+        (
+          {
+            content,
+            bookImageURL,
+            bookName,
+            user,
+            likes,
+            comments,
+            postId,
+            createdAt,
+          },
+          idx,
+        ) => (
           <PostCard
-            profileURL={"s"}
-            content={content}
             profileImageURL={user.profileImageURL}
+            content={content}
             imageURL={bookImageURL || "https://picsum.photos/300/300.jpg"}
             subTitle={bookName}
             title={user?.userId}
@@ -97,11 +68,13 @@ const Main: NextPage<{}> = () => {
             }
             onComment={commentHandler(postId)}
             createdAt={createdAt}
+            key={idx}
           />
         ),
       )}
+      {loading}
       {detailvisible && (
-        <DetailModal
+        <PostModal
           dataId={detailvisible}
           onClose={() => setdetailvisible(false)}
           onComment={commentHandler(detailvisible)}

@@ -10,7 +10,10 @@ import {
 import { onError } from "@apollo/client/link/error";
 import { isLoggedInVar } from "../../state/auth";
 import { WebSocketLink } from "@apollo/client/link/ws";
-import { getMainDefinition } from "@apollo/client/utilities";
+import {
+  getMainDefinition,
+  offsetLimitPagination,
+} from "@apollo/client/utilities";
 
 const getToken = () => {
   const token = localStorage.getItem("jwt");
@@ -89,7 +92,20 @@ const splitLink = wsLink
   : httpLinks;
 
 export const client = new ApolloClient({
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          posts: {
+            ...offsetLimitPagination(),
+            merge(existing = [], incoming: any[]) {
+              return [...existing, ...incoming];
+            },
+          },
+        },
+      },
+    },
+  }),
   ssrMode: true,
   link: splitLink,
 });

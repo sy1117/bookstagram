@@ -39,7 +39,6 @@
 #### 인증 전략
 
 - Passport.js + JWT(Json Web Token)
--
 
 #### Notification
 

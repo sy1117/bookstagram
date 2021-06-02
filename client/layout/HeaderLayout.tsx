@@ -1,13 +1,12 @@
-import { Icons, Layout, MenuType } from "@bookstagram/components";
-import {
-  useWhoAmIQuery,
-  useOnCommentAddedSubscription,
-} from "../apollo/__generated__/models";
-import { logout } from "../state/auth";
+import { Layout } from "@bookstagram/components";
+import { useRouter } from "next/router";
+import { useOnCommentAddedSubscription } from "../apollo/__generated__/models";
 import { addNotifications } from "../state/notifications";
+import { userVar } from "../state/user";
 
 const LayoutWrapper: React.FC = ({ children }) => {
-  const { loading, data } = useWhoAmIQuery();
+  const user = userVar();
+  const router = useRouter();
 
   useOnCommentAddedSubscription({
     onSubscriptionComplete() {},
@@ -28,10 +27,9 @@ const LayoutWrapper: React.FC = ({ children }) => {
   });
 
   const onMenuClick = (menu: any) => {
-    alert(menu);
     switch (menu) {
       case "logout":
-        logout();
+        router.push("/log-out");
         break;
       default:
         break;
@@ -39,11 +37,7 @@ const LayoutWrapper: React.FC = ({ children }) => {
   };
 
   return (
-    <Layout
-      onMenuClick={onMenuClick}
-      profileImageURL={"estt"}
-      logoutURL={"/testwew"}
-    >
+    <Layout onMenuClick={onMenuClick} profileImageURL={user?.profileImageURL}>
       {children}
     </Layout>
   );

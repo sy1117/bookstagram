@@ -168,12 +168,32 @@ export type Post = {
   createdAt: Scalars['DateTime'];
 };
 
+
+export type PostCommentsArgs = {
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+};
+
 export type Query = {
   __typename?: 'Query';
   whoAmI: User;
   seeProfile: SeeProfileOutput;
   posts: Array<Post>;
+  comments: Array<Comment>;
   post: Post;
+};
+
+
+export type QueryPostsArgs = {
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryCommentsArgs = {
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  postId: Scalars['Float'];
 };
 
 
@@ -430,7 +450,7 @@ export type PostResolvers<ContextType = any, ParentType extends ResolversParentT
   bookImageURL?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   content?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
-  comments?: Resolver<Array<ResolversTypes['Comment']>, ParentType, ContextType>;
+  comments?: Resolver<Array<ResolversTypes['Comment']>, ParentType, ContextType, RequireFields<PostCommentsArgs, never>>;
   likes?: Resolver<Array<ResolversTypes['Like']>, ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
@@ -440,7 +460,8 @@ export type PostResolvers<ContextType = any, ParentType extends ResolversParentT
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   whoAmI?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   seeProfile?: Resolver<ResolversTypes['SeeProfileOutput'], ParentType, ContextType>;
-  posts?: Resolver<Array<ResolversTypes['Post']>, ParentType, ContextType>;
+  posts?: Resolver<Array<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<QueryPostsArgs, never>>;
+  comments?: Resolver<Array<ResolversTypes['Comment']>, ParentType, ContextType, RequireFields<QueryCommentsArgs, 'postId'>>;
   post?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<QueryPostArgs, 'id'>>;
 };
 

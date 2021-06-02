@@ -32,9 +32,14 @@ export class PostService {
     }
   }
 
-  async findAll() {
+  async findAll({ skip, take }) {
     return await this.postRepository.find({
       relations: ['user', 'comments', 'comments.user', 'likes', 'likes.user'],
+      order: {
+        updatedAt: 'DESC',
+      },
+      skip,
+      take,
     });
   }
 
@@ -121,6 +126,9 @@ export class PostService {
         post: { postId },
       },
       relations: ['user'],
+      order: {
+        updatedAt: 'DESC',
+      },
       skip,
       take,
     });

@@ -31,7 +31,7 @@ type Post {
   bookImageURL: String!
   content: String!
   user: User!
-  comments(take: Float, skip: Float): [Comment!]!
+  comments(take: Int, skip: Int): [Comment!]!
   likes: [Like!]!
   updatedAt: DateTime!
   createdAt: DateTime!
@@ -91,7 +91,8 @@ type LikePostOutput {
 type Query {
   whoAmI: User!
   seeProfile: SeeProfileOutput!
-  posts: [Post!]!
+  posts(take: Int, skip: Int): [Post!]!
+  comments(take: Int, skip: Int, postId: Float!): [Comment!]!
   post(id: Int!): Post!
 }
 

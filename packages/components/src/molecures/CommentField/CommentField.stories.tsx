@@ -14,7 +14,6 @@ export const Normal = () => {
     <CommentField
       onSubmit={(event) => {
         event.preventDefault();
-        alert("onSubmit");
       }}
     />
   );

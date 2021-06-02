@@ -22,13 +22,10 @@ export interface PostCardProps {
   // onLike?: () => void;
 }
 
-const defaultProfileImage =
-  "https://instagram.fjrs8-1.fna.fbcdn.net/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=instagram.fjrs8-1.fna.fbcdn.net&_nc_ohc=hLTkwc3uTqUAX_XtCE4&ccb=7-4&oh=8de804fc6efffe6b0a222043b06583dc&oe=6087738F&_nc_sid=cff2a4&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2-ccb7-4";
-
 export const PostCard: React.FC<PostCardProps> = ({
   title,
   subTitle,
-  profileImageURL = defaultProfileImage,
+  profileImageURL,
   imageURL,
   content,
   actionIcons,
@@ -79,10 +76,11 @@ export const PostCard: React.FC<PostCardProps> = ({
           {comments?.length &&
             Array.from(comments)
               .splice(0, 2)
-              .map((comment) => (
+              .map((comment, idx) => (
                 <Comment
-                  userName={comment.user.userId}
+                  userName={comment.user.userName}
                   content={comment.content}
+                  key={idx}
                 />
               ))}
           {/* <div className={styles.comment} id="comment-list-ajax-post37">

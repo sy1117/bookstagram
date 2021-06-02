@@ -43,15 +43,33 @@ export class PostResolver {
 
   @UseGuards(GqlAuthGuard)
   @Query(() => [Post], { name: 'posts' })
-  findAll(@AuthUser() user) {
-    return this.postService.findAll();
+  findAll(
+    @AuthUser() user,
+    @Args('skip', { nullable: true, type: () => Int }) skip: number,
+    @Args('take', { nullable: true, type: () => Int }) take: number,
+  ) {
+    return this.postService.findAll({
+      skip,
+      take,
+    });
   }
 
+  @UseGuards(GqlAuthGuard)
+  @Query(() => [Comment], { name: 'comments' })
+  findAllComments(
+    @Args('postId') postId: number,
+    @Args('skip', { nullable: true, type: () => Int }) skip: number,
+    @Args('take', { nullable: true, type: () => Int }) take: number,
+  ) {
+    return this.postService.findAllComments({ postId, skip, take });
+  }
+
+  @UseGuards(GqlAuthGuard)
   @ResolveField()
   async comments(
     @Parent() post: Post,
-    @Args('skip', { nullable: true }) skip: number,
-    @Args('take', { nullable: true }) take: number,
+    @Args('skip', { nullable: true, type: () => Int }) skip: number,
+    @Args('take', { nullable: true, type: () => Int }) take: number,
   ) {
     const { postId } = post;
     return this.postService.findAllComments({ postId, skip, take });

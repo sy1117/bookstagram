@@ -7,7 +7,6 @@ import {
 import { Reflector } from '@nestjs/core';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { JwtService } from 'src/jwt/jwt.service';
-import { User } from 'src/users/entities/user.entity';
 import { UsersService } from 'src/users/users.service';
 
 @Injectable()
@@ -20,14 +19,12 @@ export class GqlAuthGuard implements CanActivate {
   async canActivate(context: ExecutionContext) {
     const gqlContext = GqlExecutionContext.create(context).getContext();
     const { token } = gqlContext;
-    console.log('token', gqlContext);
     if (!token) return false;
 
     const decode: any = this.jwtService.verify(token.toString());
     const user = await this.usersService.findOne({
       userId: decode.userId,
     });
-    console.log('user', user);
     if (!user) {
       throw new UnauthorizedException();
     }

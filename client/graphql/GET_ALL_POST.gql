@@ -1,10 +1,10 @@
-query getAllPosts {
-  posts {
+query getAllPosts($skip: Int, $take: Int) {
+  posts(skip: $skip, take: $take) {
     postId
     bookImageURL
     bookName
     content
-    comments {
+    comments(skip: 0, take: 2) {
       user {
         userId
         profileImageURL
@@ -13,6 +13,7 @@ query getAllPosts {
     }
     user {
       userId
+      profileImageURL
     }
     likes {
       likeId

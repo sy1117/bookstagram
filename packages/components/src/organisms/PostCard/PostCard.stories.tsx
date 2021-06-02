@@ -27,7 +27,6 @@ Normal.args = {
   actionIcons: <ActionIcons />,
   onComment: (event: FormEvent<HTMLFormElement>) => {
     const formdata = new FormData(event.currentTarget);
-    alert(formdata.get("comment"));
     event.currentTarget.reset();
   },
   // userId:"testuser",
