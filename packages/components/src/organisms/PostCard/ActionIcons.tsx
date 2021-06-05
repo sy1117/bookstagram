@@ -25,13 +25,13 @@ export const ActionIcons: React.FC<ActionIconsProps> = ({
           <IconComment />
         </div>
         {/* <div className={styles.sprite_bubble_icon}></div> */}
-        <div className={styles.sprite_share_icon} data-name="share"></div>
+        {/* <div className={styles.sprite_share_icon} data-name="share"></div> */}
       </div>
       <div className={styles.right_icon}>
-        <div
+        {/* <div
           className={styles.sprite_bookmark_outline}
           data-name="bookmark"
-        ></div>
+        ></div> */}
       </div>
     </>
   );

@@ -11,7 +11,6 @@ const LayoutWrapper: React.FC = ({ children }) => {
   useOnCommentAddedSubscription({
     onSubscriptionComplete() {},
     onSubscriptionData({ subscriptionData: { data } }) {
-      alert("내 포스트에 새로운 댓글이 추가되었습니다");
       if (data?.commentAdded) {
         addNotifications({
           user: {

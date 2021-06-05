@@ -21,6 +21,7 @@
     "@ant-design/icons": "^4.5.0",
     "clsx": "^1.1.1",
     "css-loader": "^5.2.4",
+    "css-modules-typescript-loader": "^4.0.1",
     "file-loader": "^6.2.0",
     "image-webpack-loader": "^7.0.1",
     "mini-css-extract-plugin": "^1.6.0",
@@ -56,6 +57,8 @@
     "storybook-addon-react-docgen": "^1.2.42",
     "storybook-css-modules-preset": "^1.0.6",
     "style-loader": "^2.0.0",
+    "stylelint": "^13.13.1",
+    "stylelint-webpack-plugin": "^2.1.1",
     "typings-for-css-modules-loader": "^1.7.0"
   }
 }

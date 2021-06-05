@@ -1,6 +1,5 @@
 import { makeVar } from "@apollo/client";
-import { User } from "../__generated__/models";
-
+import { User } from "../apollo/__generated__/models";
 interface Notification {
   user: Pick<User, "userId" | "profileImageURL">;
   createdAt: string;
@@ -11,6 +10,5 @@ interface Notification {
 export const notifications = makeVar<Array<Notification>>([]);
 
 export const addNotifications = (newNoti: Notification) => {
-  //   localStorage.getItem("jwt");
   notifications([...notifications(), newNoti]);
 };

@@ -71,14 +71,15 @@ export const PostCard: React.FC<PostCardProps> = ({
         </section>
         <section className={styles.comment_container}>
           <a className={styles.show_all_btn} onClick={commentHandler}>
-            댓글 {comments.length}개 모두 보기{" "}
+            댓글 {comments.length}개 모두 보기
           </a>
-          {comments?.length &&
-            Array.from(comments)
-              .splice(0, 2)
+          {comments?.length > 0 &&
+            comments
+              .slice(0, Math.min(2, comments.length))
               .map((comment, idx) => (
                 <Comment
-                  userName={comment.user.userName}
+                  dense={true}
+                  userName={comment.user.userId}
                   content={comment.content}
                   key={idx}
                 />
@@ -97,20 +98,6 @@ export const PostCard: React.FC<PostCardProps> = ({
         </section>
         <section>
           <CommentField onSubmit={commentHandler} />
-          {/* <form onSubmit={commentHandler}>
-            <div className={styles.comment_field} id=" add-comment-post37">
-              <div className={styles.icon}>
-                <IconSmile />
-              </div>
-              <input type="text" name="content" placeholder="댓글달기..." />
-              <button
-                className={clsx(styles.upload_btn, styles.m_text)}
-                data-name="comment"
-              >
-                게시
-              </button>
-            </div>
-          </form> */}
         </section>
       </article>
     </div>

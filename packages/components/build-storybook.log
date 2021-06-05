@@ -1,6 +1,7 @@
 info @storybook/react v6.2.9
 info 
-info => Cleaning outputDir: /var/folders/vf/hc7q17dj43s2k8lmkm1bydjw0000gn/T/chromatic--30820-N6DGLegX1BRe
+info => Cleaning outputDir: /var/folders/vf/hc7q17dj43s2k8lmkm1bydjw0000gn/T/chromatic--63557-HTdIFV9CFR0c
+info => Copying static files: ././dist => ./
 info => Loading presets
 info Found existing addon "@storybook/addon-docs", skipping.
 info => Compiling manager..
@@ -15,501 +16,6 @@ WARN Maybe your glob was invalid?
 WARN see: https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#correct-globs-in-mainjs
 info => Using PostCSS preset with postcss@7.0.35
 info => Using default Webpack5 setup
-preview Write virtual module: /Users/soyoung/Desktop/workspace/bookstagram/packages/components/.storybook/storybook-init-framework-entry.js import '@storybook/react';
-preview Write virtual module: /Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/addon-docs/dist/esm/frameworks/common/config.js-generated-other-entry.js function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-/* eslint-disable import/no-unresolved */
-import { addDecorator, addParameters, addLoader, addArgTypesEnhancer } from '/Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/client-api';
-import { logger } from '/Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/client-logger';
-import * as config from '/Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/addon-docs/dist/esm/frameworks/common/config.js';
-Object.keys(config).forEach(function (key) {
-  var value = config[key];
-
-  switch (key) {
-    case 'args':
-    case 'argTypes':
-      {
-        return logger.warn('Invalid args/argTypes in config, ignoring.', JSON.stringify(value));
-      }
-
-    case 'decorators':
-      {
-        return value.forEach(function (decorator) {
-          return addDecorator(decorator, false);
-        });
-      }
-
-    case 'loaders':
-      {
-        return value.forEach(function (loader) {
-          return addLoader(loader, false);
-        });
-      }
-
-    case 'parameters':
-      {
-        return addParameters(_objectSpread({}, value), false);
-      }
-
-    case 'argTypesEnhancers':
-      {
-        return value.forEach(function (enhancer) {
-          return addArgTypesEnhancer(enhancer);
-        });
-      }
-
-    case 'globals':
-    case 'globalTypes':
-      {
-        var v = {};
-        v[key] = value;
-        return addParameters(v, false);
-      }
-
-    default:
-      {
-        // eslint-disable-next-line prefer-template
-        return console.log(key + ' was not supported :( !');
-      }
-  }
-});
-preview Write virtual module: /Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/addon-docs/dist/esm/frameworks/react/config.js-generated-other-entry.js function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-/* eslint-disable import/no-unresolved */
-import { addDecorator, addParameters, addLoader, addArgTypesEnhancer } from '/Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/client-api';
-import { logger } from '/Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/client-logger';
-import * as config from '/Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/addon-docs/dist/esm/frameworks/react/config.js';
-Object.keys(config).forEach(function (key) {
-  var value = config[key];
-
-  switch (key) {
-    case 'args':
-    case 'argTypes':
-      {
-        return logger.warn('Invalid args/argTypes in config, ignoring.', JSON.stringify(value));
-      }
-
-    case 'decorators':
-      {
-        return value.forEach(function (decorator) {
-          return addDecorator(decorator, false);
-        });
-      }
-
-    case 'loaders':
-      {
-        return value.forEach(function (loader) {
-          return addLoader(loader, false);
-        });
-      }
-
-    case 'parameters':
-      {
-        return addParameters(_objectSpread({}, value), false);
-      }
-
-    case 'argTypesEnhancers':
-      {
-        return value.forEach(function (enhancer) {
-          return addArgTypesEnhancer(enhancer);
-        });
-      }
-
-    case 'globals':
-    case 'globalTypes':
-      {
-        var v = {};
-        v[key] = value;
-        return addParameters(v, false);
-      }
-
-    default:
-      {
-        // eslint-disable-next-line prefer-template
-        return console.log(key + ' was not supported :( !');
-      }
-  }
-});
-preview Write virtual module: /Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/addon-links/dist/esm/preset/addDecorator.js-generated-other-entry.js function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-/* eslint-disable import/no-unresolved */
-import { addDecorator, addParameters, addLoader, addArgTypesEnhancer } from '/Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/client-api';
-import { logger } from '/Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/client-logger';
-import * as config from '/Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/addon-links/dist/esm/preset/addDecorator.js';
-Object.keys(config).forEach(function (key) {
-  var value = config[key];
-
-  switch (key) {
-    case 'args':
-    case 'argTypes':
-      {
-        return logger.warn('Invalid args/argTypes in config, ignoring.', JSON.stringify(value));
-      }
-
-    case 'decorators':
-      {
-        return value.forEach(function (decorator) {
-          return addDecorator(decorator, false);
-        });
-      }
-
-    case 'loaders':
-      {
-        return value.forEach(function (loader) {
-          return addLoader(loader, false);
-        });
-      }
-
-    case 'parameters':
-      {
-        return addParameters(_objectSpread({}, value), false);
-      }
-
-    case 'argTypesEnhancers':
-      {
-        return value.forEach(function (enhancer) {
-          return addArgTypesEnhancer(enhancer);
-        });
-      }
-
-    case 'globals':
-    case 'globalTypes':
-      {
-        var v = {};
-        v[key] = value;
-        return addParameters(v, false);
-      }
-
-    default:
-      {
-        // eslint-disable-next-line prefer-template
-        return console.log(key + ' was not supported :( !');
-      }
-  }
-});
-preview Write virtual module: /Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/addon-actions/dist/esm/preset/addDecorator.js-generated-other-entry.js function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-/* eslint-disable import/no-unresolved */
-import { addDecorator, addParameters, addLoader, addArgTypesEnhancer } from '/Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/client-api';
-import { logger } from '/Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/client-logger';
-import * as config from '/Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/addon-actions/dist/esm/preset/addDecorator.js';
-Object.keys(config).forEach(function (key) {
-  var value = config[key];
-
-  switch (key) {
-    case 'args':
-    case 'argTypes':
-      {
-        return logger.warn('Invalid args/argTypes in config, ignoring.', JSON.stringify(value));
-      }
-
-    case 'decorators':
-      {
-        return value.forEach(function (decorator) {
-          return addDecorator(decorator, false);
-        });
-      }
-
-    case 'loaders':
-      {
-        return value.forEach(function (loader) {
-          return addLoader(loader, false);
-        });
-      }
-
-    case 'parameters':
-      {
-        return addParameters(_objectSpread({}, value), false);
-      }
-
-    case 'argTypesEnhancers':
-      {
-        return value.forEach(function (enhancer) {
-          return addArgTypesEnhancer(enhancer);
-        });
-      }
-
-    case 'globals':
-    case 'globalTypes':
-      {
-        var v = {};
-        v[key] = value;
-        return addParameters(v, false);
-      }
-
-    default:
-      {
-        // eslint-disable-next-line prefer-template
-        return console.log(key + ' was not supported :( !');
-      }
-  }
-});
-preview Write virtual module: /Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/addon-actions/dist/esm/preset/addArgs.js-generated-other-entry.js function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-/* eslint-disable import/no-unresolved */
-import { addDecorator, addParameters, addLoader, addArgTypesEnhancer } from '/Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/client-api';
-import { logger } from '/Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/client-logger';
-import * as config from '/Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/addon-actions/dist/esm/preset/addArgs.js';
-Object.keys(config).forEach(function (key) {
-  var value = config[key];
-
-  switch (key) {
-    case 'args':
-    case 'argTypes':
-      {
-        return logger.warn('Invalid args/argTypes in config, ignoring.', JSON.stringify(value));
-      }
-
-    case 'decorators':
-      {
-        return value.forEach(function (decorator) {
-          return addDecorator(decorator, false);
-        });
-      }
-
-    case 'loaders':
-      {
-        return value.forEach(function (loader) {
-          return addLoader(loader, false);
-        });
-      }
-
-    case 'parameters':
-      {
-        return addParameters(_objectSpread({}, value), false);
-      }
-
-    case 'argTypesEnhancers':
-      {
-        return value.forEach(function (enhancer) {
-          return addArgTypesEnhancer(enhancer);
-        });
-      }
-
-    case 'globals':
-    case 'globalTypes':
-      {
-        var v = {};
-        v[key] = value;
-        return addParameters(v, false);
-      }
-
-    default:
-      {
-        // eslint-disable-next-line prefer-template
-        return console.log(key + ' was not supported :( !');
-      }
-  }
-});
-preview Write virtual module: /Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/addon-backgrounds/dist/esm/preset/addDecorator.js-generated-other-entry.js function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-/* eslint-disable import/no-unresolved */
-import { addDecorator, addParameters, addLoader, addArgTypesEnhancer } from '/Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/client-api';
-import { logger } from '/Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/client-logger';
-import * as config from '/Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/addon-backgrounds/dist/esm/preset/addDecorator.js';
-Object.keys(config).forEach(function (key) {
-  var value = config[key];
-
-  switch (key) {
-    case 'args':
-    case 'argTypes':
-      {
-        return logger.warn('Invalid args/argTypes in config, ignoring.', JSON.stringify(value));
-      }
-
-    case 'decorators':
-      {
-        return value.forEach(function (decorator) {
-          return addDecorator(decorator, false);
-        });
-      }
-
-    case 'loaders':
-      {
-        return value.forEach(function (loader) {
-          return addLoader(loader, false);
-        });
-      }
-
-    case 'parameters':
-      {
-        return addParameters(_objectSpread({}, value), false);
-      }
-
-    case 'argTypesEnhancers':
-      {
-        return value.forEach(function (enhancer) {
-          return addArgTypesEnhancer(enhancer);
-        });
-      }
-
-    case 'globals':
-    case 'globalTypes':
-      {
-        var v = {};
-        v[key] = value;
-        return addParameters(v, false);
-      }
-
-    default:
-      {
-        // eslint-disable-next-line prefer-template
-        return console.log(key + ' was not supported :( !');
-      }
-  }
-});
-preview Write virtual module: /Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/addon-backgrounds/dist/esm/preset/addParameter.js-generated-other-entry.js function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-/* eslint-disable import/no-unresolved */
-import { addDecorator, addParameters, addLoader, addArgTypesEnhancer } from '/Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/client-api';
-import { logger } from '/Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/client-logger';
-import * as config from '/Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/addon-backgrounds/dist/esm/preset/addParameter.js';
-Object.keys(config).forEach(function (key) {
-  var value = config[key];
-
-  switch (key) {
-    case 'args':
-    case 'argTypes':
-      {
-        return logger.warn('Invalid args/argTypes in config, ignoring.', JSON.stringify(value));
-      }
-
-    case 'decorators':
-      {
-        return value.forEach(function (decorator) {
-          return addDecorator(decorator, false);
-        });
-      }
-
-    case 'loaders':
-      {
-        return value.forEach(function (loader) {
-          return addLoader(loader, false);
-        });
-      }
-
-    case 'parameters':
-      {
-        return addParameters(_objectSpread({}, value), false);
-      }
-
-    case 'argTypesEnhancers':
-      {
-        return value.forEach(function (enhancer) {
-          return addArgTypesEnhancer(enhancer);
-        });
-      }
-
-    case 'globals':
-    case 'globalTypes':
-      {
-        var v = {};
-        v[key] = value;
-        return addParameters(v, false);
-      }
-
-    default:
-      {
-        // eslint-disable-next-line prefer-template
-        return console.log(key + ' was not supported :( !');
-      }
-  }
-});
-preview Write virtual module: /Users/soyoung/Desktop/workspace/bookstagram/packages/components/.storybook/preview.js-generated-config-entry.js function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-/* eslint-disable import/no-unresolved */
-import { addDecorator, addParameters, addLoader, addArgTypesEnhancer } from '/Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/client-api';
-import { logger } from '/Users/soyoung/Desktop/workspace/bookstagram/packages/components/node_modules/@storybook/client-logger';
-import * as config from '/Users/soyoung/Desktop/workspace/bookstagram/packages/components/.storybook/preview.js';
-Object.keys(config).forEach(function (key) {
-  var value = config[key];
-
-  switch (key) {
-    case 'args':
-    case 'argTypes':
-      {
-        return logger.warn('Invalid args/argTypes in config, ignoring.', JSON.stringify(value));
-      }
-
-    case 'decorators':
-      {
-        return value.forEach(function (decorator) {
-          return addDecorator(decorator, false);
-        });
-      }
-
-    case 'loaders':
-      {
-        return value.forEach(function (loader) {
-          return addLoader(loader, false);
-        });
-      }
-
-    case 'parameters':
-      {
-        return addParameters(_objectSpread({}, value), false);
-      }
-
-    case 'argTypesEnhancers':
-      {
-        return value.forEach(function (enhancer) {
-          return addArgTypesEnhancer(enhancer);
-        });
-      }
-
-    case 'globals':
-    case 'globalTypes':
-      {
-        var v = {};
-        v[key] = value;
-        return addParameters(v, false);
-      }
-
-    default:
-      {
-        // eslint-disable-next-line prefer-template
-        return console.log(key + ' was not supported :( !');
-      }
-  }
-});
-preview Write virtual module: /Users/soyoung/Desktop/workspace/bookstagram/packages/components/.storybook/generated-stories-entry.js "use strict";
-
-var _frameworkImportPath = require("@storybook/react");
-
-/* eslint-disable import/no-unresolved */
-(0, _frameworkImportPath.configure)([require.context('/src', true, /^\.(?:(?:^|\/|(?:(?:(?!(?:^|\/)\.).)*?)\/)(?!\.)(?=.)[^/]*?\.stories\.(js|jsx|ts|tsx))$/)], module, false);
 <s> [webpack.Progress] 0% 
 
 <s> [webpack.Progress] 1% setup initialize
@@ -624,40 +130,38 @@ Though the "loose" option was set to "false" in your @babel/preset-env config, i
 The "loose" option must be the same for @babel/plugin-proposal-class-properties, @babel/plugin-proposal-private-methods and @babel/plugin-proposal-private-property-in-object (when they are enabled): you can silence this warning by explicitly adding
 	["@babel/plugin-proposal-private-property-in-object", { "loose": true }]
 to the "plugins" section of your Babel config.
-<s> [webpack.Progress] 10% building 0/12 entries 23/65 dependencies 2/21 modules
-<s> [webpack.Progress] 10% building import loader ../../node_modules/ts-loader/index.js
-<s> [webpack.Progress] 10% building 0/12 entries 63/109 dependencies 2/43 modules
-<s> [webpack.Progress] 10% building 0/12 entries 69/131 dependencies 3/46 modules
-<s> [webpack.Progress] 10% building 0/12 entries 257/282 dependencies 9/143 modules
-<s> [webpack.Progress] 14% building 1/12 entries 530/799 dependencies 13/191 modules
-<s> [webpack.Progress] 14% building 1/12 entries 861/1000 dependencies 26/319 modules
-<s> [webpack.Progress] 14% building 1/12 entries 1300/1372 dependencies 75/393 modules
-<s> [webpack.Progress] 14% building 1/12 entries 1692/1800 dependencies 153/485 modules
-<s> [webpack.Progress] 14% building import loader ./node_modules/mini-css-extract-plugin/dist/loader.js
-<s> [webpack.Progress] 14% building import loader ./node_modules/css-loader/dist/cjs.js
+<s> [webpack.Progress] 10% building import loader ./node_modules/ts-loader/index.js
+<s> [webpack.Progress] 10% building 0/12 entries 35/57 dependencies 1/34 modules
+<s> [webpack.Progress] 10% building 0/12 entries 36/66 dependencies 2/34 modules
+<s> [webpack.Progress] 10% building 0/12 entries 166/181 dependencies 6/123 modules
+<s> [webpack.Progress] 10% building 0/12 entries 513/581 dependencies 18/190 modules
+<s> [webpack.Progress] 14% building 1/12 entries 562/910 dependencies 22/195 modules
+<s> [webpack.Progress] 14% building 1/12 entries 1152/1186 dependencies 48/400 modules
+<s> [webpack.Progress] 14% building 1/12 entries 1432/1500 dependencies 88/430 modules
+<s> [webpack.Progress] 14% building 1/12 entries 2000/2130 dependencies 260/552 modules
+<s> [webpack.Progress] 14% building import loader ../../node_modules/mini-css-extract-plugin/dist/loader.js
+<s> [webpack.Progress] 14% building import loader ../../node_modules/css-loader/dist/cjs.js
 <s> [webpack.Progress] 14% building import loader ./node_modules/sass-loader/dist/cjs.js
-<s> [webpack.Progress] 14% building 1/12 entries 1955/2040 dependencies 252/533 modules
-<s> [webpack.Progress] 14% building 1/12 entries 2100/2266 dependencies 283/583 modules
-<s> [webpack.Progress] 14% building import loader ./node_modules/url-loader/dist/cjs.js
-<s> [webpack.Progress] 14% building import loader ./node_modules/image-webpack-loader/index.js
-<s> [webpack.Progress] 14% building 1/12 entries 2387/2440 dependencies 327/621 modules
-<s> [webpack.Progress] 14% building 1/12 entries 2500/2558 dependencies 367/660 modules
-<s> [webpack.Progress] 14% building 1/12 entries 2622/2700 dependencies 410/715 modules
-<s> [webpack.Progress] 16% building 1/12 entries 2944/3000 dependencies 551/844 modules
-<s> [webpack.Progress] 17% building 1/12 entries 3346/3380 dependencies 700/925 modules
-<s> [webpack.Progress] 19% building 1/12 entries 3676/3700 dependencies 854/1024 modules
-<s> [webpack.Progress] 19% building 2/12 entries 3681/3704 dependencies 888/1024 modules
-<s> [webpack.Progress] 23% building 3/12 entries 3681/3704 dependencies 889/1024 modules
-<s> [webpack.Progress] 28% building 4/12 entries 3681/3704 dependencies 890/1024 modules
-<s> [webpack.Progress] 32% building 5/12 entries 3681/3704 dependencies 891/1024 modules
-<s> [webpack.Progress] 37% building 6/12 entries 3681/3704 dependencies 892/1024 modules
-<s> [webpack.Progress] 42% building 7/12 entries 3681/3704 dependencies 893/1024 modules
-<s> [webpack.Progress] 46% building 8/12 entries 3701/3729 dependencies 908/1028 modules
-<s> [webpack.Progress] 46% building 8/12 entries 4176/4200 dependencies 1063/1149 modules
-<s> [webpack.Progress] 51% building 9/12 entries 4350/4362 dependencies 1152/1202 modules
-<s> [webpack.Progress] 55% building 10/12 entries 4350/4362 dependencies 1153/1202 modules
-<s> [webpack.Progress] 60% building 11/12 entries 4358/4362 dependencies 1187/1202 modules
-<s> [webpack.Progress] 65% building 12/12 entries 4367/4367 dependencies 1206/1206 modules
+<s> [webpack.Progress] 14% building 1/12 entries 2059/2130 dependencies 260/576 modules
+<s> [webpack.Progress] 14% building 1/12 entries 2226/2300 dependencies 295/616 modules
+<s> [webpack.Progress] 14% building import loader ../../node_modules/url-loader/dist/cjs.js
+<s> [webpack.Progress] 14% building import loader ../../node_modules/image-webpack-loader/index.js
+<s> [webpack.Progress] 14% building 1/12 entries 2456/2500 dependencies 328/648 modules
+<s> [webpack.Progress] 14% building 1/12 entries 2518/2600 dependencies 363/669 modules
+<s> [webpack.Progress] 15% building 1/12 entries 2736/2800 dependencies 477/750 modules
+<s> [webpack.Progress] 17% building 1/12 entries 3123/3200 dependencies 644/874 modules
+<s> [webpack.Progress] 18% building 1/12 entries 3500/3563 dependencies 779/963 modules
+<s> [webpack.Progress] 19% building 2/12 entries 3735/3754 dependencies 899/1039 modules
+<s> [webpack.Progress] 23% building 3/12 entries 3735/3754 dependencies 900/1039 modules
+<s> [webpack.Progress] 28% building 4/12 entries 3735/3754 dependencies 901/1039 modules
+<s> [webpack.Progress] 32% building 5/12 entries 3735/3754 dependencies 902/1039 modules
+<s> [webpack.Progress] 37% building 6/12 entries 3735/3754 dependencies 903/1039 modules
+<s> [webpack.Progress] 42% building 7/12 entries 3735/3754 dependencies 904/1039 modules
+<s> [webpack.Progress] 46% building 8/12 entries 4422/4431 dependencies 1163/1217 modules
+<s> [webpack.Progress] 51% building 9/12 entries 4433/4443 dependencies 1184/1221 modules
+<s> [webpack.Progress] 55% building 10/12 entries 4444/4447 dependencies 1209/1225 modules
+<s> [webpack.Progress] 60% building 11/12 entries 4444/4447 dependencies 1210/1225 modules
+<s> [webpack.Progress] 65% building 12/12 entries 4450/4450 dependencies 1228/1228 modules
 <s> [webpack.Progress] 65% building
 <s> [webpack.Progress] 69% building finish
 <s> [webpack.Progress] 69% building finish
@@ -756,47 +260,48 @@ to the "plugins" section of your Babel config.
 <s> [webpack.Progress] 91% sealing chunk assets processing
 <s> [webpack.Progress] 92% sealing asset processing
 <s> [webpack.Progress] 92% sealing asset processing PersistentChildCompilerSingletonPlugin
+<s> [webpack.Progress] 92% sealing asset processing ts-loader
 <s> [webpack.Progress] 92% sealing asset processing TerserPlugin
-info => Manager built (21 s)
+info => Manager built (18 s)
 <s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin
 <s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin
 <s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin main.css generate SourceMap
 <s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin main.css generated SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin main.3d7d898c.iframe.bundle.js generate SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin main.3d7d898c.iframe.bundle.js generated SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin runtime~main.e94210ff.iframe.bundle.js generate SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin runtime~main.e94210ff.iframe.bundle.js generated SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 665.d74fb5f4.iframe.bundle.js generate SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 665.d74fb5f4.iframe.bundle.js generated SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 347.8c7824d1.iframe.bundle.js generate SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 347.8c7824d1.iframe.bundle.js generated SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 881.93fb64ee.iframe.bundle.js generate SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 881.93fb64ee.iframe.bundle.js generated SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 459.deeb0b85.iframe.bundle.js generate SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 459.deeb0b85.iframe.bundle.js generated SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 331.0fdf80c0.iframe.bundle.js generate SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 331.0fdf80c0.iframe.bundle.js generated SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 611.a2463068.iframe.bundle.js generate SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 611.a2463068.iframe.bundle.js generated SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin main.13b92a5f.iframe.bundle.js generate SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin main.13b92a5f.iframe.bundle.js generated SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin runtime~main.fc7a67de.iframe.bundle.js generate SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin runtime~main.fc7a67de.iframe.bundle.js generated SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 253.5612812f.iframe.bundle.js generate SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 253.5612812f.iframe.bundle.js generated SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 817.06234dfc.iframe.bundle.js generate SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 817.06234dfc.iframe.bundle.js generated SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 135.97f24ee6.iframe.bundle.js generate SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 135.97f24ee6.iframe.bundle.js generated SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 531.2bc96c94.iframe.bundle.js generate SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 531.2bc96c94.iframe.bundle.js generated SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 887.a4d5262b.iframe.bundle.js generate SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 887.a4d5262b.iframe.bundle.js generated SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 158.224d2c5e.iframe.bundle.js generate SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 158.224d2c5e.iframe.bundle.js generated SourceMap
 <s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin resolve sources
 <s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin main.css attach SourceMap
 <s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin main.css attached SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin main.3d7d898c.iframe.bundle.js attach SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin main.3d7d898c.iframe.bundle.js attached SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin runtime~main.e94210ff.iframe.bundle.js attach SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin runtime~main.e94210ff.iframe.bundle.js attached SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 665.d74fb5f4.iframe.bundle.js attach SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 665.d74fb5f4.iframe.bundle.js attached SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 347.8c7824d1.iframe.bundle.js attach SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 347.8c7824d1.iframe.bundle.js attached SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 881.93fb64ee.iframe.bundle.js attach SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 881.93fb64ee.iframe.bundle.js attached SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 459.deeb0b85.iframe.bundle.js attach SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 459.deeb0b85.iframe.bundle.js attached SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 331.0fdf80c0.iframe.bundle.js attach SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 331.0fdf80c0.iframe.bundle.js attached SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 611.a2463068.iframe.bundle.js attach SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 611.a2463068.iframe.bundle.js attached SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin main.13b92a5f.iframe.bundle.js attach SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin main.13b92a5f.iframe.bundle.js attached SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin runtime~main.fc7a67de.iframe.bundle.js attach SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin runtime~main.fc7a67de.iframe.bundle.js attached SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 253.5612812f.iframe.bundle.js attach SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 253.5612812f.iframe.bundle.js attached SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 817.06234dfc.iframe.bundle.js attach SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 817.06234dfc.iframe.bundle.js attached SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 135.97f24ee6.iframe.bundle.js attach SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 135.97f24ee6.iframe.bundle.js attached SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 531.2bc96c94.iframe.bundle.js attach SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 531.2bc96c94.iframe.bundle.js attached SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 887.a4d5262b.iframe.bundle.js attach SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 887.a4d5262b.iframe.bundle.js attached SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 158.224d2c5e.iframe.bundle.js attach SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 158.224d2c5e.iframe.bundle.js attached SourceMap
 <s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin
 <s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin
 <s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin resolve sources
@@ -811,7 +316,6 @@ info => Manager built (21 s)
 <s> [webpack.Progress] 92% sealing asset processing RealContentHashPlugin
 <s> [webpack.Progress] 92% sealing asset processing
 <s> [webpack.Progress] 93% sealing after asset optimization
-<s> [webpack.Progress] 93% sealing after asset optimization ts-loader
 <s> [webpack.Progress] 93% sealing after asset optimization
 <s> [webpack.Progress] 93% sealing recording
 <s> [webpack.Progress] 93% sealing recording
@@ -833,19 +337,19 @@ info => Manager built (21 s)
 <s> [webpack.Progress] 99% cache begin idle
 <s> [webpack.Progress] 100% 
 
-info => Preview built (27 s)
+info => Preview built (23 s)
 WARN DefinePlugin
 WARN Conflicting values for 'process.env'
 WARN asset size limit: The following asset(s) exceed the recommended size limit (244 KiB).
 WARN This can impact web performance.
 WARN Assets: 
-WARN   611.944b7ff3.iframe.bundle.js (1.68 MiB)
+WARN   158.e929bd7a.iframe.bundle.js (1.73 MiB)
 WARN entrypoint size limit: The following entrypoint(s) combined asset size exceeds the recommended limit (244 KiB). This can impact web performance.
 WARN Entrypoints:
-WARN   main (1.76 MiB)
-WARN       runtime~main.40429f9f.iframe.bundle.js
-WARN       611.944b7ff3.iframe.bundle.js
+WARN   main (1.82 MiB)
+WARN       runtime~main.55b6a5b6.iframe.bundle.js
+WARN       158.e929bd7a.iframe.bundle.js
 WARN       main.css
-WARN       main.97172b2b.iframe.bundle.js
+WARN       main.5fa88bfb.iframe.bundle.js
 WARN 
-info => Output directory: /var/folders/vf/hc7q17dj43s2k8lmkm1bydjw0000gn/T/chromatic--30820-N6DGLegX1BRe
+info => Output directory: /var/folders/vf/hc7q17dj43s2k8lmkm1bydjw0000gn/T/chromatic--63557-HTdIFV9CFR0c

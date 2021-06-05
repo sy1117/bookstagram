@@ -1,4 +1,5 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const StylelintPlugin = require("stylelint-webpack-plugin");
 const custom = require("../webpack.config");
 
 module.exports = {
@@ -27,6 +28,7 @@ module.exports = {
     },
   },
   webpackFinal: (config) => {
+    // config.plugins.push(new StylelintPlugin());
     config.plugins.push(new MiniCssExtractPlugin());
     // config.plugins.push(new HtmlWebpackPlugin());
 
@@ -38,32 +40,4 @@ module.exports = {
       },
     };
   },
-  // webpackFinal: async (config) => {
-  //   config.module.rules.push({
-  //     test: /\.scss$/,
-  //     use: [
-  //       { loader: "style-loader" },
-  //       {
-  //         loader: "css-loader",
-  //         options: {
-  //           importLoaders: 1,
-  //           modules: true,
-  //         },
-  //       },
-  //       {
-  //         loader: "sass-loader",
-  //         options: {
-  //           implementation: require("node-sass"),
-  //         },
-  //       },
-  //     ],
-  //   });
-  //   // console.log(config.module.rules);
-  //   return config;
-  //   // return {
-  //   //   ...config,
-  //   //   // plugins: [...config.plugins, ...custom.plugins],
-  //   //   module: { ...config.module, rules: custom.module.rules },
-  //   // };
-  // },
 };

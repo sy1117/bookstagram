@@ -18,7 +18,7 @@ const PostHeader: React.FC<PostHeaderProps> = ({
     <header className={styles.top}>
       <div className={styles.user_container}>
         <Profileimage url={profileImageURL} />
-        <div className={styles.user_name}>
+        <div>
           <div className={styles.m_text}>{userName}</div>
           <div className={styles.s_text}>{postTitle}</div>
         </div>

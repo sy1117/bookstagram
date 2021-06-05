@@ -92,7 +92,7 @@ type Query {
   whoAmI: User!
   seeProfile: SeeProfileOutput!
   posts(take: Int, skip: Int): [Post!]!
-  comments(take: Int, skip: Int, postId: Float!): [Comment!]!
+  comments(take: Int, skip: Int, postId: Int!): [Comment!]!
   post(id: Int!): Post!
 }
 

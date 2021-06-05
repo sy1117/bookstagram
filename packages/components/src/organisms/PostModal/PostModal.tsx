@@ -31,9 +31,11 @@ export interface PostModalProps {
   content: string;
   comments: Array<CommentProps>;
   onComment: FormEventHandler;
+  onCommentsMore?: () => void;
 }
 
 const PostModal: React.FC<PostModalProps> = ({
+  children,
   visible = false,
   mainImageURL,
   onClose,
@@ -43,6 +45,7 @@ const PostModal: React.FC<PostModalProps> = ({
   userName,
   content,
   bookName,
+  onCommentsMore,
 }) => {
   return (
     visible && (
@@ -66,7 +69,7 @@ const PostModal: React.FC<PostModalProps> = ({
                     {/* <span className={styles.s_text}>{content}</span> */}
                     {content}
                   </div>
-                  <div className={styles.comments_container}>
+                  <div>
                     {comments?.map((props: any, idx) => (
                       <Comment
                         profileImageURL={props.user.profileImageURL}
@@ -75,6 +78,12 @@ const PostModal: React.FC<PostModalProps> = ({
                         key={idx}
                       />
                     ))}
+                  </div>
+                  <div
+                    className={styles.comments_more}
+                    onClick={onCommentsMore}
+                  >
+                    +
                   </div>
                 </div>
                 <div>

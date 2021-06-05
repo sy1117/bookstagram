@@ -12,8 +12,10 @@ const useFetchMore = (query: DocumentNode, offset: number) => {
   const target = useRef<HTMLDivElement>(null);
   const [status, setStatus] = useState<FetchStatus>(FetchStatus.Init);
   const [itemCount, setItemsCount] = useState<number>(0);
-  const { data, fetchMore } = useQuery(query, {
+
+  const { data, fetchMore, refetch } = useQuery(query, {
     variables: {
+      // ...variables,
       skip: itemCount,
       take: offset,
     },
@@ -43,11 +45,7 @@ const useFetchMore = (query: DocumentNode, offset: number) => {
       });
       observer.observe(target.current);
       return () => observer && observer.disconnect();
-    }
-  }, [status]);
-
-  useEffect(() => {
-    if (status == FetchStatus.Request) {
+    } else if (status == FetchStatus.Request) {
       fetchMore({
         variables: {
           skip: itemCount,
@@ -57,10 +55,12 @@ const useFetchMore = (query: DocumentNode, offset: number) => {
       setStatus(FetchStatus.Loading);
     }
   }, [status]);
+
   return {
     status,
     data,
     loading: status === FetchStatus.Idle && <div ref={target}>Loading...</div>,
+    refetch,
   };
 };
 

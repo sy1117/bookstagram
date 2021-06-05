@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import React from "react";
 import ProfileImage from "../../atoms/ProfileImage/ProfileImage";
 import RelativeTime from "../../atoms/RelativeTime/RelativeTime";
@@ -8,15 +9,17 @@ export interface CommentProps {
   content: string;
   userName: string;
   createdAt?: string;
+  dense?: boolean;
 }
 
 const Comment: React.FC<CommentProps> = ({
+  dense,
   profileImageURL,
   content,
   userName,
   createdAt,
 }) => (
-  <div className={styles.root}>
+  <div className={clsx(styles.root, dense && styles.dense)}>
     {profileImageURL && <ProfileImage url={profileImageURL} />}
     <div>
       {/* <ProfileImage url={profileImageURL} /> */}

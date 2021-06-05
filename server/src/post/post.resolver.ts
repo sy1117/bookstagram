@@ -57,7 +57,7 @@ export class PostResolver {
   @UseGuards(GqlAuthGuard)
   @Query(() => [Comment], { name: 'comments' })
   findAllComments(
-    @Args('postId') postId: number,
+    @Args('postId', { type: () => Int }) postId: number,
     @Args('skip', { nullable: true, type: () => Int }) skip: number,
     @Args('take', { nullable: true, type: () => Int }) take: number,
   ) {

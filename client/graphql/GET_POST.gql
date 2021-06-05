@@ -1,16 +1,8 @@
-query getPost($postId: Int!) {
+query getPostAndComments($postId: Int!) {
   post(id: $postId) {
     bookImageURL
     bookName
     content
-    comments {
-      user {
-        userId
-        profileImageURL
-      }
-      content
-      createdAt
-    }
     user {
       userId
       profileImageURL
@@ -18,5 +10,13 @@ query getPost($postId: Int!) {
     likes {
       likeId
     }
+  }
+  comments(postId: $postId, skip: 0, take: 5) {
+    user {
+      userId
+      profileImageURL
+    }
+    content
+    createdAt
   }
 }

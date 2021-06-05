@@ -109,6 +109,19 @@
   // padding: 10px;
 }
 
+.comments_more {
+  cursor: pointer;
+  text-align: center;
+  font-size: 25px;
+  border: 2px solid;
+  line-height: 22px;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
 .m_text {
   font-weight: 600;
   margin-right: 1em;

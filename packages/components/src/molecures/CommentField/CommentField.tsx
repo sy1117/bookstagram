@@ -16,7 +16,7 @@ const CommentField: React.FC<CommentFieldProps> = ({ onSubmit }) => {
         </div>
         <input type="text" name="content" placeholder="댓글달기..." />
         <input
-          className={clsx(styles.upload_btn, styles.m_text)}
+          className={styles.upload_btn}
           data-name="comment"
           type="submit"
           value={"게시"}

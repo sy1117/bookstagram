@@ -1,6 +1,7 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const nodeExternals = require("webpack-node-externals");
+const StylelintPlugin = require("stylelint-webpack-plugin");
 
 module.exports = {
   mode: "production",
@@ -41,6 +42,7 @@ module.exports = {
         exclude: [/node_modules/, /\.stories.tsx$/],
         use: [
           MiniCssExtractPlugin.loader,
+          { loader: "css-modules-typescript-loader" },
           {
             loader: "css-loader",
             options: {

@@ -1,0 +1,10 @@
+query getComments($postId: Int!, $skip: Int!, $take: Int!) {
+  comments(postId: $postId, skip: $skip, take: $take) {
+    user {
+      userId
+      profileImageURL
+    }
+    content
+    createdAt
+  }
+}

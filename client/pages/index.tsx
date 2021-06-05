@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { PostCard } from "@bookstagram/components";
 import { ActionIcons } from "@bookstagram/components";
 import {
@@ -7,19 +7,21 @@ import {
   useCreateCommentMutation,
 } from "../apollo/__generated__/models";
 import PostModal from "../components/PostModal";
-import useFetchMore from "../hooks/useFetchMore";
+import useFetchMore from "../hooks/useFetchPosts";
 
 const OFFSET = 5;
 
 const Main = () => {
-  const { data, loading } = useFetchMore(GetAllPostsDocument, OFFSET);
+  const { data, loading, refetch } = useFetchMore(GetAllPostsDocument, OFFSET);
   const posts = (data?.posts as Post[]) || [];
   const [detailvisible, setdetailvisible] = useState<number | false>(false);
   const [comment] = useCreateCommentMutation({
     refetchQueries: [{ query: GetAllPostsDocument }],
   });
 
-  const commentHandler = (postId: number) => async (event: any) => {
+  const commentHandler = (postId: number) => async (
+    event: FormEvent<HTMLFormElement>,
+  ) => {
     event.preventDefault();
     event.stopPropagation();
     const formEl = event.currentTarget;
@@ -31,6 +33,7 @@ const Main = () => {
       },
     });
     if (result) {
+      refetch();
       formEl.reset();
     }
   };

@@ -193,7 +193,7 @@ export type QueryPostsArgs = {
 export type QueryCommentsArgs = {
   take?: Maybe<Scalars['Int']>;
   skip?: Maybe<Scalars['Int']>;
-  postId: Scalars['Float'];
+  postId: Scalars['Int'];
 };
 
 

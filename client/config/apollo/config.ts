@@ -102,6 +102,12 @@ export const client = new ApolloClient({
               return [...existing, ...incoming];
             },
           },
+          comments: {
+            ...offsetLimitPagination(),
+            merge(existing = [], incoming: any[]) {
+              return [...existing, ...incoming];
+            },
+          },
         },
       },
     },

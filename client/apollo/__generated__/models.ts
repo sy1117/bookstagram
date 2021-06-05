@@ -194,7 +194,7 @@ export type QueryPostsArgs = {
 export type QueryCommentsArgs = {
   take?: Maybe<Scalars['Int']>;
   skip?: Maybe<Scalars['Int']>;
-  postId: Scalars['Float'];
+  postId: Scalars['Int'];
 };
 
 
@@ -313,31 +313,50 @@ export type GetAllPostsQuery = (
   )> }
 );
 
-export type GetPostQueryVariables = Exact<{
+export type GetCommentsQueryVariables = Exact<{
+  postId: Scalars['Int'];
+  skip: Scalars['Int'];
+  take: Scalars['Int'];
+}>;
+
+
+export type GetCommentsQuery = (
+  { __typename?: 'Query' }
+  & { comments: Array<(
+    { __typename?: 'Comment' }
+    & Pick<Comment, 'content' | 'createdAt'>
+    & { user: (
+      { __typename?: 'User' }
+      & Pick<User, 'userId' | 'profileImageURL'>
+    ) }
+  )> }
+);
+
+export type GetPostAndCommentsQueryVariables = Exact<{
   postId: Scalars['Int'];
 }>;
 
 
-export type GetPostQuery = (
+export type GetPostAndCommentsQuery = (
   { __typename?: 'Query' }
   & { post: (
     { __typename?: 'Post' }
     & Pick<Post, 'bookImageURL' | 'bookName' | 'content'>
-    & { comments: Array<(
-      { __typename?: 'Comment' }
-      & Pick<Comment, 'content' | 'createdAt'>
-      & { user: (
-        { __typename?: 'User' }
-        & Pick<User, 'userId' | 'profileImageURL'>
-      ) }
-    )>, user: (
+    & { user: (
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'profileImageURL'>
     ), likes: Array<(
       { __typename?: 'Like' }
       & Pick<Like, 'likeId'>
     )> }
-  ) }
+  ), comments: Array<(
+    { __typename?: 'Comment' }
+    & Pick<Comment, 'content' | 'createdAt'>
+    & { user: (
+      { __typename?: 'User' }
+      & Pick<User, 'userId' | 'profileImageURL'>
+    ) }
+  )> }
 );
 
 export type LoginMutationVariables = Exact<{
@@ -532,20 +551,54 @@ export function useGetAllPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetAllPostsQueryHookResult = ReturnType<typeof useGetAllPostsQuery>;
 export type GetAllPostsLazyQueryHookResult = ReturnType<typeof useGetAllPostsLazyQuery>;
 export type GetAllPostsQueryResult = Apollo.QueryResult<GetAllPostsQuery, GetAllPostsQueryVariables>;
-export const GetPostDocument = gql`
-    query getPost($postId: Int!) {
+export const GetCommentsDocument = gql`
+    query getComments($postId: Int!, $skip: Int!, $take: Int!) {
+  comments(postId: $postId, skip: $skip, take: $take) {
+    user {
+      userId
+      profileImageURL
+    }
+    content
+    createdAt
+  }
+}
+    `;
+
+/**
+ * __useGetCommentsQuery__
+ *
+ * To run a query within a React component, call `useGetCommentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCommentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCommentsQuery({
+ *   variables: {
+ *      postId: // value for 'postId'
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
+ *   },
+ * });
+ */
+export function useGetCommentsQuery(baseOptions: Apollo.QueryHookOptions<GetCommentsQuery, GetCommentsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCommentsQuery, GetCommentsQueryVariables>(GetCommentsDocument, options);
+      }
+export function useGetCommentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCommentsQuery, GetCommentsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCommentsQuery, GetCommentsQueryVariables>(GetCommentsDocument, options);
+        }
+export type GetCommentsQueryHookResult = ReturnType<typeof useGetCommentsQuery>;
+export type GetCommentsLazyQueryHookResult = ReturnType<typeof useGetCommentsLazyQuery>;
+export type GetCommentsQueryResult = Apollo.QueryResult<GetCommentsQuery, GetCommentsQueryVariables>;
+export const GetPostAndCommentsDocument = gql`
+    query getPostAndComments($postId: Int!) {
   post(id: $postId) {
     bookImageURL
     bookName
     content
-    comments {
-      user {
-        userId
-        profileImageURL
-      }
-      content
-      createdAt
-    }
     user {
       userId
       profileImageURL
@@ -554,36 +607,44 @@ export const GetPostDocument = gql`
       likeId
     }
   }
+  comments(postId: $postId, skip: 0, take: 5) {
+    user {
+      userId
+      profileImageURL
+    }
+    content
+    createdAt
+  }
 }
     `;
 
 /**
- * __useGetPostQuery__
+ * __useGetPostAndCommentsQuery__
  *
- * To run a query within a React component, call `useGetPostQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetPostQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetPostAndCommentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostAndCommentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetPostQuery({
+ * const { data, loading, error } = useGetPostAndCommentsQuery({
  *   variables: {
  *      postId: // value for 'postId'
  *   },
  * });
  */
-export function useGetPostQuery(baseOptions: Apollo.QueryHookOptions<GetPostQuery, GetPostQueryVariables>) {
+export function useGetPostAndCommentsQuery(baseOptions: Apollo.QueryHookOptions<GetPostAndCommentsQuery, GetPostAndCommentsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetPostQuery, GetPostQueryVariables>(GetPostDocument, options);
+        return Apollo.useQuery<GetPostAndCommentsQuery, GetPostAndCommentsQueryVariables>(GetPostAndCommentsDocument, options);
       }
-export function useGetPostLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostQuery, GetPostQueryVariables>) {
+export function useGetPostAndCommentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostAndCommentsQuery, GetPostAndCommentsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetPostQuery, GetPostQueryVariables>(GetPostDocument, options);
+          return Apollo.useLazyQuery<GetPostAndCommentsQuery, GetPostAndCommentsQueryVariables>(GetPostAndCommentsDocument, options);
         }
-export type GetPostQueryHookResult = ReturnType<typeof useGetPostQuery>;
-export type GetPostLazyQueryHookResult = ReturnType<typeof useGetPostLazyQuery>;
-export type GetPostQueryResult = Apollo.QueryResult<GetPostQuery, GetPostQueryVariables>;
+export type GetPostAndCommentsQueryHookResult = ReturnType<typeof useGetPostAndCommentsQuery>;
+export type GetPostAndCommentsLazyQueryHookResult = ReturnType<typeof useGetPostAndCommentsLazyQuery>;
+export type GetPostAndCommentsQueryResult = Apollo.QueryResult<GetPostAndCommentsQuery, GetPostAndCommentsQueryVariables>;
 export const LoginDocument = gql`
     mutation login($userId: String!, $password: String!) {
   login(userId: $userId, password: $password) {
