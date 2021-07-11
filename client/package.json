@@ -1,6 +1,6 @@
 {
   "name": "@bookstagram/client",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "> TODO: description",
   "author": "soyoung kim <soyou6358@gmail.com>",
   "homepage": "",
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.3.11",
-    "@bookstagram/components": "*",
+    "@bookstagram/components": "^0.0.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
