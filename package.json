@@ -2,6 +2,13 @@
   "name": "bookstagram",
   "private": true,
   "author": "soyoung-kim",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sy1117/bookstagram"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "devDependencies": {
     "lerna": "^3.22.1",
     "ts-jest": "^26.4.3",
