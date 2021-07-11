@@ -1,6 +1,13 @@
 {
   "name": "@bookstagram/components",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sy1117/bookstagram-components.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "description": "> TODO: description",
   "author": "soyoung kim <soyou6358@gmail.com>",
   "license": "ISC",
